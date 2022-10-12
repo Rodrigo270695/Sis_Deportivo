@@ -1,0 +1,43 @@
+-- CONTINENTE
+select * from continente
+insert into continente(nombre, abreviatura) values('EUROPA','EU')
+-- anadir key unico a un campo
+alter table continente add constraint nombre_unico unique(nombre)
+SELECT * FROM continente WHERE nombre LIKE '%OCi%' OR abreviatura LIKE '%EU%'
+ALTER TABLE continente ALTER COLUMN abreviatura  DROP  NOT NULL
+-- cambiar el tipo de dato de abreviatura
+alter table continente alter column abreviatura type varchar(3)
+--Reiniciar auto incremental
+ALTER SEQUENCE continente_continente_id_seq RESTART WITH 1
+
+-- PAIS
+select * from pais
+INSERT INTO pais(nombre, abreviatura, continente_id) values('TURQUÍA','TUR',1)
+-- anadir key unico a un campo
+alter table pais add constraint nombre_unico_pais unique(nombre);
+alter table continente alter column abreviatura type varchar(3);
+-- buscar
+SELECT pa.pais_id, pa.nombre, pa.abreviatura, co.continente_id, co.nombre FROM pais pa
+INNER JOIN continente co ON pa.continente_id = co.continente_id
+WHERE pa.nombre LIKE '%OCi%' 
+OR pa.abreviatura LIKE '%EUD%' 
+OR co.nombre LIKE '%AMER%'
+
+-- AGENTE
+select * from agente
+INSERT INTO agente(nombre_completo, direccion, correo, foto) VALUES('RODRIGO GRANJA REQUEJO','AV. AVIACIÓN S/N','RODRIGO_06_27@HOTMAIL.COM','MI FOTO')
+delete from agente
+ALTER TABLE agente ALTER COLUMN foto TYPE bytea USING foto::bytea
+--buscar
+SELECT * FROM agente WHERE nombre_completo LIKE '%RODRIGO%'
+OR direccion LIKE '%%'
+OR correo LIKE '%%'
+
+-- FUTBOLISTA
+select * from futbolista
+INSERT INTO futbolista(documento_identidad, nombre_completo,nombre_corto,fecha_nacimiento,altura,peso,sexo,pie_dominante,email,foto,pais_id) VALUES()
+alter table futbolista alter column estado set default('A')
+ALTER TABLE futbolista ALTER COLUMN foto TYPE bytea USING foto::bytea
+
+-- TIPO CONTRATO
+select * from tipo_contrato
