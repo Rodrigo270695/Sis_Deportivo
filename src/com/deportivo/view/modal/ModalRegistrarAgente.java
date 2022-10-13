@@ -6,14 +6,9 @@ import com.deportivo.view.FrmGestionarAgente;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
 
@@ -29,7 +24,7 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
         if (lblFoto.getIcon() == null) {
             lblFoto.setIcon(new ImageIcon("src/com/deportivo/iconos/foto_default.png"));
         }
-       
+
     }
 
     void acciones() {
@@ -46,13 +41,15 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
 
         if (idAgente > 0) {
 
+            InputStream is;
             ImageIcon foto;
             Agente agente = (Agente) agenteC.obtenerdato(idAgente);
             txtNombre.setText(agente.getNombreCompleto());
             txtDireccion.setText(agente.getDireccion());
             txtCorreo.setText(agente.getCorreo());
-
+            
             try {
+
                 BufferedImage bi = ImageIO.read(agente.getFoto());
                 foto = new ImageIcon(bi);
 
@@ -84,7 +81,7 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
             if (fis == null) {
                 try {
                     fis = new FileInputStream(new File("src/com/deportivo/iconos/foto_default.png"));
-                    
+
                 } catch (FileNotFoundException e) {
                 }
 
@@ -114,7 +111,6 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
                 try {
                     fis = new FileInputStream(new File("src/com/deportivo/iconos/foto_default.png"));
 
-                    
                 } catch (FileNotFoundException e) {
                 }
 
@@ -131,7 +127,7 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
                 e.printStackTrace(System.err);
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -204,11 +200,6 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
 
         txtCorreo.setDescripcion("Ej. justo_guivar@gmail.com");
         txtCorreo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCorreoKeyTyped(evt);
-            }
-        });
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -300,10 +291,6 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoKeyTyped
-
     private void btnFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoActionPerformed
 
         lblFoto.setIcon(null);
@@ -316,7 +303,6 @@ public final class ModalRegistrarAgente extends javax.swing.JInternalFrame {
                 fis = new FileInputStream(j.getSelectedFile());
 
                 try {
-
                     Image icono = ImageIO.read(j.getSelectedFile()).getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT);
                     lblFoto.setIcon(new ImageIcon(icono));
                     lblFoto.updateUI();
