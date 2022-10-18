@@ -41,3 +41,5 @@ ALTER TABLE futbolista ALTER COLUMN foto TYPE bytea USING foto::bytea
 
 -- TIPO CONTRATO
 select * from tipo_contrato
+insert into tipo_contrato(descripcion) values('CUALQUIER COSA')
+alter table tipo_contrato add constraint nombre_unico_descripcion unique(descripcion)
