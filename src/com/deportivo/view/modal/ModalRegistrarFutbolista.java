@@ -1,26 +1,16 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.FutbolistaController;
-import com.deportivo.controller.FutbolistaController;
-import com.deportivo.controller.PaisController;
-import com.deportivo.model.Futbolista;
-import com.deportivo.model.Futbolista;
-import com.deportivo.model.Pais;
+import com.deportivo.controller.*;
+import com.deportivo.model.*;
 import com.deportivo.view.FrmGestionarFutbolista;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 

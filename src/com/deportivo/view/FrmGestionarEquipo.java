@@ -1,66 +1,65 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.FutbolistaController;
-import com.deportivo.model.Futbolista;
+import com.deportivo.controller.EquipoController;
+import com.deportivo.model.Equipo;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarFutbolista;
+import com.deportivo.view.modal.ModalRegistrarEquipo;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
+public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
 
-    public static FutbolistaController futbolistaC = new FutbolistaController();
+    public static EquipoController equipoC = new EquipoController();
 
-    public FrmGestionarFutbolista() {
+    public FrmGestionarEquipo() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "FOTO", "NOMBRE", "DOC. IDENTIDAD", "SEXO", "EDAD", "NACIONALIDAD", "", "", ""};
+        String columas[] = {"#", "FOTO", "NOMBRE COMPLETO", "NOMBRE CORTO", "FUNDACIÓN", "APODO", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        Futbolista futbolista;
+        Equipo equipo;
         List lista;
         if (txtBuscar.getText().length() == 0) {
-            lista = futbolistaC.listar();
+            lista = equipoC.listar();
         } else {
-            lista = futbolistaC.buscar(texto);
+            lista = equipoC.buscar(texto);
         }
-        Object obj[] = new Object[10];
+        Object obj[] = new Object[9];
         ImageIcon foto;
         Image img = null;
-        LocalDate hoy = LocalDate.now();
+        SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
-            futbolista = (Futbolista) lista.get(i);
-            
+            equipo = (Equipo) lista.get(i);
+
             try {
-                BufferedImage bi = ImageIO.read(futbolista.getFoto());
+                BufferedImage bi = ImageIO.read(equipo.getFoto());
                 foto = new ImageIcon(bi);
                 img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
             } catch (IOException e) {
             }
 
-            obj[0] = futbolista.getFutbolistaId();
+            obj[0] = equipo.getEquipoId();
             obj[1] = new JLabel(new ImageIcon(img));
-            obj[2] = futbolista.getNombreCompleto();
-            obj[3] = futbolista.getDocumentoIdentidad();
-            obj[4] = futbolista.getSexo() == 'M' ? "MASCULINO" : "FEMENINO";
-            obj[5] = hoy.getYear()-futbolista.getFechaNacimiento().getYear()-1900;
-            obj[6] = futbolista.getPais().getNombre();
+            obj[2] = equipo.getNombreCompleto();
+            obj[3] = equipo.getNombrecorto();
+            obj[4] = formato.format(equipo.getFundacion());
+            obj[5] = equipo.getApodo();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -69,7 +68,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
             botonModificar.setToolTipText("modificar");
             botonModificar.setBorder(null);
             botonModificar.setBackground(new Color(255, 198, 26));
-            obj[7] = botonModificar;
+            obj[6] = botonModificar;
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -78,7 +77,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[8] = botonEliminar;
+            obj[7] = botonEliminar;
 
             ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
             Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -87,7 +86,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
             botonVer.setToolTipText("vista del registro");
             botonVer.setBorder(null);
             botonVer.setBackground(new Color(41, 143, 96));
-            obj[9] = botonVer;
+            obj[8] = botonVer;
 
             modelo.addRow(obj);
 
@@ -99,14 +98,13 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(1).setPreferredWidth(70);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(300);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(250);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(120);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(110);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(6).setPreferredWidth(170);
+        tblListado.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(8).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(9).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -180,7 +178,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,7 +203,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -229,7 +227,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarFutbolista frm = new ModalRegistrarFutbolista();
+        ModalRegistrarEquipo frm = new ModalRegistrarEquipo();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -253,16 +251,16 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un equipo");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 2));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al futbolista " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al equipo " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
-                                    futbolistaC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "futbolista eliminado correctamente!");
+                                    equipoC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "equipo eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -276,22 +274,22 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un equipo");
                         } else {
 
-                            ModalRegistrarFutbolista.idFutbolista = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarFutbolista());
-                            ModalRegistrarFutbolista.btnGrabar.setText("Modificar");
+                            ModalRegistrarEquipo.idEquipo = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEquipo());
+                            ModalRegistrarEquipo.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un equipo");
                         } else {
-                            ModalRegistrarFutbolista.vista = true;
-                            ModalRegistrarFutbolista.idFutbolista = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarFutbolista());
+                            ModalRegistrarEquipo.vista = true;
+                            ModalRegistrarEquipo.idEquipo = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEquipo());
                         }
                     }
                 }
