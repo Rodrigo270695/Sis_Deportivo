@@ -1,13 +1,38 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.deportivo.model;
 
-/**
- *
- * @author User
- */
 public class Posicion {
+
+    private int posicionId;
+    private String descripcion;
+    private String abreviatura;
+
+    public int getPosicionId() {
+        return posicionId;
+    }
+
+    public void setPosicionId(int posicionId) {
+        this.posicionId = posicionId;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getAbreviatura() {
+        return abreviatura;
+    }
+
+    public void setAbreviatura(String abreviatura) {
+        this.abreviatura = abreviatura;
+    }
+
+
     
+    
+    
+
 }
