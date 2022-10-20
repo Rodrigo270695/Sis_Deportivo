@@ -2,6 +2,9 @@ package com.deportivo.view;
 
 import com.deportivo.controller.EquipoController;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 
 public class FrmMenuPrincipal extends javax.swing.JFrame {
@@ -27,7 +30,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/com/deportivo/iconos/fondo-depor.png"));
+        Image image = icon.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtCantEquipo = new javax.swing.JLabel();
@@ -49,6 +58,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/com/deportivo/iconos/sin_fondo_depor.png")).getImage());
 
         escritorio.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -111,6 +121,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap(432, Short.MAX_VALUE))
         );
 
+        jMenuBar1.setBackground(new java.awt.Color(255, 51, 0));
+        jMenuBar1.setToolTipText("Menú Principal");
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Mantenimiento30.png"))); // NOI18N
         jMenu1.setText("Mantenimiento");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -134,6 +147,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/tipoContrato25.png"))); // NOI18N
         jMenuItem5.setText("Gestionar Tipo Contrato");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,6 +224,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/futbolista25.png"))); // NOI18N
         jMenuItem4.setText("Gestionar Futbolista");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

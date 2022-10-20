@@ -107,6 +107,7 @@ public class FrmGestionarAgente extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("GESTIONAR AGENTE");
+        setVisible(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
