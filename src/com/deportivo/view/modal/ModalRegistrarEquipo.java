@@ -4,6 +4,7 @@ import com.deportivo.controller.EquipoController;
 import com.deportivo.controller.PaisController;
 import com.deportivo.model.Equipo;
 import com.deportivo.view.FrmGestionarEquipo;
+import com.deportivo.view.FrmMenuPrincipal;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -113,6 +114,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
                 equipoC.registrar(equipo);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el equipo");
                 FrmGestionarEquipo.listar("");
+                FrmMenuPrincipal.txtCantEquipo.setText(""+equipoC.listar().size());
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
@@ -143,6 +145,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
                 equipoC.modificar(equipo);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el equipo");
                 FrmGestionarEquipo.listar("");
+                FrmMenuPrincipal.txtCantEquipo.setText(""+equipoC.listar().size());
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
@@ -192,7 +195,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(223, 235, 254));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -201,11 +204,15 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
         txtNombreCompleto.setDescripcion("Ej. Barcelona");
         txtNombreCompleto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        btnGrabar.setForeground(new java.awt.Color(51, 51, 51));
+        btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
+        btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnGrabar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/grabar25.png"))); // NOI18N
         btnGrabar.setMnemonic('N');
         btnGrabar.setText("Grabar");
         btnGrabar.setToolTipText("Realizar Nuevo Registro");
-        btnGrabar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGrabar.setBorder(null);
+        btnGrabar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGrabar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGrabarActionPerformed(evt);
@@ -287,9 +294,8 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombreCorto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtFechaFundacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtFechaFundacion, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnFoto, javax.swing.GroupLayout.Alignment.TRAILING)
