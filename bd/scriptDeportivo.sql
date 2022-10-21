@@ -70,6 +70,8 @@ alter table equipo add constraint equipo_unica_nombre_completo  unique(nombre_co
 insert into equipo(nombre_completo,nombre_corto,fecha_fundacion,apodo,ubicacion,numero_socios,foto) 
 values('BARCELONA','BARCA','1978-06-06','NOSE','NOSE',8, (select foto from futbolista where futbolista_id = 4) );
 
+-- CONTRATO
+select * from contrato
 
 
 
