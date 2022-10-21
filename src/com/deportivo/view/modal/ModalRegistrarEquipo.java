@@ -1,13 +1,10 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.EquipoController;
-import com.deportivo.controller.PaisController;
+import com.deportivo.controller.*;
 import com.deportivo.model.Equipo;
-import com.deportivo.view.FrmGestionarEquipo;
-import com.deportivo.view.FrmMenuPrincipal;
+import com.deportivo.view.*;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
@@ -29,7 +26,6 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
         }
         acciones();
     }
-
 
     void acciones() {
 
@@ -74,6 +70,17 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
 
     void grabar() {
 
+        try {
+            
+            if (txtNombreCompleto.getText().length() == 0 | txtFechaFundacion.getDate().toString().length() == 0) {
+                Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y Fecha Fundación son obligatorio");
+                return;
+            }
+
+        } catch (NullPointerException e) {
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y Fecha Fundación son obligatorio");
+        }
+
         Calendar cal;
         int d, m, a;
         String fecha1;
@@ -84,11 +91,6 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
         m = cal.get(Calendar.MONTH) + 1;
         a = cal.get(Calendar.YEAR);
         fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
-
-        if (txtNombreCompleto.getText().length() == 0 | txtFechaFundacion.getDate().toString().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y Fecha Fundación son obligatorio");
-            return;
-        }
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
@@ -114,7 +116,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
                 equipoC.registrar(equipo);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el equipo");
                 FrmGestionarEquipo.listar("");
-                FrmMenuPrincipal.txtCantEquipo.setText(""+equipoC.listar().size());
+                FrmMenuPrincipal.txtCantEquipo.setText("" + equipoC.listar().size());
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
@@ -145,7 +147,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
                 equipoC.modificar(equipo);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el equipo");
                 FrmGestionarEquipo.listar("");
-                FrmMenuPrincipal.txtCantEquipo.setText(""+equipoC.listar().size());
+                FrmMenuPrincipal.txtCantEquipo.setText("" + equipoC.listar().size());
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
