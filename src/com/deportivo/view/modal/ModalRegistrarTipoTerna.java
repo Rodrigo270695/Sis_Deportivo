@@ -226,10 +226,10 @@ public final class ModalRegistrarTipoTerna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSiglaKeyReleased
 
     private void txtSiglaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyTyped
-        if (txtSigla.getText().length() >= 5) {
+        if (txtSigla.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 5 caracteres");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres");
         }
         
     }//GEN-LAST:event_txtSiglaKeyTyped

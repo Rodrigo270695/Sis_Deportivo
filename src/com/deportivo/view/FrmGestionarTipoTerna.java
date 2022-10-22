@@ -21,7 +21,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE","SIGLA", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "ESTADO", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -35,7 +35,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
         } else {
             lista = tipoTernaC.buscar(texto);
         }
-        Object obj[] = new Object[5];
+        Object obj[] = new Object[6];
 
         for (int i = 0; i < lista.size(); i++) {
             tipoTerna = (TipoTerna) lista.get(i);
@@ -43,7 +43,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
             obj[1] = tipoTerna.getNombre();
             obj[2] = tipoTerna.getSigla();
 
-             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
+            ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             JButton botonModificar = new JButton("", btnModificar);
             botonModificar.setName("btnModificar");
