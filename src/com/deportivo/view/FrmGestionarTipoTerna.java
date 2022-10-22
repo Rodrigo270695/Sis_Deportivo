@@ -43,7 +43,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
             obj[1] = tipoTerna.getNombre();
             obj[2] = tipoTerna.getSigla();
 
-            ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
+             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             JButton botonModificar = new JButton("", btnModificar);
             botonModificar.setName("btnModificar");
@@ -104,7 +104,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR CUERPO TÉCNICO");
+        setTitle("GESTIONAR TIPO TERNA");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
