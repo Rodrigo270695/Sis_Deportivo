@@ -18,7 +18,7 @@ public final class ModalRegistrarTipoTerna extends javax.swing.JInternalFrame {
         initComponents();
         acciones();
     }
-    
+
     //Para el boton de ver
     void acciones() {
 
@@ -62,8 +62,8 @@ public final class ModalRegistrarTipoTerna extends javax.swing.JInternalFrame {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        }else{
-            
+        } else {
+
             TipoTerna tipoTerna = new TipoTerna();
             tipoTerna.setNombre(txtNombre.getText().toUpperCase());
             tipoTerna.setSigla(txtSigla.getText().toUpperCase());
@@ -77,7 +77,7 @@ public final class ModalRegistrarTipoTerna extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -148,6 +148,14 @@ public final class ModalRegistrarTipoTerna extends javax.swing.JInternalFrame {
                 txtSiglaActionPerformed(evt);
             }
         });
+        txtSigla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSiglaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSiglaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -203,15 +211,28 @@ public final class ModalRegistrarTipoTerna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
+
         idTipoTerna = 0;
         vista = false;
-        
+
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void txtSiglaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSiglaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSiglaActionPerformed
+
+    private void txtSiglaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSiglaKeyReleased
+
+    private void txtSiglaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyTyped
+        if (txtSigla.getText().length() >= 5) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 5 caracteres");
+        }
+        
+    }//GEN-LAST:event_txtSiglaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

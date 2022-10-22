@@ -3,7 +3,7 @@ package com.deportivo.view;
 import com.deportivo.controller.TernaArbitral2Controller;
 import com.deportivo.model.TernaArbitral2;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarGrupo;
+import com.deportivo.view.modal.ModalRegistrarTernaArbitral2;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
@@ -80,7 +80,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(250);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
@@ -212,7 +212,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarGrupo frm = new ModalRegistrarGrupo();
+        ModalRegistrarTernaArbitral2 frm = new ModalRegistrarTernaArbitral2();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,11 +236,11 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un grupo");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar unTernaArbitral2");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al grupo " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al ternaArbitral2 " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
@@ -259,22 +259,22 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un grupo");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ternaArbitral2");
                         } else {
 
-                            ModalRegistrarGrupo.idGrupo = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarGrupo());
-                            ModalRegistrarGrupo.btnGrabar.setText("Modificar");
+                            ModalRegistrarTernaArbitral2.idTernaArbitral = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTernaArbitral2());
+                            ModalRegistrarTernaArbitral2.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un grupo");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ternaArbitral2");
                         } else {
-                            ModalRegistrarGrupo.vista = true;
-                            ModalRegistrarGrupo.idGrupo = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarGrupo());
+                            ModalRegistrarTernaArbitral2.vista = true;
+                            ModalRegistrarTernaArbitral2.idTernaArbitral = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTernaArbitral2());
                         }
                     }
                 }

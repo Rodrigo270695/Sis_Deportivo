@@ -83,16 +83,16 @@ public class TernaArbitral2Controller  implements CRUD{
     @Override
     public void modificar(Object obj) throws Exception {
         
-        TernaArbitral2 grupo = (TernaArbitral2) obj;
+        TernaArbitral2 ternaArbitral2 = (TernaArbitral2) obj;
         sql = "UPDATE terna_arbitral_2 SET terna_arb_nombre=?, terna_arb_estado=? WHERE terna_arb_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, grupo.getNombre());
-            ps.setString(2, grupo.getEstado());
-            ps.setInt(3, grupo.getTernaArbitral2Id());
+            ps.setString(1, ternaArbitral2.getNombre());
+            ps.setString(2, ternaArbitral2.getEstado());
+            ps.setInt(3, ternaArbitral2.getTernaArbitral2Id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {

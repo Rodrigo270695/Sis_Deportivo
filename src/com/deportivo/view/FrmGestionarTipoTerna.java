@@ -79,8 +79,8 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(80);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(508);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);

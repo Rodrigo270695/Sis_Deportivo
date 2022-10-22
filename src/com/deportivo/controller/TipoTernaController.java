@@ -63,6 +63,7 @@ public class TipoTernaController implements CRUD{
             con = estado.conectar();
             ps = con.prepareStatement(sql);
             ps.setString(1, tipoTerna.getNombre());
+            ps.setString(2, tipoTerna.getSigla());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
@@ -153,6 +154,7 @@ public class TipoTernaController implements CRUD{
             if (rs.next()) {
                 tipoTerna.setTipoTernaId(rs.getInt(1));
                 tipoTerna.setNombre(rs.getString(2));
+                tipoTerna.setSigla(rs.getString(3));
             }
 
         } catch (SQLException e) {
@@ -187,6 +189,7 @@ public class TipoTernaController implements CRUD{
                 TipoTerna tipoTerna = new TipoTerna();
                 tipoTerna.setTipoTernaId(rs.getInt(1));
                 tipoTerna.setNombre(rs.getString(2));
+                tipoTerna.setSigla(rs.getString(3));
                 lista.add(tipoTerna);
             }
 

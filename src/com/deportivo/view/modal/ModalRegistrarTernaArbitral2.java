@@ -10,8 +10,8 @@ import java.awt.Toolkit;
 
 public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFrame {
 
-    TernaArbitral2Controller grupoC = new TernaArbitral2Controller();
-    public static int idGrupo = 0;
+    TernaArbitral2Controller ternaArbitral2C = new TernaArbitral2Controller();
+    public static int idTernaArbitral = 0;
     public static boolean vista = false;
 
     public ModalRegistrarTernaArbitral2() {
@@ -29,9 +29,9 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
 
         }
 
-        if (idGrupo > 0) {
+        if (idTernaArbitral > 0) {
 
-            TernaArbitral2 ternaArbitral2 = (TernaArbitral2) grupoC.obtenerdato(idGrupo);
+            TernaArbitral2 ternaArbitral2 = (TernaArbitral2) ternaArbitral2C.obtenerdato(idTernaArbitral);
             txtAbreviatura.setText(ternaArbitral2.getEstado());
             txtNombre.setText(ternaArbitral2.getNombre());
 
@@ -53,7 +53,7 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
             ternaArbitral2.setEstado(txtAbreviatura.getText().toUpperCase());
 
             try {
-                grupoC.registrar(ternaArbitral2);
+                ternaArbitral2C.registrar(ternaArbitral2);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el grupo");
                 FrmGestionarTernaArbitral2.listar("");
                 dispose();
@@ -66,10 +66,10 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
             TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
             ternaArbitral2.setNombre(txtNombre.getText().toUpperCase());
             ternaArbitral2.setEstado(txtAbreviatura.getText().toUpperCase());
-            ternaArbitral2.setTernaArbitral2Id((byte) idGrupo);
+            ternaArbitral2.setTernaArbitral2Id((byte) idTernaArbitral);
 
             try {
-                grupoC.modificar(ternaArbitral2);
+                ternaArbitral2C.modificar(ternaArbitral2);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el grupo");
                 FrmGestionarTernaArbitral2.listar("");
                 dispose();
@@ -123,7 +123,7 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Abreviatura");
+        jLabel2.setText("Estado*");
 
         txtAbreviatura.setDescripcion("Ej. A");
         txtAbreviatura.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -205,17 +205,17 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         
-        idGrupo = 0;
+        idTernaArbitral = 0;
         vista = false;
         
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void txtAbreviaturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbreviaturaKeyTyped
         
-        if (txtAbreviatura.getText().length() >= 3) {
+        if (txtAbreviatura.getText().length() >= 1) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 1 caracteres");
         }
         
     }//GEN-LAST:event_txtAbreviaturaKeyTyped

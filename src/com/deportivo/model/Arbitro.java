@@ -4,7 +4,7 @@ public class Arbitro {
 
     private int arbitroId;
     private String nombreCompleto;
-    private char estado;
+    private String estado;
 
     public int getArbitroId() {
         return arbitroId;
@@ -22,11 +22,11 @@ public class Arbitro {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public char getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(char estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
