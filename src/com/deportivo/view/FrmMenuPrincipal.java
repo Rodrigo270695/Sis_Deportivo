@@ -45,6 +45,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -57,7 +60,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,6 +152,30 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
+
+        jMenuItem14.setText("Gestionar Arbitro");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem14);
+
+        jMenuItem15.setText("Gestionar Tipo Terna");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem15);
+
+        jMenuItem16.setText("Gestionar Terna Arbitral 2");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem16);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/tipoContrato25.png"))); // NOI18N
         jMenuItem5.setText("Gestionar Tipo Contrato");
@@ -252,13 +279,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem14.setText("Gestionar Contrato");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem17.setText("Gestionar Contrato");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
+                jMenuItem17ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem14);
+        jMenu2.add(jMenuItem17);
 
         jMenuBar1.add(jMenu2);
 
@@ -353,11 +380,28 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         
         centrarVentana(new FrmGestionarContrato());
         
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        
+        centrarVentana(new FrmGestionarArbitro());
+        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        
+        centrarVentana(new FrmGestionarTipoTerna());
+        
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        centrarVentana(new FrmGestionarTernaArbitral2());
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -407,6 +451,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
