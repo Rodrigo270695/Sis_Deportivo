@@ -57,6 +57,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -251,6 +252,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
+        jMenuItem14.setText("Gestionar Contrato");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem14);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("USER");
@@ -344,6 +353,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        
+        centrarVentana(new FrmGestionarContrato());
+        
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -391,6 +406,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

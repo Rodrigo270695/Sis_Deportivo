@@ -74,7 +74,7 @@ values('BARCELONA','BARCA','1978-06-06','NOSE','NOSE',8, (select foto from futbo
 select * from alineacion
 alter table alineacion add constraint descripcion_unico_alineacion unique(descripcion);
 
--- 
+-- COMPETENCIA
 select * from competencia
 alter table competencia add constraint nombre_unico_competencia unique(nombre);
 
