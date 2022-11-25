@@ -29,8 +29,8 @@ public class FrmModulos extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,19 +63,19 @@ public class FrmModulos extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/estadista300.png"))); // NOI18N
-        jButton2.setText("Modo Estadistico");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jButton2);
-
         jButton1.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/futbolistico300.png"))); // NOI18N
         jButton1.setText("modo Futbolistico");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jButton1);
+
+        jButton2.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/estadista300.png"))); // NOI18N
+        jButton2.setText("Modo Estadistico");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jButton2);
 
         jButton3.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/estadio300.png"))); // NOI18N
