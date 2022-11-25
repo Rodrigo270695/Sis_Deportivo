@@ -78,3 +78,15 @@ alter table alineacion add constraint descripcion_unico_alineacion unique(descri
 select * from competencia
 alter table competencia add constraint nombre_unico_competencia unique(nombre);
 
+-- ARBITRO
+select * from arbitro
+alter table arbitro add constraint nombre_unico_arbitro unique(arbitro_nombre);
+
+-- TERNA ARBITRAL
+select * from tipo_terna
+alter table tipo_terna add constraint nombre_unico_tipo_terna unique(tipo_terna_nombre);
+
+-- TERNA ARBITRAL 2
+select * from terna_arbitral_2
+alter table terna_arbitral_2 add constraint nombre_unico_terna_arbitral_2 unique(terna_arb_nombre);
+

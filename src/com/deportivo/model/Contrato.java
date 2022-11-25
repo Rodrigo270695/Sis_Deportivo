@@ -10,10 +10,7 @@ public class Contrato {
     private Date fechaFin;
     private double remuneracion;
     private String descripcion;
-    private Agente agente;
     private Futbolista futbolista;
-    private Equipo equipo;
-    private TipoContrato tipoContrato;
 
     public int getContratoId() {
         return contratoId;
@@ -55,14 +52,6 @@ public class Contrato {
         this.descripcion = descripcion;
     }
 
-    public Agente getAgente() {
-        return agente;
-    }
-
-    public void setAgente(Agente agente) {
-        this.agente = agente;
-    }
-
     public Futbolista getFutbolista() {
         return futbolista;
     }
@@ -71,21 +60,4 @@ public class Contrato {
         this.futbolista = futbolista;
     }
 
-    public Equipo getEquipo() {
-        return equipo;
-    }
-
-    public void setEquipo(Equipo equipo) {
-        this.equipo = equipo;
-    }
-
-    public TipoContrato getTipoContrato() {
-        return tipoContrato;
-    }
-
-    public void setTipoContrato(TipoContrato tipoContrato) {
-        this.tipoContrato = tipoContrato;
-    }
-    
-    
 }

@@ -1,6 +1,5 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.AgenteController;
 import com.deportivo.controller.ContratoController;
 import com.deportivo.model.Contrato;
 import com.deportivo.properties.RenderTable;
@@ -23,7 +22,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#","FECHA INICIO","FECHA FIN","REMUNERACIÓN","AGENTE","FUTBOLISTA","EQUIPO","TIPO C", "", "", ""};
+        String columas[] = {"#","FECHA INICIO","FECHA FIN","REMUNERACIÓN","FUTBOLISTA", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -37,7 +36,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
         } else {
             lista = contratoC.buscar(texto);
         }
-        Object obj[] = new Object[11];
+        Object obj[] = new Object[8];
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
@@ -46,10 +45,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
             obj[1] = formato.format(contrato.getFechaInicio());
             obj[2] = formato.format(contrato.getFechaFin());
             obj[3] = contrato.getRemuneracion();
-            obj[4] = contrato.getAgente().getNombreCompleto();
-            obj[5] = contrato.getFutbolista().getNombreCompleto();
-            obj[6] = contrato.getEquipo().getNombreCompleto();
-            obj[7] = contrato.getTipoContrato().getDescripcion();
+            obj[4] = contrato.getFutbolista().getNombreCompleto();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -58,7 +54,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
             botonModificar.setToolTipText("modificar");
             botonModificar.setBorder(null);
             botonModificar.setBackground(new Color(255, 198, 26));
-            obj[8] = botonModificar;
+            obj[5] = botonModificar;
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -67,7 +63,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[9] = botonEliminar;
+            obj[6] = botonEliminar;
 
             ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
             Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -76,7 +72,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
             botonVer.setToolTipText("vista del registro");
             botonVer.setBorder(null);
             botonVer.setBackground(new Color(41, 143, 96));
-            obj[10] = botonVer;
+            obj[7] = botonVer;
 
             modelo.addRow(obj);
 
@@ -91,12 +87,9 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(2).setPreferredWidth(120);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(100);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(7).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(8).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(9).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(10).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }

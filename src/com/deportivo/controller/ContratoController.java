@@ -2,11 +2,8 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Agente;
 import com.deportivo.model.Contrato;
-import com.deportivo.model.Equipo;
 import com.deportivo.model.Futbolista;
-import com.deportivo.model.TipoContrato;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +12,7 @@ import org.postgresql.util.PSQLException;
 public class ContratoController implements CRUD{
     
     Conexion estado = new Conexion();
-    AgenteController agenteC = new AgenteController();
     FutbolistaController futbolistaC = new FutbolistaController();
-    EquipoController equipoC = new EquipoController();
-    TipoContratoController tipoContratoC = new TipoContratoController();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -28,7 +22,7 @@ public class ContratoController implements CRUD{
     public List listar(){
         
          List lista = new ArrayList();
-        sql = "SELECT * FROM contrato ORDER BY contrato_id DESC";
+        sql = "SELECT * FROM contrato_futbol ORDER BY contrato_id DESC";
 
         try {
 
@@ -43,10 +37,7 @@ public class ContratoController implements CRUD{
                 contrato.setFechaFin(rs.getDate(3));
                 contrato.setRemuneracion(rs.getDouble(4));
                 contrato.setDescripcion(rs.getString(5));
-                contrato.setAgente((Agente) agenteC.obtenerdato(rs.getInt(6)));
-                contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(7)));
-                contrato.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(8)));
-                contrato.setTipoContrato((TipoContrato) tipoContratoC.obtenerdato(rs.getInt(9)));
+                contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(6)));
                 lista.add(contrato);
             }
 
@@ -70,8 +61,8 @@ public class ContratoController implements CRUD{
     public void registrar(Object obj) throws Exception {
         
         Contrato contrato = (Contrato) obj;
-        sql = "INSERT INTO contrato(fecha_inicio,fecha_fin,remuneracion_por_temporada,descripcion,agente_id,futbolista_id,equipo_id,tipo_contrato_id) "
-                + "VALUES(?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO contrato_futbol(fecha_inicio,fecha_fin,remuneracion,descripcion,futbolista_id) "
+                + "VALUES(?,?,?,?,?)";
 
         try {
 
@@ -81,11 +72,7 @@ public class ContratoController implements CRUD{
             ps.setDate(2, contrato.getFechaFin());
             ps.setDouble(3, contrato.getRemuneracion());
             ps.setString(4, contrato.getDescripcion());
-            ps.setInt(5, contrato.getAgente().getAgenteId());
-            ps.setInt(6, contrato.getFutbolista().getFutbolistaId());
-            ps.setInt(7, contrato.getEquipo().getEquipoId());
-            ps.setInt(8, contrato.getTipoContrato().getTipoContratoId());
-            ps.executeUpdate();
+            ps.setInt(5, contrato.getFutbolista().getFutbolistaId());
 
         } catch (PSQLException pe) {
            
@@ -107,7 +94,7 @@ public class ContratoController implements CRUD{
     public void modificar(Object obj) throws Exception {
         
         Contrato contrato = (Contrato) obj;
-        sql = "UPDATE contrato SET fecha_inicio=?,fecha_fin=?,remuneracion_por_temporada=?,descripcion=?,agente_id=?,futbolista_id=?,equipo_id=?,tipo_contrato_id=? "
+        sql = "UPDATE contrato_futbol SET fecha_inicio=?,fecha_fin=?,remuneracion=?,descripcion=?,futbolista_id=? "
                 + "WHERE contrato_id = ?";
 
         try {
@@ -118,11 +105,8 @@ public class ContratoController implements CRUD{
             ps.setDate(2, contrato.getFechaFin());
             ps.setDouble(3, contrato.getRemuneracion());
             ps.setString(4, contrato.getDescripcion());
-            ps.setInt(5, contrato.getAgente().getAgenteId());
-            ps.setInt(6, contrato.getFutbolista().getFutbolistaId());
-            ps.setInt(7, contrato.getEquipo().getEquipoId());
-            ps.setInt(8, contrato.getTipoContrato().getTipoContratoId());
-            ps.setInt(9, contrato.getContratoId());
+            ps.setInt(5, contrato.getFutbolista().getFutbolistaId());
+            ps.setInt(6, contrato.getContratoId());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
@@ -143,7 +127,7 @@ public class ContratoController implements CRUD{
     @Override
     public void eliminar(int id) throws Exception {
         
-        sql = "DELETE FROM contrato WHERE contrato_id = ?";
+        sql = "DELETE FROM contrato_futbol WHERE contrato_id = ?";
 
         try {
 
@@ -171,7 +155,7 @@ public class ContratoController implements CRUD{
     public Object obtenerdato(int id)  {
         
         Contrato contrato = new Contrato();
-        sql = "SELECT * FROM contrato WHERE contrato_id = "+id;
+        sql = "SELECT * FROM contrato_futbol WHERE contrato_id = "+id;
 
         try {
 
@@ -185,10 +169,7 @@ public class ContratoController implements CRUD{
                 contrato.setFechaFin(rs.getDate(3));
                 contrato.setRemuneracion(rs.getDouble(4));
                 contrato.setDescripcion(rs.getString(5));
-                contrato.setAgente((Agente) agenteC.obtenerdato(rs.getInt(6)));
-                contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(7)));
-                contrato.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(8)));
-                contrato.setTipoContrato((TipoContrato) tipoContratoC.obtenerdato(rs.getInt(9)));
+                contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(6)));
             }
 
         } catch (SQLException e) {
@@ -211,7 +192,7 @@ public class ContratoController implements CRUD{
     public List buscar(Object obj){
         
         List lista = new ArrayList();
-        sql = "SELECT * FROM contrato WHERE nombre LIKE '%"+obj+"%' ";
+        sql = "SELECT * FROM contrato_futbol WHERE nombre LIKE '%"+obj+"%' ";
 
         try {
 
@@ -226,10 +207,7 @@ public class ContratoController implements CRUD{
                 contrato.setFechaFin(rs.getDate(3));
                 contrato.setRemuneracion(rs.getDouble(4));
                 contrato.setDescripcion(rs.getString(5));
-                contrato.setAgente((Agente) agenteC.obtenerdato(rs.getInt(6)));
-                contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(7)));
-                contrato.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(8)));
-                contrato.setTipoContrato((TipoContrato) tipoContratoC.obtenerdato(rs.getInt(9)));
+                contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(6)));
                 lista.add(contrato);
             }
 

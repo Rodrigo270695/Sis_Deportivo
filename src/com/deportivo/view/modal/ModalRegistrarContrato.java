@@ -1,40 +1,36 @@
 package com.deportivo.view.modal;
 
 import com.deportivo.controller.*;
-import com.deportivo.model.*;
 import com.deportivo.model.Contrato;
 import com.deportivo.view.FrmGestionarContrato;
 import com.deportivo.vista.modal.alerts.*;
-import java.awt.Dimension;
 import java.util.Calendar;
 import java.util.List;
 
 public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
 
     ContratoController contratoC = new ContratoController();
-    AgenteController agentec = new AgenteController();
     public static int idContrato = 0;
     public static boolean vista = false;
 
     public ModalRegistrarContrato() {
         initComponents();
         acciones();
-        cargarAgentes();
     }
     
-    void cargarAgentes(){
-        
-        jComboBox1.removeAllItems();
-        jComboBox1.setEditable(true);
-        List<Agente> lista = agentec.listar();
-
-        for (Agente agente : lista) {
-            jComboBox1.addItem(agente.getNombreCompleto());
-        }
-        
-        jComboBox1.setSelectedIndex(-1);
-        
-    }
+//    void cargarAgentes(){
+//        
+//        jComboBox1.removeAllItems();
+//        jComboBox1.setEditable(true);
+//        List<Agente> lista = agentec.listar();
+//
+//        for (Agente agente : lista) {
+//            jComboBox1.addItem(agente.getNombreCompleto());
+//        }
+//        
+//        jComboBox1.setSelectedIndex(-1);
+//        
+//    }
     
     void acciones() {
 
