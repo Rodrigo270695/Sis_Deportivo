@@ -10,6 +10,7 @@ import java.io.*;
 public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
 
     ArbitroController arbitroC = new ArbitroController();
+    PaisController paisC = new PaisController();
 
     FileInputStream fis;
     public static int idArbitro = 0;
@@ -28,14 +29,17 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
             txtNombre.setEnabled(false);
             txtEstado.setEnabled(false);
             btnGrabar.setEnabled(false);
+            cbxPais.setEnabled(false);
 
         }
 
         if (idArbitro > 0) {
 
             Arbitro arbitro = (Arbitro) arbitroC.obtenerdato(idArbitro);
-            txtEstado.setText(arbitro.getEstado());
-            txtNombre.setText(arbitro.getNombreCompleto());
+
+            txtNombre.setText(arbitro.getArbitro_nombre());
+            txtEstado.setText("" + arbitro.getEstado_arbitro());
+            cbxPais.setSelectedItem(arbitro.getPais().getNombre());
 
         }
 
@@ -52,12 +56,13 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
-            arbitro.setNombreCompleto(txtNombre.getText().toUpperCase());
-            arbitro.setEstado(txtEstado.getText().toUpperCase());
+            arbitro.setArbitro_nombre(txtNombre.getText().toUpperCase());
+            arbitro.setEstado_arbitro(txtEstado.getText().toUpperCase().charAt(0));
+            arbitro.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedIndex()));
 
             try {
                 arbitroC.registrar(arbitro);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el arbitro");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el árbitro");
                 FrmGestionarArbitro.listar("");
                 dispose();
             } catch (Exception e) {
@@ -66,9 +71,10 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
 
         } else {
 
-            arbitro.setNombreCompleto(txtNombre.getText().toUpperCase());
-            arbitro.setEstado(txtEstado.getText().toUpperCase());
-            arbitro.setArbitroId(idArbitro);
+            arbitro.setArbitro_nombre(txtNombre.getText().toUpperCase());
+            arbitro.setEstado_arbitro(txtEstado.getText().toUpperCase().charAt(0));
+            arbitro.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedIndex()));
+            arbitro.setArbitro_id(idArbitro);
 
             try {
                 arbitroC.modificar(arbitro);
@@ -91,6 +97,8 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         btnGrabar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtEstado = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        jLabel3 = new javax.swing.JLabel();
+        cbxPais = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -119,7 +127,7 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Nombre Completo* ");
 
-        txtNombre.setDescripcion("Ej. Perú");
+        txtNombre.setDescripcion("");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
@@ -140,7 +148,7 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Estado* ");
 
-        txtEstado.setDescripcion("Ej. Perú");
+        txtEstado.setDescripcion("");
         txtEstado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -148,20 +156,33 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Nacionalidad* ");
+
+        cbxPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))))
+                            .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                        .addGap(101, 101, 101)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                            .addComponent(cbxPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(151, 151, 151))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,14 +191,19 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -213,14 +239,16 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo acepta 1 caracteres");
         }
-        
+
     }//GEN-LAST:event_txtEstadoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
+    private javax.swing.JComboBox<String> cbxPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtEstado;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre;

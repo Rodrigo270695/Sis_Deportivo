@@ -4,6 +4,7 @@ import com.deportivo.controller.CiudadController;
 import com.deportivo.controller.PaisController;
 import com.deportivo.model.Ciudad;
 import com.deportivo.model.Pais;
+import com.deportivo.view.FrmGestionarCiudad;
 import com.deportivo.view.FrmGestionarPais;
 import com.deportivo.vista.modal.alerts.*;
 import java.util.List;
@@ -205,6 +206,9 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
 
         grabar();
+       
+        
+        
 
     }//GEN-LAST:event_btnGrabarActionPerformed
 

@@ -2,12 +2,14 @@ package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
 import com.deportivo.model.Arbitro;
+import com.deportivo.model.Pais;
 import java.sql.*;
 import java.util.*;
 import org.postgresql.util.PSQLException;
 
 public class ArbitroController implements CRUD {
 
+    PaisController paisC =new  PaisController();
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -28,9 +30,10 @@ public class ArbitroController implements CRUD {
 
             while (rs.next()) {
                 Arbitro arbitro = new Arbitro();
-                arbitro.setArbitroId(rs.getInt(1));
-                arbitro.setNombreCompleto(rs.getString(2));
-                arbitro.setEstado(rs.getString(3));
+                arbitro.setArbitro_id(rs.getInt(1));
+                arbitro.setArbitro_nombre(rs.getString(2));
+                arbitro.setEstado_arbitro(rs.getString(3).charAt(0));
+                arbitro.setPais((Pais) paisC.obtenerdato(rs.getInt(4)));
                 lista.add(arbitro);
             }
 
@@ -54,15 +57,15 @@ public class ArbitroController implements CRUD {
     public void registrar(Object obj) throws Exception {
 
         Arbitro arbitro = (Arbitro) obj;
-        sql = "INSERT INTO arbitro(arbitro_nombre, arbitro_estado) VALUES(?,?)";
+        sql = "INSERT INTO arbitro(arbitro_nombre, estado_arbitro,pais_id) VALUES(?,?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, arbitro.getNombreCompleto());
-            ps.setString(2, arbitro.getEstado());
-
+            ps.setString(1, arbitro.getArbitro_nombre());
+            ps.setString(2, ""+arbitro.getEstado_arbitro());
+            ps.setInt(3, arbitro.getPais().getPaisId());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
@@ -91,14 +94,15 @@ public class ArbitroController implements CRUD {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, arbitro.getNombreCompleto());
-            ps.setString(2, arbitro.getEstado());
-            ps.setInt(3, arbitro.getArbitroId());
+            ps.setString(1, arbitro.getArbitro_nombre());
+            ps.setString(2, ""+arbitro.getEstado_arbitro());
+            ps.setInt(3, arbitro.getPais().getPaisId());
+            ps.setInt(4, arbitro.getArbitro_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("Ya existe el Agente");
+            throw new Exception("Ya existe el Árbitro");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -126,7 +130,7 @@ public class ArbitroController implements CRUD {
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El arbitro no se puede eliminar, porque está siendo USADO");
+            throw new Exception("El árbitro no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -152,9 +156,10 @@ public class ArbitroController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                arbitro.setArbitroId(rs.getInt(1));
-                arbitro.setNombreCompleto(rs.getString(2));
-                arbitro.setEstado(rs.getString(3));
+                arbitro.setArbitro_id(rs.getInt(1));
+                arbitro.setArbitro_nombre(rs.getString(2));
+                arbitro.setEstado_arbitro(rs.getString(3).charAt(0));
+                arbitro.setPais((Pais) paisC.obtenerdato(rs.getInt(4)));
 
             }
 
@@ -179,7 +184,7 @@ public class ArbitroController implements CRUD {
 
          List lista = new ArrayList();
         sql = "SELECT * FROM arbitro WHERE arbitro_nombre LIKE '%"+obj+"%' "
-                + "OR arbitro_estado LIKE '%"+obj+"%'";
+                + "OR estado_arbitro LIKE '%"+obj+"%'";
 
         try {
 
@@ -189,9 +194,10 @@ public class ArbitroController implements CRUD {
 
             while (rs.next()) {
                 Arbitro arbitro = new Arbitro();
-                arbitro.setArbitroId(rs.getInt(1));
-                arbitro.setNombreCompleto(rs.getString(2));
-                arbitro.setEstado(rs.getString(3));
+                arbitro.setArbitro_id(rs.getInt(1));
+                arbitro.setArbitro_nombre(rs.getString(2));
+                arbitro.setEstado_arbitro(rs.getString(3).charAt(0));
+                arbitro.setPais((Pais) paisC.obtenerdato(rs.getInt(4)));
                 lista.add(arbitro);
             }
 

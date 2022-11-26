@@ -11,7 +11,7 @@ public class Profesional {
     private String seudonimo;
     private Date fecha_debut;
     private String palmares;
-    private String records;
+    private String rercords;
     private Pais pais;
 
     public int getProfesional_id() {
@@ -71,11 +71,11 @@ public class Profesional {
     }
 
     public String getRecords() {
-        return records;
+        return rercords;
     }
 
     public void setRecords(String records) {
-        this.records = records;
+        this.rercords = records;
     }
 
     public Pais getPais() {

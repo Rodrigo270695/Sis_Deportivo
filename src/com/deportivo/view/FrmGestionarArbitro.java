@@ -21,7 +21,7 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE","ESTADO", "", "", ""};
+        String columas[] = {"#", "NOMBRE","ESTADO","NACIONALIDAD", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -35,14 +35,15 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
         } else {
             lista = arbitroC.buscar(texto);
         }
-        Object obj[] = new Object[6];
+        Object obj[] = new Object[7];
 
         for (int i = 0; i < lista.size(); i++) {
             arbitro = (Arbitro) lista.get(i);
 
-            obj[0] = arbitro.getArbitroId();
-            obj[1] = arbitro.getNombreCompleto();
-            obj[2] = arbitro.getEstado();
+            obj[0] = arbitro.getArbitro_id();
+            obj[1] = arbitro.getArbitro_nombre();
+            obj[2] = arbitro.getEstado_arbitro();
+            obj[3] = arbitro.getPais().getNombre();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -51,7 +52,7 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
             botonModificar.setToolTipText("modificar");
             botonModificar.setBorder(null);
             botonModificar.setBackground(new Color(255, 198, 26));
-            obj[3] = botonModificar;
+            obj[4] = botonModificar;
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -60,7 +61,7 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[4] = botonEliminar;
+            obj[5] = botonEliminar;
 
             ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
             Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -69,7 +70,7 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
             botonVer.setToolTipText("vista del registro");
             botonVer.setBorder(null);
             botonVer.setBackground(new Color(41, 143, 96));
-            obj[5] = botonVer;
+            obj[6] = botonVer;
 
             modelo.addRow(obj);
 
@@ -82,9 +83,10 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
         tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(3).setPreferredWidth(150);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -241,12 +243,12 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al arbitro " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al árbitro " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
                                     arbitroC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "arbitro eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "árbitro eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -260,7 +262,7 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un arbitro");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un árbitro");
                         } else {
 
                             ModalRegistrarArbitro.idArbitro = id;
@@ -271,7 +273,7 @@ public class FrmGestionarArbitro extends javax.swing.JInternalFrame {
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un arbitro");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un árbitro");
                         } else {
                             ModalRegistrarArbitro.vista = true;
                             ModalRegistrarArbitro.idArbitro = id;

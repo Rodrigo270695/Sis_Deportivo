@@ -66,7 +66,7 @@ public class ProfesionalController implements CRUD {
     public void registrar(Object obj) throws Exception {
 
         Profesional profesional = (Profesional) obj;
-        sql = "INSERT INTO profesional(nombre_completo,fecha_nacimiento,estado,seudonimo,fecha_debut,palmares,records,pais_id) "
+        sql = "INSERT INTO profesional(nombre_completo,fecha_nacimiento,estado,seudonimo,fecha_debut,palmares,rercords,pais_id)"
                 + "VALUES(?,?,?,?,?,?,?,?)";
 
         try {
@@ -104,7 +104,7 @@ public class ProfesionalController implements CRUD {
 
         Profesional profesional = (Profesional) obj;
         sql = "UPDATE profesional SET nombre_completo=?,fecha_nacimiento=?,estado=?,seudonimo=?,fecha_debut=?,"
-                + "palmares=?,records=?,pais_id=? "
+                + "palmares=?,rercords=?,pais_id=? "
                 + "WHERE profesional_id = ?";
 
         try {
@@ -140,17 +140,171 @@ public class ProfesionalController implements CRUD {
 
     @Override
     public void eliminar(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        sql = "DELETE FROM profesional WHERE profesional_id = ?";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (PSQLException pe) {
+            pe.printStackTrace(System.err);
+            throw new Exception("El profesional no se puede eliminar, porque está siendo USADO");
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
     }
 
     @Override
-    public Object obtenerdato(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object obtenerdato(int id) {
+
+        Profesional profesional = new Profesional();
+        sql = "SELECT * FROM profesional WHERE profesional_id = " + id;
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                profesional.setProfesional_id(rs.getInt(1));
+                profesional.setNombre_completo(rs.getString(2));
+                profesional.setFecha_nacimiento(rs.getDate(3));
+                profesional.setEstado(rs.getString(4).charAt(0));
+                profesional.setSeudonimo(rs.getString(5));
+                profesional.setFecha_debut(rs.getDate(6));
+                profesional.setPalmares(rs.getString(7));
+                profesional.setRecords(rs.getString(8));
+                profesional.setPais((Pais) paisC.obtenerdato(rs.getInt(9)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return profesional;
+
     }
 
     @Override
-    public List buscar(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List buscar(Object obj) {
+
+        List lista = new ArrayList();
+        sql = "select pro.profesional_id, pro.nombre_completo,pro.seudonimo, pa.nombre as pais \n"
+                + "from profesional as pro inner join pais as pa on pro.pais_id=pa.pais_id\n"
+                + "where pro.nombre_completo LIKE '%+obj+%'\n"
+                + "or pro.seudonimo LIKE '%+obj+%'\n"
+                + "or pa.nombre LIKE '%+obj+%' ";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Profesional profesional = new Profesional();
+                profesional.setProfesional_id(rs.getInt(1));
+                profesional.setNombre_completo(rs.getString(2));
+                profesional.setSeudonimo(rs.getString(3));
+                profesional.setPais((Pais) paisC.obtenerdato(rs.getString(4)));
+                lista.add(profesional);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return lista;
+
+    }
+
+    public Object obtenerdato(String nombre) {
+
+        Profesional profesional = new Profesional();
+        sql = "SELECT * FROM profesional WHERE nombre_completo = '" + nombre + "'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                profesional.setProfesional_id(rs.getInt(1));
+                profesional.setNombre_completo(rs.getString(2));
+                profesional.setFecha_nacimiento(rs.getDate(3));
+                profesional.setEstado(rs.getString(4).charAt(0));
+                profesional.setSeudonimo(rs.getString(5));
+                profesional.setFecha_debut(rs.getDate(6));
+                profesional.setPalmares(rs.getString(7));
+                profesional.setRecords(rs.getString(8));
+                profesional.setPais((Pais) paisC.obtenerdato(rs.getInt(9)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return profesional;
     }
 
 }

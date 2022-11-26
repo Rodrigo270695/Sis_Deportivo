@@ -100,7 +100,7 @@ public class CiudadController implements CRUD {
     public void modificar(Object obj) throws Exception {
 
         Ciudad ciudad = (Ciudad) obj;
-        sql = "UPDATE ciudad SET nombre_completo=?, ciudad_id=? WHERE ciudad_id = ?";
+        sql = "UPDATE ciudad SET nombre_completo=?, pais_id=? WHERE ciudad_id = ?";
 
         try {
 
@@ -114,6 +114,9 @@ public class CiudadController implements CRUD {
         } catch (PSQLException pe) {
             throw new Exception("Ya existe la ciudad");
         } catch (SQLException e) {
+            
+            
+            
             e.printStackTrace(System.err);
         } finally {
             try {
