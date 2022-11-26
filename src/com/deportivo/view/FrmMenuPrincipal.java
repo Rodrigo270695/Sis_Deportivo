@@ -1,6 +1,7 @@
 package com.deportivo.view;
 
 import com.deportivo.controller.EquipoController;
+import com.deportivo.model.Usuario;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,12 +11,14 @@ import javax.swing.JInternalFrame;
 public class FrmMenuPrincipal extends javax.swing.JFrame {
     
     EquipoController equipoC = new EquipoController();
+    public static Usuario usuario;
     
     public FrmMenuPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("..:: SISTEMA DEPORTIVO - GRUPO GO ::..");
         txtCantEquipo.setText("" + equipoC.listar().size());
+        mnuUsuario.setText(usuario.getNombre());
     }
     
     public static void centrarVentana(JInternalFrame frame) {
@@ -61,7 +64,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mnuUsuario = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/com/deportivo/iconos/sin_fondo_depor.png")).getImage());
@@ -287,8 +290,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("USER");
-        jMenuBar1.add(jMenu3);
+        mnuUsuario.setText("USER");
+        jMenuBar1.add(mnuUsuario);
 
         setJMenuBar(jMenuBar1);
 
@@ -441,7 +444,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -461,6 +463,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu mnuUsuario;
     public static javax.swing.JLabel txtCantEquipo;
     private javax.swing.JLabel txtCantEquipo1;
     // End of variables declaration//GEN-END:variables

@@ -44,9 +44,15 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
-                rs.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -77,8 +83,12 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -107,8 +117,12 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -135,8 +149,12 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -166,9 +184,15 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
-                rs.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -204,9 +228,15 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
-                rs.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -237,9 +267,15 @@ public class CiudadController implements CRUD {
             e.printStackTrace(System.err);
         } finally {
             try {
-                con.close();
-                ps.close();
-                rs.close();
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }

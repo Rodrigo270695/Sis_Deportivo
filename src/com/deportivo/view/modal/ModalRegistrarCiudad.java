@@ -6,7 +6,6 @@ import com.deportivo.model.Ciudad;
 import com.deportivo.model.Pais;
 import com.deportivo.view.FrmGestionarPais;
 import com.deportivo.vista.modal.alerts.*;
-import java.awt.Toolkit;
 import java.util.List;
 
 public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
