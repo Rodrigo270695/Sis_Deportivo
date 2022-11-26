@@ -75,7 +75,7 @@ public class ProfesionalController implements CRUD {
             ps = con.prepareStatement(sql);
             ps.setString(1, profesional.getNombre_completo());
             ps.setDate(2, (Date) profesional.getFecha_nacimiento());
-            ps.setInt(3, profesional.getEstado());
+            ps.setString(3, "" + profesional.getEstado());
             ps.setString(4, profesional.getSeudonimo());
             ps.setDate(5, (Date) profesional.getFecha_debut());
             ps.setString(6, profesional.getPalmares());
@@ -113,13 +113,13 @@ public class ProfesionalController implements CRUD {
             ps = con.prepareStatement(sql);
             ps.setString(1, profesional.getNombre_completo());
             ps.setDate(2, (Date) profesional.getFecha_nacimiento());
-            ps.setInt(3, profesional.getEstado());
+            ps.setString(3, "" + profesional.getEstado());
             ps.setString(4, profesional.getSeudonimo());
             ps.setDate(5, (Date) profesional.getFecha_debut());
             ps.setString(6, profesional.getPalmares());
             ps.setString(7, profesional.getRecords());
-            ps.setInt(11, profesional.getPais().getPaisId());
-            ps.setInt(12, profesional.getProfesional_id());
+            ps.setInt(8, profesional.getPais().getPaisId());
+            ps.setInt(9, profesional.getProfesional_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
@@ -220,11 +220,12 @@ public class ProfesionalController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "select pro.profesional_id, pro.nombre_completo,pro.seudonimo, pa.nombre as pais \n"
+        sql = "select pro.profesional_id, pro.nombre_completo,pro.fecha_nacimiento,pro.estado,\n"
+                + "pro.seudonimo,pro.fecha_debut,pro.palmares,pro.rercords,pro.pais_id\n"
                 + "from profesional as pro inner join pais as pa on pro.pais_id=pa.pais_id\n"
-                + "where pro.nombre_completo LIKE '%+obj+%'\n"
-                + "or pro.seudonimo LIKE '%+obj+%'\n"
-                + "or pa.nombre LIKE '%+obj+%' ";
+                + "where pro.nombre_completo LIKE '%" + obj.toString() + "%'\n"
+                + "or pro.seudonimo LIKE '%" + obj.toString() + "%'\n"
+                + "or pa.nombre LIKE '%" + obj.toString() + "%'";
 
         try {
 
@@ -236,8 +237,13 @@ public class ProfesionalController implements CRUD {
                 Profesional profesional = new Profesional();
                 profesional.setProfesional_id(rs.getInt(1));
                 profesional.setNombre_completo(rs.getString(2));
-                profesional.setSeudonimo(rs.getString(3));
-                profesional.setPais((Pais) paisC.obtenerdato(rs.getString(4)));
+                profesional.setFecha_nacimiento(rs.getDate(3));
+                profesional.setEstado(rs.getString(4).charAt(0));
+                profesional.setSeudonimo(rs.getString(5));
+                profesional.setFecha_debut(rs.getDate(6));
+                profesional.setPalmares(rs.getString(7));
+                profesional.setRecords(rs.getString(8));
+                profesional.setPais((Pais) paisC.obtenerdato(rs.getInt(9)));
                 lista.add(profesional);
             }
 

@@ -68,7 +68,7 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
             try {
                 ciudadC.registrar(ciudad);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la ciudad");
-                FrmGestionarPais.listar("");
+                FrmGestionarCiudad.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
@@ -84,7 +84,7 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
             try {
                 ciudadC.modificar(ciudad);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la ciudad");
-                FrmGestionarPais.listar("");
+                FrmGestionarCiudad.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());

@@ -88,7 +88,7 @@ public class ArbitroController implements CRUD {
     public void modificar(Object obj) throws Exception {
 
         Arbitro arbitro = (Arbitro) obj;
-        sql = "UPDATE arbitro SET arbitro_nombre=?, arbitro_estado=? WHERE arbitro_id = ?";
+        sql = "UPDATE arbitro SET arbitro_nombre=?, estado_arbitro=?, pais_id = ? WHERE arbitro_id = ?";
 
         try {
 

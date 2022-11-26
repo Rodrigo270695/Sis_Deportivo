@@ -40,8 +40,8 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
         for (int i = 0; i < lista.size(); i++) {
             posicion = (Posicion) lista.get(i);
             obj[0] = posicion.getPosicionId();
-            obj[1] = posicion.getDescripcion();
-            obj[2] = posicion.getAbreviatura();
+            obj[1] = posicion.getAbreviatura();
+            obj[2] = posicion.getDescripcion();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
