@@ -1,47 +1,47 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.TipoProfesionalController;
-import com.deportivo.model.TipoProfesional;
+import com.deportivo.controller.ConfederacionController;
+import com.deportivo.model.Confederacion;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarTipoProfesional;
+import com.deportivo.view.modal.ModalRegistrarConfederacion;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
+public class FrmGestionarConfederacion extends javax.swing.JInternalFrame {
 
-    public static TipoProfesionalController tipoProfesionalC = new TipoProfesionalController();
+    public static ConfederacionController confederacionC = new ConfederacionController();
     
-    public FrmGestionarTipoProfesional() {
+    public FrmGestionarConfederacion() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "DESCRIPCIÓN","ABREVIATURA", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "ACRÓNIMO", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        TipoProfesional tipoProfesional;
+        Confederacion confederacion;
         List lista;
         if (txtBuscar.getText().length() == 0) {
-            lista = tipoProfesionalC.listar();
+            lista = confederacionC.listar();
         } else {
-            lista = tipoProfesionalC.buscar(texto);
+            lista = confederacionC.buscar(texto);
         }
         Object obj[] = new Object[6];
 
         for (int i = 0; i < lista.size(); i++) {
-            tipoProfesional = (TipoProfesional) lista.get(i);
-            obj[0] = tipoProfesional.getTipoProfesionalId();
-            obj[1] = tipoProfesional.getNombre();
-            obj[2] = tipoProfesional.getAbreviatura();
+            confederacion = (Confederacion) lista.get(i);
+            obj[0] = confederacion.getConfederacion_id();
+            obj[1] = confederacion.getNombre_oficial();
+            obj[2] = confederacion.getAcronimo();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -79,8 +79,8 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(400);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(250);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
@@ -104,7 +104,7 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR TIPO DE PROFESIONAL");
+        setTitle("GESTIONAR CONFEDERACION");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -165,12 +165,12 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 612, Short.MAX_VALUE))
+                        .addGap(0, 733, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -183,12 +183,13 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -212,7 +213,7 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarTipoProfesional frm = new ModalRegistrarTipoProfesional();
+        ModalRegistrarConfederacion frm = new ModalRegistrarConfederacion();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,16 +237,16 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoProfesional");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un confederacion");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al tipoProfesional " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar la confederacion " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
-                                    tipoProfesionalC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    confederacionC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Confederación eliminada correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -259,22 +260,22 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoProfesional");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un confederacion");
                         } else {
 
-                            ModalRegistrarTipoProfesional.idTipoProfesional = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoProfesional());
-                            ModalRegistrarTipoProfesional.btnGrabar.setText("Modificar");
+                            ModalRegistrarConfederacion.idConfederacion = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarConfederacion());
+                            ModalRegistrarConfederacion.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoProfesional");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una confederacion");
                         } else {
-                            ModalRegistrarTipoProfesional.vista = true;
-                            ModalRegistrarTipoProfesional.idTipoProfesional = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoProfesional());
+                            ModalRegistrarConfederacion.vista = true;
+                            ModalRegistrarConfederacion.idConfederacion = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarConfederacion());
                         }
                     }
                 }

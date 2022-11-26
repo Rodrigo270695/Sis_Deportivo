@@ -1,10 +1,9 @@
-
 package com.deportivo.model;
 
 public class TipoProfesional {
-    
+
     private int tipoProfesionalId;
-    private String descripcion;
+    private String nombre;
     private String abreviatura;
 
     public int getTipoProfesionalId() {
@@ -15,12 +14,12 @@ public class TipoProfesional {
         this.tipoProfesionalId = tipoProfesionalId;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getAbreviatura() {
@@ -30,11 +29,7 @@ public class TipoProfesional {
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
     }
-    
-    
-    
-    
-    
-    
-    
+
+
+
 }

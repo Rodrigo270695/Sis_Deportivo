@@ -1,15 +1,19 @@
-
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.TipoProfesional;
-import java.sql.*;
+import com.deportivo.model.Ciudad;
+import com.deportivo.model.Pais;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class TipoProfesionalController implements CRUD{
-    
+public class CiudadController implements CRUD {
+
+    PaisController paisC = new PaisController();
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -17,10 +21,10 @@ public class TipoProfesionalController implements CRUD{
     String sql = "";
 
     @Override
-    public List listar(){
-        
-         List lista = new ArrayList();
-        sql = "SELECT * FROM tipo_profesional ORDER BY tipo_profesional_id DESC";
+    public List listar() {
+
+        List lista = new ArrayList();
+        sql = "SELECT * FROM ciudad ORDER BY ciudad_id DESC";
 
         try {
 
@@ -29,11 +33,11 @@ public class TipoProfesionalController implements CRUD{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                TipoProfesional tipoProfesional = new TipoProfesional();
-                tipoProfesional.setTipoProfesionalId(rs.getInt(1));
-                tipoProfesional.setNombre(rs.getString(2));
-                tipoProfesional.setAbreviatura(rs.getString(3));
-                lista.add(tipoProfesional);
+                Ciudad ciudad = new Ciudad();
+                ciudad.setCiudad_id(rs.getInt(1));
+                ciudad.setNombre_completo(rs.getString(2));
+                ciudad.setPais((Pais) paisC.obtenerdato(rs.getInt(3)));
+                lista.add(ciudad);
             }
 
         } catch (SQLException e) {
@@ -49,25 +53,26 @@ public class TipoProfesionalController implements CRUD{
         }
 
         return lista;
-        
+
     }
 
     @Override
     public void registrar(Object obj) throws Exception {
-        
-        TipoProfesional tipoProfesional = (TipoProfesional) obj;
-        sql = "INSERT INTO tipo_profesional(nombre,abreviatura) VALUES(?,?)";
+
+        Ciudad ciudad = (Ciudad) obj;
+        sql = "INSERT INTO ciudad(nombre_completo, pais_id) VALUES(?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, tipoProfesional.getNombre());
-            ps.setString(2, tipoProfesional.getAbreviatura());
+            ps.setString(1, ciudad.getNombre_completo());
+            ps.setInt(2, ciudad.getPais().getPaisId());
+
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el tipo Profesional");
+            throw new Exception("Ya existe la Ciudad");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -78,26 +83,26 @@ public class TipoProfesionalController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
-        TipoProfesional tipoProfesional = (TipoProfesional) obj;
-        sql = "UPDATE tipo_profesional SET nombre=?,abreviatura=? WHERE tipo_profesional_id = ?";
+
+        Ciudad ciudad = (Ciudad) obj;
+        sql = "UPDATE ciudad SET nombre_completo=?, ciudad_id=? WHERE ciudad_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, tipoProfesional.getNombre());
-            ps.setString(2, tipoProfesional.getAbreviatura());
-            ps.setInt(3, tipoProfesional.getTipoProfesionalId());
+            ps.setString(1, ciudad.getNombre_completo());
+            ps.setInt(2, ciudad.getPais().getPaisId());
+            ps.setInt(3, ciudad.getCiudad_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el tipo Profesional");
+            throw new Exception("Ya existe la ciudad");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -108,13 +113,13 @@ public class TipoProfesionalController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void eliminar(int id) throws Exception {
-        
-        sql = "DELETE FROM tipo_profesional WHERE tipo_profesional_id = ?";
+
+        sql = "DELETE FROM ciudad WHERE ciudad_id = ?";
 
         try {
 
@@ -125,7 +130,7 @@ public class TipoProfesionalController implements CRUD{
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El tipoProfesional no se puede eliminar, porque está siendo USADO");
+            throw new Exception("LA CIUDAD no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -136,13 +141,14 @@ public class TipoProfesionalController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
+
     }
 
     @Override
-    public Object obtenerdato(int id)  {
-        
-        TipoProfesional tipoProfesional = new TipoProfesional();
-        sql = "SELECT * FROM tipo_profesional WHERE tipo_profesional_id = "+id;
+    public Object obtenerdato(int id) {
+
+        Ciudad ciudad = new Ciudad();
+        sql = "SELECT * FROM ciudad WHERE ciudad_id = " + id;
 
         try {
 
@@ -151,9 +157,9 @@ public class TipoProfesionalController implements CRUD{
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                tipoProfesional.setTipoProfesionalId(rs.getInt(1));
-                tipoProfesional.setNombre(rs.getString(2));
-                tipoProfesional.setAbreviatura(rs.getString(3));
+                ciudad.setCiudad_id(rs.getInt(1));
+                ciudad.setNombre_completo(rs.getString(2));
+                ciudad.setPais((Pais) paisC.obtenerdato(rs.getInt(3)));
             }
 
         } catch (SQLException e) {
@@ -168,15 +174,17 @@ public class TipoProfesionalController implements CRUD{
             }
         }
 
-        return tipoProfesional;
-        
+        return ciudad;
+
     }
 
     @Override
-    public List buscar(Object obj){
-        
+    public List buscar(Object obj) {
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM tipo_profesional WHERE descripcion LIKE '%"+obj+"%' ";
+        sql = "SELECT ciu.ciudad_id, ciu.nombre_completo,pa.nombre FROM ciudad ciu\n"
+                + "INNER JOIN pais pa ON ciu.pais_id= pa.pais_id\n"
+                + "WHERE ciu.nombre_completo LIKE '%" + obj + "%'; ";
 
         try {
 
@@ -185,11 +193,11 @@ public class TipoProfesionalController implements CRUD{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                TipoProfesional tipoProfesional = new TipoProfesional();
-                tipoProfesional.setTipoProfesionalId(rs.getInt(1));
-                tipoProfesional.setNombre(rs.getString(2));
-                tipoProfesional.setAbreviatura(rs.getString(3));
-                lista.add(tipoProfesional);
+                Ciudad ciudad = new Ciudad();
+                ciudad.setCiudad_id(rs.getInt(1));
+                ciudad.setNombre_completo(rs.getString(2));
+                ciudad.setPais((Pais) paisC.obtenerdato(rs.getString(3)));
+                lista.add(ciudad);
             }
 
         } catch (SQLException e) {
@@ -205,14 +213,13 @@ public class TipoProfesionalController implements CRUD{
         }
 
         return lista;
-        
-    }
-    
-    
-        public Object obtenerdato(String nombre) {
 
-        TipoProfesional tipoProfesional = new TipoProfesional();
-        sql = "SELECT * FROM tipo_profesional WHERE nombre = '" + nombre + "'";
+    }
+
+    public Object obtenerdato(String nombre) {
+
+        Ciudad ciudad = new Ciudad();
+        sql = "SELECT * FROM ciudad WHERE nombre_completo = '" + nombre + "'";
 
         try {
 
@@ -221,10 +228,9 @@ public class TipoProfesionalController implements CRUD{
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                tipoProfesional.setTipoProfesionalId(rs.getInt(1));
-                tipoProfesional.setNombre(rs.getString(2));
-                tipoProfesional.setAbreviatura(rs.getString(3));
-              
+                ciudad.setCiudad_id(rs.getInt(1));
+                ciudad.setNombre_completo(rs.getString(2));
+                ciudad.setPais((Pais) paisC.obtenerdato(rs.getInt(3)));
             }
 
         } catch (SQLException e) {
@@ -239,8 +245,8 @@ public class TipoProfesionalController implements CRUD{
             }
         }
 
-        return tipoProfesional;
+        return ciudad;
+
     }
 
-    
 }
