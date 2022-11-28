@@ -1,39 +1,53 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.TernaArbitral2Controller;
-import com.deportivo.model.TernaArbitral2;
-import com.deportivo.view.FrmGestionarTernaArbitral2;
-import com.deportivo.vista.modal.alerts.Alerta;
-import com.deportivo.vista.modal.alerts.AlertaBien;
-import com.deportivo.vista.modal.alerts.AlertaError;
-import java.awt.Toolkit;
+import com.deportivo.controller.CategoriaArbitroController;
+import com.deportivo.controller.TipoTernaArbitralController;
+import com.deportivo.model.CategoriaArbitro;
+import com.deportivo.model.TipoTernaArbitral;
+import com.deportivo.view.FrmGestionarCategoriaArbitro;
+import com.deportivo.vista.modal.alerts.*;
+import java.util.List;
 
-public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFrame {
+public final class ModalRegistrarCategoriaArbitro extends javax.swing.JInternalFrame {
 
-    TernaArbitral2Controller ternaArbitral2C = new TernaArbitral2Controller();
-    public static int idTernaArbitral = 0;
+    CategoriaArbitroController categoriaArbitroC = new CategoriaArbitroController();
+    TipoTernaArbitralController tipoTernaArbitralC = new TipoTernaArbitralController();
+    public static int idCategoriaArbitro = 0;
     public static boolean vista = false;
 
-    public ModalRegistrarTernaArbitral2() {
+    public ModalRegistrarCategoriaArbitro() {
         initComponents();
+        cargarTiposTernaArbitral();
         acciones();
     }
-    
+
+    void cargarTiposTernaArbitral() {
+
+        cbxTipoTA.removeAllItems();
+        List<TipoTernaArbitral> lista = tipoTernaArbitralC.listar();
+
+        for (TipoTernaArbitral tipoTernaArbitral : lista) {
+            cbxTipoTA.addItem(tipoTernaArbitral.getDescripcion());
+        }
+
+    }
+
     void acciones() {
 
         if (vista) {
 
-            txtAbreviatura.setEnabled(false);
             txtNombre.setEnabled(false);
+            txtSigla.setEnabled(false);
+            cbxTipoTA.setEnabled(false);
             btnGrabar.setEnabled(false);
-
         }
 
-        if (idTernaArbitral > 0) {
+        if (idCategoriaArbitro > 0) {
 
-            TernaArbitral2 ternaArbitral2 = (TernaArbitral2) ternaArbitral2C.obtenerdato(idTernaArbitral);
-            txtAbreviatura.setText(ternaArbitral2.getEstado());
-            txtNombre.setText(ternaArbitral2.getNombre());
+            CategoriaArbitro categoriaArbitro = (CategoriaArbitro) categoriaArbitroC.obtenerdato(idCategoriaArbitro);
+            cbxTipoTA.setSelectedItem(categoriaArbitro.getTipoTA().getDescripcion());
+            txtNombre.setText(categoriaArbitro.getNombre());
+            txtSigla.setText(categoriaArbitro.getSigla());
 
         }
 
@@ -42,41 +56,43 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
     void grabar() {
 
         if (txtNombre.getText().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE es obligatorio");
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE COMPLETO es obligatorio");
             return;
         }
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
-            TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
-            ternaArbitral2.setNombre(txtNombre.getText().toUpperCase());
-            ternaArbitral2.setEstado(txtAbreviatura.getText().toUpperCase());
+            CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
+            categoriaArbitro.setNombre(txtNombre.getText().toUpperCase());
+            categoriaArbitro.setSigla(txtSigla.getText().toUpperCase());
+            categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTernaArbitralC.obtenerdato(cbxTipoTA.getSelectedItem().toString()));
 
             try {
-                ternaArbitral2C.registrar(ternaArbitral2);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el grupo");
-                FrmGestionarTernaArbitral2.listar("");
+                categoriaArbitroC.registrar(categoriaArbitro);
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Categoría de Árbitro");
+                FrmGestionarCategoriaArbitro.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        }else{
-            
-            TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
-            ternaArbitral2.setNombre(txtNombre.getText().toUpperCase());
-            ternaArbitral2.setEstado(txtAbreviatura.getText().toUpperCase());
-            ternaArbitral2.setTernaArbitral2Id((byte) idTernaArbitral);
+        } else {
+
+            CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
+            categoriaArbitro.setNombre(txtNombre.getText().toUpperCase());
+            categoriaArbitro.setSigla(txtSigla.getText().toUpperCase());
+            categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTernaArbitralC.obtenerdato(cbxTipoTA.getSelectedItem().toString()));
+            categoriaArbitro.setCategoria_arbitro_id(idCategoriaArbitro);
 
             try {
-                ternaArbitral2C.modificar(ternaArbitral2);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el grupo");
-                FrmGestionarTernaArbitral2.listar("");
+                categoriaArbitroC.modificar(categoriaArbitro);
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Categoría de Árbitro");
+                FrmGestionarCategoriaArbitro.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -87,13 +103,15 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new org.edisoncor.gui.textField.TextFieldRectBackground();
-        jLabel2 = new javax.swing.JLabel();
-        txtAbreviatura = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        cbxTipoTA = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        txtSigla = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("REGISTRAR TERNA ARBITRAL 2");
+        setTitle("REGISTRAR CATEGORÍA DE ÁRBITRO");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -118,20 +136,8 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Nombre* ");
 
-        txtNombre.setDescripcion("Ej. Grupo A");
+        txtNombre.setDescripcion("");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Estado*");
-
-        txtAbreviatura.setDescripcion("Ej. A");
-        txtAbreviatura.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtAbreviatura.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAbreviaturaKeyTyped(evt);
-            }
-        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -148,24 +154,36 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Sigla");
+
+        cbxTipoTA.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cbxTipoTA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Tipo de Terna Arbitral");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAbreviatura, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 19, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxTipoTA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,13 +192,17 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAbreviatura, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(cbxTipoTA, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,32 +223,25 @@ public final class ModalRegistrarTernaArbitral2 extends javax.swing.JInternalFra
 
         grabar();
 
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
-        idTernaArbitral = 0;
-        vista = false;
-        
-    }//GEN-LAST:event_formInternalFrameClosed
 
-    private void txtAbreviaturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbreviaturaKeyTyped
-        
-        if (txtAbreviatura.getText().length() >= 1) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 1 caracteres");
-        }
-        
-    }//GEN-LAST:event_txtAbreviaturaKeyTyped
+        idCategoriaArbitro = 0;
+        vista = false;
+
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
+    private javax.swing.JComboBox<String> cbxTipoTA;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private org.edisoncor.gui.textField.TextFieldRectBackground txtAbreviatura;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre;
+    private javax.swing.JTextField txtSigla;
     // End of variables declaration//GEN-END:variables
 }

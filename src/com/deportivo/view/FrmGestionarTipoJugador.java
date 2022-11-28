@@ -1,47 +1,47 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.TipoTernaController;
-import com.deportivo.model.TipoTerna;
+import com.deportivo.controller.TipoJugadorController;
+import com.deportivo.model.TipoJugador;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarTipoTerna;
+import com.deportivo.view.modal.ModalRegistrarTipoJugador;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
+public class FrmGestionarTipoJugador extends javax.swing.JInternalFrame {
 
-    public static TipoTernaController tipoTernaC = new TipoTernaController();
+    public static TipoJugadorController tipoJugadorC = new TipoJugadorController();
     
-    public FrmGestionarTipoTerna() {
+    public FrmGestionarTipoJugador() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "SIGLA", "", "", ""};
+        String columas[] = {"#", "DESCRIPCIÓN","SIGLA", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        TipoTerna tipoTerna;
+        TipoJugador tipoJugador;
         List lista;
         if (txtBuscar.getText().length() == 0) {
-            lista = tipoTernaC.listar();
+            lista = tipoJugadorC.listar();
         } else {
-            lista = tipoTernaC.buscar(texto);
+            lista = tipoJugadorC.buscar(texto);
         }
         Object obj[] = new Object[6];
 
         for (int i = 0; i < lista.size(); i++) {
-            tipoTerna = (TipoTerna) lista.get(i);
-            obj[0] = tipoTerna.getTipoTernaId();
-            obj[1] = tipoTerna.getNombre();
-            obj[2] = tipoTerna.getSigla();
+            tipoJugador = (TipoJugador) lista.get(i);
+            obj[0] = tipoJugador.getTipo_jugador_id();
+            obj[1] = tipoJugador.getDescripcion();
+            obj[2] = tipoJugador.getSigla();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -79,8 +79,8 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(130);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(400);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
@@ -104,7 +104,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR TIPO TERNA");
+        setTitle("GESTIONAR POSICIÓN");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -212,7 +212,7 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarTipoTerna frm = new ModalRegistrarTipoTerna();
+        ModalRegistrarTipoJugador frm = new ModalRegistrarTipoJugador();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,16 +236,16 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoTerna");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoJugador");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al tipoTerna " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al Tipo de Jugador " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
-                                    tipoTernaC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "tipoTerna eliminado correctamente!");
+                                    tipoJugadorC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Tipo de Jugador eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -259,22 +259,22 @@ public class FrmGestionarTipoTerna extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoTerna");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Tipo de Jugador");
                         } else {
 
-                            ModalRegistrarTipoTerna.idTipoTerna = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoTerna());
-                            ModalRegistrarTipoTerna.btnGrabar.setText("Modificar");
+                            ModalRegistrarTipoJugador.idTipoJugador = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoJugador());
+                            ModalRegistrarTipoJugador.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoTerna");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Tipo de Jugador");
                         } else {
-                            ModalRegistrarTipoTerna.vista = true;
-                            ModalRegistrarTipoTerna.idTipoTerna = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoTerna());
+                            ModalRegistrarTipoJugador.vista = true;
+                            ModalRegistrarTipoJugador.idTipoJugador = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoJugador());
                         }
                     }
                 }

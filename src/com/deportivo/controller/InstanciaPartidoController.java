@@ -1,13 +1,16 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.TernaArbitral2;
-import java.sql.*;
+import com.deportivo.model.InstanciaPartido;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class TernaArbitral2Controller  implements CRUD{
+public class InstanciaPartidoController implements CRUD {
 
     Conexion estado = new Conexion();
     Connection con;
@@ -19,7 +22,7 @@ public class TernaArbitral2Controller  implements CRUD{
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM terna_arbitral_2 ORDER BY terna_arb_id DESC";
+        sql = "SELECT * FROM instancia_partido ORDER BY instancia_partido_id DESC";
 
         try {
 
@@ -28,11 +31,11 @@ public class TernaArbitral2Controller  implements CRUD{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
-                ternaArbitral2.setTernaArbitral2Id(rs.getInt(1));
-                ternaArbitral2.setNombre(rs.getString(2));
-                ternaArbitral2.setEstado(rs.getString(3));
-                lista.add(ternaArbitral2);
+                InstanciaPartido instanciaPartido = new InstanciaPartido();
+                instanciaPartido.setInstancia_partido_id(rs.getInt(1));
+                instanciaPartido.setDescripcion(rs.getString(2));
+
+                lista.add(instanciaPartido);
             }
 
         } catch (SQLException e) {
@@ -54,19 +57,18 @@ public class TernaArbitral2Controller  implements CRUD{
     @Override
     public void registrar(Object obj) throws Exception {
 
-        TernaArbitral2 ternaArbitral2 = (TernaArbitral2) obj;
-        sql = "INSERT INTO terna_arbitral_2(terna_arb_nombre, terna_arb_estado) VALUES(?,?)";
+        InstanciaPartido instanciaPartido = (InstanciaPartido) obj;
+        sql = "INSERT INTO instancia_partido(descripcion) VALUES(?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, ternaArbitral2.getNombre());
-            ps.setString(2, ternaArbitral2.getEstado());
+            ps.setString(1, instanciaPartido.getDescripcion());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe la terna arbitral");
+            throw new Exception("Ya existe la  Instancia de Partido");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -82,21 +84,20 @@ public class TernaArbitral2Controller  implements CRUD{
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
-        TernaArbitral2 ternaArbitral2 = (TernaArbitral2) obj;
-        sql = "UPDATE terna_arbitral_2 SET terna_arb_nombre=?, terna_arb_estado=? WHERE terna_arb_id = ?";
+
+        InstanciaPartido instanciaPartido = (InstanciaPartido) obj;
+        sql = "UPDATE instancia_partido SET nombre=? WHERE instancia_partido_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, ternaArbitral2.getNombre());
-            ps.setString(2, ternaArbitral2.getEstado());
-            ps.setInt(3, ternaArbitral2.getTernaArbitral2Id());
+            ps.setString(1, instanciaPartido.getDescripcion());
+            ps.setInt(2, instanciaPartido.getInstancia_partido_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe la terna arbitral");
+            throw new Exception("Ya existe la  instancia de Partido");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -107,13 +108,13 @@ public class TernaArbitral2Controller  implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
-    public void eliminar(int id) throws Exception{
-        
-        sql = "DELETE FROM terna_arbitral_2 WHERE terna_arb_id = ?";
+    public void eliminar(int id) throws Exception {
+
+        sql = "DELETE FROM instancia_partido WHERE instancia_partido_id = ?";
 
         try {
 
@@ -124,7 +125,7 @@ public class TernaArbitral2Controller  implements CRUD{
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("La terna arbitral no se puede eliminar, porque está siendo USADO");
+            throw new Exception("La Instancia de Partido no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -135,14 +136,14 @@ public class TernaArbitral2Controller  implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public Object obtenerdato(int id) {
-        
-        TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
-        sql = "SELECT * FROM terna_arbitral_2 WHERE terna_arb_id = "+id;
+
+        InstanciaPartido instanciaPartido = new InstanciaPartido();
+        sql = "SELECT * FROM instancia_partido WHERE instancia_partido_id = " + id;
 
         try {
 
@@ -151,9 +152,9 @@ public class TernaArbitral2Controller  implements CRUD{
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                ternaArbitral2.setTernaArbitral2Id(rs.getInt(1));
-                ternaArbitral2.setNombre(rs.getString(2));
-                ternaArbitral2.setEstado(rs.getString(3));
+                instanciaPartido.setInstancia_partido_id(rs.getInt(1));
+                instanciaPartido.setDescripcion(rs.getString(2));
+
             }
 
         } catch (SQLException e) {
@@ -168,15 +169,14 @@ public class TernaArbitral2Controller  implements CRUD{
             }
         }
 
-        return ternaArbitral2;
+        return instanciaPartido;
     }
 
     @Override
     public List buscar(Object obj) {
-        
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM terna_arbitral_2 WHERE terna_arb_nombre LIKE '%"+obj+"%' "
-                + "OR terna_arb_estado LIKE '%"+obj+"%'";
+        sql = "SELECT * FROM instancia_partido WHERE descripcion LIKE '%" + obj + "%' ";
 
         try {
 
@@ -185,11 +185,11 @@ public class TernaArbitral2Controller  implements CRUD{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
-                ternaArbitral2.setTernaArbitral2Id(rs.getInt(1));
-                ternaArbitral2.setNombre(rs.getString(2));
-                ternaArbitral2.setEstado(rs.getString(3));
-                lista.add(ternaArbitral2);
+                InstanciaPartido instanciaPartido = new InstanciaPartido();
+                instanciaPartido.setInstancia_partido_id(rs.getInt(1));
+                instanciaPartido.setDescripcion(rs.getString(2));
+
+                lista.add(instanciaPartido);
             }
 
         } catch (SQLException e) {
@@ -205,13 +205,13 @@ public class TernaArbitral2Controller  implements CRUD{
         }
 
         return lista;
-        
+
     }
-    
+
     public Object obtenerdato(String nombre) {
-        
-        TernaArbitral2 ternaArbitral2 = new TernaArbitral2();
-        sql = "SELECT * FROM terna_arbitral_2 WHERE terna_arb_nombre = '"+nombre+"'";
+
+        InstanciaPartido instanciaPartido = new InstanciaPartido();
+        sql = "SELECT * FROM instancia_partido WHERE descripcion = '" + nombre + "'";
 
         try {
 
@@ -220,9 +220,9 @@ public class TernaArbitral2Controller  implements CRUD{
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                ternaArbitral2.setTernaArbitral2Id(rs.getInt(1));
-                ternaArbitral2.setNombre(rs.getString(2));
-                ternaArbitral2.setEstado(rs.getString(3));
+                instanciaPartido.setInstancia_partido_id(rs.getByte(1));
+                instanciaPartido.setDescripcion(rs.getString(2));
+
             }
 
         } catch (SQLException e) {
@@ -237,7 +237,7 @@ public class TernaArbitral2Controller  implements CRUD{
             }
         }
 
-        return ternaArbitral2;
+        return instanciaPartido;
     }
 
 }

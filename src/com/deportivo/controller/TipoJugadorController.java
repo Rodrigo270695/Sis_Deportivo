@@ -1,15 +1,17 @@
-
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Posicion;
-import java.sql.*;
+import com.deportivo.model.TipoJugador;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class PosicionController implements CRUD{
-    
+public class TipoJugadorController implements CRUD {
+
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -17,10 +19,10 @@ public class PosicionController implements CRUD{
     String sql = "";
 
     @Override
-    public List listar(){
-        
-         List lista = new ArrayList();
-        sql = "SELECT * FROM posicion ORDER BY posicion_id DESC";
+    public List listar() {
+
+        List lista = new ArrayList();
+        sql = "SELECT * FROM tipo_jugador ORDER BY tipo_jugador_id DESC";
 
         try {
 
@@ -29,11 +31,11 @@ public class PosicionController implements CRUD{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Posicion posicion = new Posicion();
-                posicion.setPosicionId(rs.getInt(1));
-                posicion.setDescripcion(rs.getString(2));
-                posicion.setAbreviatura(rs.getString(3));
-                lista.add(posicion);
+                TipoJugador tipoJugador = new TipoJugador();
+                tipoJugador.setTipo_jugador_id(rs.getInt(1));
+                tipoJugador.setDescripcion(rs.getString(2));
+                tipoJugador.setSigla(rs.getString(3).charAt(0));
+                lista.add(tipoJugador);
             }
 
         } catch (SQLException e) {
@@ -49,25 +51,25 @@ public class PosicionController implements CRUD{
         }
 
         return lista;
-        
+
     }
 
     @Override
     public void registrar(Object obj) throws Exception {
-        
-        Posicion posicion = (Posicion) obj;
-        sql = "INSERT INTO posicion(descripcion,abreviatura) VALUES(?,?)";
+
+        TipoJugador tipoJugador = (TipoJugador) obj;
+        sql = "INSERT INTO tipo_jugador(descripcion,sigla) VALUES(?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, posicion.getDescripcion());
-            ps.setString(2, posicion.getAbreviatura());
+            ps.setString(1, tipoJugador.getDescripcion());
+            ps.setString(2, "" + tipoJugador.getSigla());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe la posicion");
+            throw new Exception("Ya existe el Tipo de Jugador");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -78,26 +80,26 @@ public class PosicionController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
-        Posicion posicion = (Posicion) obj;
-        sql = "UPDATE posicion SET descripcion=?,abreviatura=? WHERE posicion_id = ?";
+
+        TipoJugador tipoJugador = (TipoJugador) obj;
+        sql = "UPDATE tipo_jugador SET descripcion=?,sigla=? WHERE tipo_jugador_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, posicion.getDescripcion());
-            ps.setString(2, posicion.getAbreviatura());
-            ps.setInt(3, posicion.getPosicionId());
+            ps.setString(1, tipoJugador.getDescripcion());
+            ps.setString(2, "" + tipoJugador.getSigla());
+            ps.setInt(3, tipoJugador.getTipo_jugador_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe la posicion");
+            throw new Exception("Ya existe la Tipo deJugador");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -108,13 +110,13 @@ public class PosicionController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void eliminar(int id) throws Exception {
-        
-        sql = "DELETE FROM posicion WHERE posicion_id = ?";
+
+        sql = "DELETE FROM tipo_jugador WHERE tipo_jugador_id = ?";
 
         try {
 
@@ -125,7 +127,7 @@ public class PosicionController implements CRUD{
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El posicion no se puede eliminar, porque está siendo USADO");
+            throw new Exception("El Tipo de Jugador no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -139,10 +141,10 @@ public class PosicionController implements CRUD{
     }
 
     @Override
-    public Object obtenerdato(int id)  {
-        
-        Posicion posicion = new Posicion();
-        sql = "SELECT * FROM posicion WHERE posicion_id = "+id;
+    public Object obtenerdato(int id) {
+
+        TipoJugador tipoJugador = new TipoJugador();
+        sql = "SELECT * FROM tipo_jugador WHERE tipo_jugador_id = " + id;
 
         try {
 
@@ -151,9 +153,9 @@ public class PosicionController implements CRUD{
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                posicion.setPosicionId(rs.getInt(1));
-                posicion.setDescripcion(rs.getString(2));
-                posicion.setAbreviatura(rs.getString(3));
+                tipoJugador.setTipo_jugador_id(rs.getInt(1));
+                tipoJugador.setDescripcion(rs.getString(2));
+                tipoJugador.setSigla(rs.getString(3).charAt(0));
             }
 
         } catch (SQLException e) {
@@ -168,15 +170,15 @@ public class PosicionController implements CRUD{
             }
         }
 
-        return posicion;
-        
+        return tipoJugador;
+
     }
 
     @Override
-    public List buscar(Object obj){
-        
+    public List buscar(Object obj) {
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM posicion WHERE descripcion LIKE '%"+obj+"%' ";
+        sql = "SELECT * FROM tipo_jugador WHERE descripcion LIKE '%" + obj + "%' ";
 
         try {
 
@@ -185,11 +187,11 @@ public class PosicionController implements CRUD{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Posicion posicion = new Posicion();
-                posicion.setPosicionId(rs.getInt(1));
-                posicion.setDescripcion(rs.getString(2));
-                posicion.setAbreviatura(rs.getString(3));
-                lista.add(posicion);
+                TipoJugador tipoJugador = new TipoJugador();
+                tipoJugador.setTipo_jugador_id(rs.getInt(1));
+                tipoJugador.setDescripcion(rs.getString(2));
+                tipoJugador.setSigla(rs.getString(3).charAt(0));
+                lista.add(tipoJugador);
             }
 
         } catch (SQLException e) {
@@ -205,7 +207,39 @@ public class PosicionController implements CRUD{
         }
 
         return lista;
-        
+
     }
-    
+
+    public Object obtenerdato(String nombre) {
+
+        TipoJugador tipoJugador = new TipoJugador();
+        sql = "SELECT * FROM tipo_jugador WHERE descripcion = '" + nombre + "'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                tipoJugador.setTipo_jugador_id(rs.getByte(1));
+                tipoJugador.setDescripcion(rs.getString(2));
+                tipoJugador.setSigla(rs.getString(2).charAt(0));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return tipoJugador;
+    }
+
 }
