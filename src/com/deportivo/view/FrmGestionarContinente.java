@@ -14,6 +14,7 @@ public class FrmGestionarContinente extends javax.swing.JInternalFrame {
 
     public static ContinenteController continenteC = new ContinenteController();
     
+    
     public FrmGestionarContinente() {
         initComponents();
         listar("");

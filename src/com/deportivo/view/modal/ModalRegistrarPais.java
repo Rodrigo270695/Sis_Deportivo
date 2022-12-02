@@ -13,7 +13,7 @@ import java.util.List;
 public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
     PaisController paisC = new PaisController();
-    ContinenteController continenteC = new ContinenteController();
+    public static ContinenteController continenteC = new ContinenteController();
     public static int idPais = 0;
     public static boolean vista = false;
 
@@ -23,7 +23,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
         acciones();
     }
 
-    void cargarContinentes() {
+    public static void cargarContinentes() {
 
         cbxContinente.removeAllItems();
         List<Continente> lista = continenteC.listar();
@@ -273,6 +273,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
         try {
 
+            ModalRegistrarContinente.activarContinente = true;
             FrmMenuPrincipal.centrarVentana(new ModalRegistrarContinente());
 
         } catch (Exception e) {
@@ -287,7 +288,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnRegistrarContinente;
-    private javax.swing.JComboBox<String> cbxContinente;
+    public static javax.swing.JComboBox<String> cbxContinente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -69,7 +69,6 @@ public class ArbitroController implements CRUD {
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            pe.printStackTrace(System.err);
             throw new Exception("Ya existe el arbitro");
         } catch (SQLException e) {
             e.printStackTrace(System.err);

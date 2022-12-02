@@ -2,8 +2,10 @@ package com.deportivo.view;
 
 import com.deportivo.controller.DetalleProfesionalController;
 import com.deportivo.controller.PaisController;
+import com.deportivo.controller.TipoProfesionalController;
 import com.deportivo.model.DetalleProfesional;
 import com.deportivo.model.Pais;
+import com.deportivo.model.TipoProfesional;
 import com.deportivo.properties.RenderTable;
 import com.deportivo.view.modal.ModalRegistrarDetalleProfesional;
 import com.deportivo.view.modal.ModalRegistrarPais;
@@ -16,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
 
     public static DetalleProfesionalController detalleC = new DetalleProfesionalController();
+    TipoProfesionalController tipoC = new TipoProfesionalController();
+    public static int idProfesional;
 
     public FrmGestionarDetalleProfesional() {
         initComponents();
@@ -24,37 +28,26 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"PROFESIONAL", "TIPO PROFESIONAL", "", "", ""};
-        DefaultTableModel modelo =  new DefaultTableModel();
+        String columas[] = {"TIPO PROFESIONAL", ""};
+        DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        DetalleProfesional detallePro;
-        List lista;
+        DetalleProfesional detallePro = null;
+        TipoProfesional tipoP;
         if (txtBuscar.getText().length() == 0) {
-            lista = detalleC.listar();
+            detallePro = detalleC.listar(idProfesional);
         } else {
-            lista = detalleC.buscar(texto);
+//            lista = detalleC.buscar(texto);
         }
-        Object obj[] = new Object[5];
+        Object obj[] = new Object[2];
 
-        for (int i = 0; i < lista.size(); i++) {
-            detallePro = (DetalleProfesional) lista.get(i);
-          
-            obj[0] = detallePro.getProfesional().getNombre_completo();
-            obj[1] = detallePro.getTipoProfesional().getNombre();
-            
+        for (int i = 0; i < detallePro.getTipoProfesional().size(); i++) {
+            tipoP = detallePro.getTipoProfesional().get(i);
 
-            ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
-            Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonModificar = new JButton("", btnModificar);
-            botonModificar.setName("btnModificar");
-            botonModificar.setToolTipText("modificar");
-            botonModificar.setBorder(null);
-            botonModificar.setBackground(new Color(255, 198, 26));
-            obj[2] = botonModificar;
+            obj[0] = tipoP.getNombre();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -63,16 +56,7 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[3] = botonEliminar;
-
-            ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
-            Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonVer = new JButton("", btnVer);
-            botonVer.setName("btnVer");
-            botonVer.setToolTipText("vista del registro");
-            botonVer.setBorder(null);
-            botonVer.setBackground(new Color(41, 143, 96));
-            obj[4] = botonVer;
+            obj[1] = botonEliminar;
 
             modelo.addRow(obj);
 
@@ -82,11 +66,8 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(500);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(500);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(375);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -165,35 +146,37 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal)
+                .addContainerGap(396, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblTotal))
@@ -216,6 +199,7 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
+        ModalRegistrarDetalleProfesional.idProfesional = idProfesional;
         ModalRegistrarDetalleProfesional frm = new ModalRegistrarDetalleProfesional();
         FrmMenuPrincipal.centrarVentana(frm);
 
@@ -224,7 +208,6 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
 
         int fila = tblListado.getSelectedRow();
-        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
 
         int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / tblListado.getRowHeight();
@@ -242,13 +225,15 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
                         if (filas == 0) {//si no elije ninguna fila
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 0));
 
                             int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Profesional " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
-
+                                
+                                TipoProfesional tipoP = (TipoProfesional) tipoC.obtenerdato(valor);
+                                
                                 try {
-                                    detalleC.eliminar(id);
+                                    detalleC.eliminarDetalle(idProfesional,tipoP.getTipoProfesionalId());
                                     AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Profesional eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
@@ -261,26 +246,6 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
 
                         }
                     }
-                    case "btnModificar" -> {
-                        if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Detalle Profesional");
-                        } else {
-
-                            ModalRegistrarPais.idPais = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
-                            ModalRegistrarPais.btnGrabar.setText("Modificar");
-
-                        }
-                    }
-                    case "btnVer" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Detalle Profesional");
-                        } else {
-                            ModalRegistrarPais.vista = true;
-                            ModalRegistrarPais.idPais = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
-                        }
-                    }
                 }
             }
         }
@@ -289,9 +254,9 @@ public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
 
-        if (txtBuscar.getText().length() % 2 == 0) {
-            listar(txtBuscar.getText().toUpperCase());
-        }
+//        if (txtBuscar.getText().length() % 2 == 0) {
+//            listar(txtBuscar.getText().toUpperCase());
+//        }
 
     }//GEN-LAST:event_txtBuscarKeyReleased
 

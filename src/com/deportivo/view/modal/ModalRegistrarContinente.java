@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
 
     ContinenteController continenteC = new ContinenteController();
+    public static boolean activarContinente = false;
     public static int idContinente = 0;
     public static boolean vista = false;
 
@@ -18,7 +19,7 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
         initComponents();
         acciones();
     }
-    
+
     void acciones() {
 
         if (vista) {
@@ -55,14 +56,18 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
             try {
                 continenteC.registrar(continente);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el continente");
-                FrmGestionarContinente.listar("");
+                if (activarContinente == false) {
+                    FrmGestionarContinente.listar("");
+                }
+                ModalRegistrarPais.cargarContinentes();
                 dispose();
             } catch (Exception e) {
+                e.printStackTrace(System.err);
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        }else{
-            
+        } else {
+
             Continente continente = new Continente();
             continente.setNombre(txtNombre.getText().toUpperCase());
             continente.setAbreviatura(txtAbreviatura.getText().toUpperCase());
@@ -76,7 +81,7 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -204,20 +209,20 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
+
         idContinente = 0;
         vista = false;
-        
+
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void txtAbreviaturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbreviaturaKeyTyped
-        
+
         if (txtAbreviatura.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres");
         }
-        
+
     }//GEN-LAST:event_txtAbreviaturaKeyTyped
 
 

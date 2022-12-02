@@ -10,6 +10,7 @@ import com.deportivo.model.DetalleProfesional;
 import com.deportivo.model.Pais;
 import com.deportivo.model.Profesional;
 import com.deportivo.model.TipoProfesional;
+import com.deportivo.view.FrmGestionarDetalleProfesional;
 import com.deportivo.view.FrmGestionarPais;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Toolkit;
@@ -21,25 +22,11 @@ public final class ModalRegistrarDetalleProfesional extends javax.swing.JInterna
     ProfesionalController profesionalC = new ProfesionalController();
     TipoProfesionalController tipoC = new TipoProfesionalController();
 
-    public static int idDetalle = 0;
-    public static boolean vista = false;
+    public static int idProfesional;
 
     public ModalRegistrarDetalleProfesional() {
         initComponents();
-        cargarProfesionales();
         cargarTipoProfesionales();
-        acciones();
-    }
-
-    void cargarProfesionales() {
-
-        cbxProfesional.removeAllItems();
-        List<Profesional> lista = profesionalC.listar();
-
-        for (Profesional profesional : lista) {
-            cbxProfesional.addItem(profesional.getNombre_completo());
-        }
-
     }
 
     void cargarTipoProfesionales() {
@@ -53,79 +40,27 @@ public final class ModalRegistrarDetalleProfesional extends javax.swing.JInterna
 
     }
 
-    void acciones() {
-
-        if (vista) {
-
-            cbxProfesional.setEnabled(false);
-            cbxTipo.setEnabled(false);
-            btnGrabar.setEnabled(false);
-
-        }
-
-        if (idDetalle > 0) {
-
-            DetalleProfesional detalle = (DetalleProfesional) detalleC.obtenerdato(idDetalle);
-
-            cbxProfesional.setSelectedItem(detalle.getProfesional().getNombre_completo());
-            cbxTipo.setSelectedItem(detalle.getTipoProfesional().getNombre());
-
-        }
-
-    }
-
     void grabar() {
 
-        if (cbxProfesional.getSelectedItem()== null || cbxTipo.getSelectedItem()==null) {
-            Alerta alerta = new Alerta("Alerta", "El campo PROFESIONAL Y TIPO  es obligatorio");
-            return;
+        TipoProfesional tipoP = (TipoProfesional) tipoC.obtenerdato(cbxTipo.getSelectedItem().toString());
+
+        try {
+            detalleC.registrarDetalle(idProfesional, tipoP.getTipoProfesionalId());
+            AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detaelle de profesional");
+            FrmGestionarDetalleProfesional.listar("");
+            dispose();
+        } catch (Exception e) {
+            AlertaError err = new AlertaError("Error", e.getMessage());
         }
 
-        if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
-
-            DetalleProfesional detalle = new DetalleProfesional();
-        
-            detalle.setProfesional((Profesional) detalleC.obtenerdato(cbxProfesional.getSelectedIndex()));
-            detalle.setTipoProfesional((TipoProfesional) detalleC.obtenerdato(cbxTipo.getSelectedIndex()));
-
-            try {
-                detalleC.registrar(detalle);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detaelle de profesional");
-                FrmGestionarPais.listar("");
-                dispose();
-            } catch (Exception e) {
-                AlertaError err = new AlertaError("Error", e.getMessage());
-            }
-
-        } else {
-
-            DetalleProfesional detalle = new DetalleProfesional();
-    
-            detalle.setProfesional((Profesional) detalleC.obtenerdato(cbxProfesional.getSelectedIndex()));
-            detalle.setTipoProfesional((TipoProfesional) detalleC.obtenerdato(cbxTipo.getSelectedIndex()));
-            
-
-            try {
-                detalleC.modificar(detalle);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detalle de profesional");
-                FrmGestionarPais.listar("");
-                dispose();
-            } catch (Exception e) {
-                AlertaError err = new AlertaError("Error", e.getMessage());
-            }
-
-        }
     }
-
-    @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnGrabar = new javax.swing.JButton();
-        cbxProfesional = new javax.swing.JComboBox<>();
         cbxTipo = new javax.swing.JComboBox<>();
 
         setClosable(true);
@@ -151,10 +86,6 @@ public final class ModalRegistrarDetalleProfesional extends javax.swing.JInterna
 
         jPanel1.setBackground(new java.awt.Color(223, 235, 254));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Profesional *");
-
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Tipo Profesional*");
@@ -174,9 +105,6 @@ public final class ModalRegistrarDetalleProfesional extends javax.swing.JInterna
             }
         });
 
-        cbxProfesional.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxProfesional.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -184,34 +112,26 @@ public final class ModalRegistrarDetalleProfesional extends javax.swing.JInterna
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGap(15, 44, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
+                .addGap(63, 63, 63)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,17 +156,14 @@ public final class ModalRegistrarDetalleProfesional extends javax.swing.JInterna
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
-        idDetalle = 0;
-        vista = false;
+        idProfesional = 0;
 
     }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox<String> cbxProfesional;
     private javax.swing.JComboBox<String> cbxTipo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

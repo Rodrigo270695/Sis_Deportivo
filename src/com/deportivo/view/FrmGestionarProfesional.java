@@ -21,7 +21,7 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "SEUDÓNIMO", "PAÍS", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "SEUDÓNIMO", "PAÍS", "", "", "",""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -37,7 +37,7 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
             lista = profesionalC.buscar(texto);
         }
 
-        Object obj[] = new Object[7];
+        Object obj[] = new Object[8];
 
         for (int i = 0; i < lista.size(); i++) {
             profesional = (Profesional) lista.get(i);
@@ -64,6 +64,7 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
             obj[5] = botonEliminar;
+            
 
             ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
             Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -74,6 +75,15 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
             botonVer.setBackground(new Color(41, 143, 96));
             obj[6] = botonVer;
 
+            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd = new JButton("", btnAdd);
+            botonAdd.setName("btnAdd");
+            botonAdd.setToolTipText("AñadirTipo");
+            botonAdd.setBorder(null);
+            botonAdd.setBackground(new Color(25, 38, 49));
+            obj[7] = botonAdd;
+            
             modelo.addRow(obj);
 
         }
@@ -89,6 +99,7 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -170,12 +181,12 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 681, Short.MAX_VALUE))
+                        .addGap(0, 718, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -271,6 +282,14 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarProfesional());
                             ModalRegistrarProfesional.btnGrabar.setText("Modificar");
 
+                        }
+                    }
+                    case "btnAdd" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un profesional");
+                        } else {
+                            FrmGestionarDetalleProfesional.idProfesional = id;
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleProfesional());
                         }
                     }
                     case "btnVer" -> {
