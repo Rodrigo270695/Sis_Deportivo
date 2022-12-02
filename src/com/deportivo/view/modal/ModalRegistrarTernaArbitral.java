@@ -1,54 +1,38 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.CiudadController;
-import com.deportivo.controller.PaisController;
-import com.deportivo.model.Ciudad;
-import com.deportivo.model.Pais;
-import com.deportivo.view.FrmGestionarCiudad;
-import com.deportivo.view.FrmGestionarEvento;
-import com.deportivo.view.FrmGestionarPais;
-import com.deportivo.view.FrmMenuPrincipal;
-import com.deportivo.vista.modal.alerts.*;
-import java.util.List;
+import com.deportivo.controller.TernaArbitralController;
+import com.deportivo.model.TernaArbitral;
+import com.deportivo.view.FrmGestionarTernaArbitral;
+import com.deportivo.vista.modal.alerts.Alerta;
+import com.deportivo.vista.modal.alerts.AlertaBien;
+import com.deportivo.vista.modal.alerts.AlertaError;
+import java.awt.Toolkit;
 
-public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
+public final class ModalRegistrarTernaArbitral extends javax.swing.JInternalFrame {
 
-    CiudadController ciudadC = new CiudadController();
-    PaisController paisC = new PaisController();
-    public static int idCiudad = 0;
+    TernaArbitralController ternaArbitralC = new TernaArbitralController();
+    public static int idTernaArbitral = 0;
     public static boolean vista = false;
 
-    public ModalRegistrarCiudad() {
+    public ModalRegistrarTernaArbitral() {
         initComponents();
-        cargarPaises();
         acciones();
     }
-
-    void cargarPaises() {
-
-        cbxPaises.removeAllItems();
-        List<Pais> lista = paisC.listar();
-
-        for (Pais pais : lista) {
-            cbxPaises.addItem(pais.getNombre());
-        }
-
-    }
-
+    
     void acciones() {
 
         if (vista) {
 
+           
             txtNombre.setEnabled(false);
-            cbxPaises.setEnabled(false);
             btnGrabar.setEnabled(false);
+
         }
 
-        if (idCiudad > 0) {
+        if (idTernaArbitral > 0) {
 
-            Ciudad ciudad = (Ciudad) ciudadC.obtenerdato(idCiudad);
-            cbxPaises.setSelectedItem(ciudad.getPais().getNombre());
-            txtNombre.setText(ciudad.getNombre_completo());
+            TernaArbitral ternaArbitral = (TernaArbitral) ternaArbitralC.obtenerdato(idTernaArbitral);
+            txtNombre.setText(ternaArbitral.getNombre());
 
         }
 
@@ -57,41 +41,41 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
     void grabar() {
 
         if (txtNombre.getText().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE COMPLETO es obligatorio");
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE es obligatorio");
             return;
         }
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
-            Ciudad ciudad = new Ciudad();
-            ciudad.setNombre_completo(txtNombre.getText().toUpperCase());
-            ciudad.setPais((Pais) paisC.obtenerdato(cbxPaises.getSelectedItem().toString()));
+            TernaArbitral ternaArbitral = new TernaArbitral();
+            ternaArbitral.setNombre(txtNombre.getText().toUpperCase());
+         
 
             try {
-                ciudadC.registrar(ciudad);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la ciudad");
-                FrmGestionarCiudad.listar("");
+                ternaArbitralC.registrar(ternaArbitral);
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Terna Arbitral");
+                FrmGestionarTernaArbitral.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        } else {
-
-            Ciudad ciudad = new Ciudad();
-            ciudad.setNombre_completo(txtNombre.getText().toUpperCase());
-            ciudad.setPais((Pais) paisC.obtenerdato(cbxPaises.getSelectedItem().toString()));
-            ciudad.setCiudad_id(idCiudad);
+        }else{
+            
+            TernaArbitral ternaArbitral = new TernaArbitral();
+            ternaArbitral.setNombre(txtNombre.getText().toUpperCase());
+           
+            ternaArbitral.setTerna_arbitral_id((int) idTernaArbitral);
 
             try {
-                ciudadC.modificar(ciudad);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la ciudad");
-                FrmGestionarCiudad.listar("");
+                ternaArbitralC.modificar(ternaArbitral);
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Terna Arbitral");
+                FrmGestionarTernaArbitral.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-
+            
         }
     }
 
@@ -103,13 +87,10 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        cbxPaises = new javax.swing.JComboBox<>();
-        btnRegistrarPais = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("REGISTRAR CIUDAD");
+        setTitle("REGISTRAR TERNA ARBITRAL ");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -134,13 +115,8 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Nombre* ");
 
-        txtNombre.setDescripcion("Ej. Doha");
+        txtNombre.setDescripcion("");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreKeyTyped(evt);
-            }
-        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -157,39 +133,21 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("País");
-
-        cbxPaises.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnRegistrarPais.setText("Registrar País");
-        btnRegistrarPais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarPaisActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRegistrarPais)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxPaises, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 65, Short.MAX_VALUE))))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,14 +157,8 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbxPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarPais))
-                .addGap(19, 19, 19))
+                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,45 +179,19 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
 
         grabar();
 
-
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-
-        idCiudad = 0;
+        
+        idTernaArbitral = 0;
         vista = false;
-
+        
     }//GEN-LAST:event_formInternalFrameClosed
-
-    private void btnRegistrarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPaisActionPerformed
-
-        try {
-
-            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
-
-        } catch (Exception e) {
-
-            e.printStackTrace(System.err);
-        }
-
-
-    }//GEN-LAST:event_btnRegistrarPaisActionPerformed
-
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-
-        
-        
-
-
-    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
-    private javax.swing.JButton btnRegistrarPais;
-    private javax.swing.JComboBox<String> cbxPaises;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre;
     // End of variables declaration//GEN-END:variables

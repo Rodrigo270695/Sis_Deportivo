@@ -394,12 +394,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        centrarVentana(new FrmGestionarTernaArbitral2());
+//        centrarVentana(new FrmGestionarTernaArbitral2());
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
 
-        centrarVentana(new FrmGestionarTipoTerna());
+//        centrarVentana(new FrmGestionarTipoTerna());
 
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 

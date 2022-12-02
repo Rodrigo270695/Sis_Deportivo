@@ -1,15 +1,22 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Continente;
-import com.deportivo.model.Pais;
+import com.deportivo.model.DetalleProfesional;
+import com.deportivo.model.Profesional;
+import com.deportivo.model.TipoProfesional;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.*;
-import java.util.*;
 import org.postgresql.util.PSQLException;
 
-public class PaisController implements CRUD {
+public class DetalleProfesionalController implements CRUD {
 
-    ContinenteController continenteC = new ContinenteController();
+    ProfesionalController profesionalC = new ProfesionalController();
+    TipoProfesionalController tipoP = new TipoProfesionalController();
+
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -20,7 +27,7 @@ public class PaisController implements CRUD {
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM pais ORDER BY pais_id DESC";
+        sql = "SELECT * FROM detalle_profesional ORDER BY profesional_id DESC";
 
         try {
 
@@ -29,12 +36,10 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-                lista.add(pais);
+                DetalleProfesional detallePro = new DetalleProfesional();
+                detallePro.setProfesional((Profesional) profesionalC.obtenerdato(rs.getInt(1)));
+                detallePro.setTipoProfesional((TipoProfesional) tipoP.obtenerdato(rs.getInt(2)));
+                lista.add(detallePro);
             }
 
         } catch (SQLException e) {
@@ -62,20 +67,20 @@ public class PaisController implements CRUD {
     @Override
     public void registrar(Object obj) throws Exception {
 
-        Pais pais = (Pais) obj;
-        sql = "INSERT INTO pais(nombre, codigo_iso, continente_id) VALUES(?,?,?)";
+        DetalleProfesional detallePro = (DetalleProfesional) obj;
+        sql = "INSERT INTO detalle_profesional(profesional_id, tipo_profesional_id) VALUES(?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pais.getNombre());
-            ps.setString(2, pais.getAbreviatura());
-            ps.setInt(3, pais.getContinente().getContinenteId());
+
+            ps.setInt(1, detallePro.getProfesional().getProfesional_id());
+            ps.setInt(2, detallePro.getTipoProfesional().getTipoProfesionalId());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el País");
+            throw new Exception("Ya existe el Detalle de Profesional");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -96,21 +101,19 @@ public class PaisController implements CRUD {
     @Override
     public void modificar(Object obj) throws Exception {
 
-        Pais pais = (Pais) obj;
-        sql = "UPDATE pais SET nombre=?, codigo_iso=?, continente_id=? WHERE pais_id = ?";
+        DetalleProfesional detallePro = (DetalleProfesional) obj;
+        sql = "UPDATE detalle_profesional SET tipo_profesional_id=? WHERE profesional_id=?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pais.getNombre());
-            ps.setString(2, pais.getAbreviatura());
-            ps.setInt(3, pais.getContinente().getContinenteId());
-            ps.setInt(4, pais.getPaisId());
+            ps.setInt(1, detallePro.getTipoProfesional().getTipoProfesionalId());
+            ps.setInt(2, detallePro.getProfesional().getProfesional_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el País");
+            throw new Exception("Ya existe el Detalle de Profesional");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -130,8 +133,8 @@ public class PaisController implements CRUD {
 
     @Override
     public void eliminar(int id) throws Exception {
-        
-        sql = "DELETE FROM pais WHERE pais_id = ?";
+
+        sql = "DELETE FROM detalle_profesional WHERE profesional_id = ?";
 
         try {
 
@@ -142,7 +145,7 @@ public class PaisController implements CRUD {
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El PAÍS no se puede eliminar, porque está siendo USADO");
+            throw new Exception("El detalle de profesional no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -157,14 +160,14 @@ public class PaisController implements CRUD {
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public Object obtenerdato(int id) {
 
-        Pais pais = new Pais();
-        sql = "SELECT * FROM pais WHERE pais_id = " + id;
+        DetalleProfesional detallePro = new DetalleProfesional();
+        sql = "SELECT * FROM detalle_profesional WHERE profesional_id = " + id;
 
         try {
 
@@ -173,10 +176,9 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
+
+                detallePro.setProfesional((Profesional) profesionalC.obtenerdato(rs.getInt(1)));
+                detallePro.setTipoProfesional((TipoProfesional) tipoP.obtenerdato(rs.getInt(2)));
             }
 
         } catch (SQLException e) {
@@ -197,7 +199,7 @@ public class PaisController implements CRUD {
             }
         }
 
-        return pais;
+        return detallePro;
 
     }
 
@@ -205,11 +207,11 @@ public class PaisController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "SELECT pa.pais_id, pa.nombre, pa.codigo_iso, pa.continente_id FROM pais pa\n "
-                + "INNER JOIN continente co ON pa.continente_id = co.continente_id\n "
-                + "WHERE pa.nombre LIKE '%"+obj+"%' \n"
-                + "OR pa.abreviatura LIKE '%"+obj+"%' \n"
-                + "OR co.nombre LIKE '%"+obj+"%'";
+        sql = "select pro.nombre_completo , tipo.nombre from detalle_profesional as de inner join \n"
+                + "profesional as pro on de.profesional_id = pro.profesional_id\n"
+                + "inner join tipo_profesional as tipo on de.tipo_profesional_id= tipo.tipo_profesional_id\n"
+                + "where pro.nombre_completo LIKE '%" + obj + "%'\n"
+                + "OR tipo.nombre LIKE '%" + obj + "%'";
 
         try {
 
@@ -218,12 +220,10 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-                lista.add(pais);
+                DetalleProfesional detallePro = new DetalleProfesional();
+                detallePro.setProfesional((Profesional) profesionalC.obtenerdato(rs.getInt(1)));
+                detallePro.setTipoProfesional((TipoProfesional) tipoP.obtenerdato(rs.getInt(2)));
+                lista.add(detallePro);
             }
 
         } catch (SQLException e) {
@@ -247,45 +247,45 @@ public class PaisController implements CRUD {
         return lista;
 
     }
-    
-    public Object obtenerdato(String nombre) {
 
-        Pais pais = new Pais();
-        sql = "SELECT * FROM pais WHERE nombre = '"+nombre+"'";
-
-        try {
-
-            con = estado.conectar();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace(System.err);
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.err);
-            }
-        }
-
-        return pais;
-
-    }
+//    public Object obtenerdato(String nombre) {
+//
+//        DetalleProfesional detallePro = new DetalleProfesional();
+//        sql = "SELECT * FROM detalle_profesional WHERE nombre = '" + nombre + "'";
+//
+//        try {
+//
+//            con = estado.conectar();
+//            ps = con.prepareStatement(sql);
+//            rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                pais.setPaisId(rs.getInt(1));
+//                pais.setNombre(rs.getString(2));
+//                pais.setAbreviatura(rs.getString(3));
+//                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace(System.err);
+//        } finally {
+//            try {
+//                if (con != null) {
+//                    con.close();
+//                }
+//                if (ps != null) {
+//                    ps.close();
+//                }
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//            } catch (SQLException ex) {
+//                ex.printStackTrace(System.err);
+//            }
+//        }
+//
+//        return pais;
+//
+//    }
 
 }

@@ -1,47 +1,47 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.PosicionController;
-import com.deportivo.model.Posicion;
+import com.deportivo.controller.TipoJugadorController;
+import com.deportivo.model.TipoJugador;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarPosicion;
+import com.deportivo.view.modal.ModalRegistrarTipoJugador;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
+public class FrmGestionarTipoJugador extends javax.swing.JInternalFrame {
 
-    public static PosicionController posicionC = new PosicionController();
+    public static TipoJugadorController tipoJugadorC = new TipoJugadorController();
     
-    public FrmGestionarPosicion() {
+    public FrmGestionarTipoJugador() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "DESCRIPCIÓN","ABREVIATURA", "", "", ""};
+        String columas[] = {"#", "DESCRIPCIÓN","SIGLA", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        Posicion posicion;
+        TipoJugador tipoJugador;
         List lista;
         if (txtBuscar.getText().length() == 0) {
-            lista = posicionC.listar();
+            lista = tipoJugadorC.listar();
         } else {
-            lista = posicionC.buscar(texto);
+            lista = tipoJugadorC.buscar(texto);
         }
         Object obj[] = new Object[6];
 
         for (int i = 0; i < lista.size(); i++) {
-            posicion = (Posicion) lista.get(i);
-            obj[0] = posicion.getPosicionId();
-            obj[1] = posicion.getDescripcion();
-            obj[2] = posicion.getAbreviatura();
+            tipoJugador = (TipoJugador) lista.get(i);
+            obj[0] = tipoJugador.getTipo_jugador_id();
+            obj[1] = tipoJugador.getDescripcion();
+            obj[2] = tipoJugador.getSigla();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -212,7 +212,7 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarPosicion frm = new ModalRegistrarPosicion();
+        ModalRegistrarTipoJugador frm = new ModalRegistrarTipoJugador();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,16 +236,16 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un tipoJugador");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al posicion " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al Tipo de Jugador " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
-                                    posicionC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    tipoJugadorC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Tipo de Jugador eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -259,22 +259,22 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Tipo de Jugador");
                         } else {
 
-                            ModalRegistrarPosicion.idPosicion = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPosicion());
-                            ModalRegistrarPosicion.btnGrabar.setText("Modificar");
+                            ModalRegistrarTipoJugador.idTipoJugador = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoJugador());
+                            ModalRegistrarTipoJugador.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Tipo de Jugador");
                         } else {
-                            ModalRegistrarPosicion.vista = true;
-                            ModalRegistrarPosicion.idPosicion = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPosicion());
+                            ModalRegistrarTipoJugador.vista = true;
+                            ModalRegistrarTipoJugador.idTipoJugador = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTipoJugador());
                         }
                     }
                 }

@@ -1,47 +1,51 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.TernaArbitral2Controller;
-import com.deportivo.model.TernaArbitral2;
+import com.deportivo.controller.DetalleProfesionalController;
+import com.deportivo.controller.PaisController;
+import com.deportivo.model.DetalleProfesional;
+import com.deportivo.model.Pais;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarTernaArbitral2;
+import com.deportivo.view.modal.ModalRegistrarDetalleProfesional;
+import com.deportivo.view.modal.ModalRegistrarPais;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
+public class FrmGestionarDetalleProfesional extends javax.swing.JInternalFrame {
 
-    public static TernaArbitral2Controller ternaArbitral2C = new TernaArbitral2Controller();
-    
-    public FrmGestionarTernaArbitral2() {
+    public static DetalleProfesionalController detalleC = new DetalleProfesionalController();
+
+    public FrmGestionarDetalleProfesional() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "ESTADO", "", "", ""};
-        DefaultTableModel modelo = new DefaultTableModel();
+        String columas[] = {"PROFESIONAL", "TIPO PROFESIONAL", "", "", ""};
+        DefaultTableModel modelo =  new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        TernaArbitral2 ternaArbitral2;
+        DetalleProfesional detallePro;
         List lista;
         if (txtBuscar.getText().length() == 0) {
-            lista = ternaArbitral2C.listar();
+            lista = detalleC.listar();
         } else {
-            lista = ternaArbitral2C.buscar(texto);
+            lista = detalleC.buscar(texto);
         }
-        Object obj[] = new Object[6];
+        Object obj[] = new Object[5];
 
         for (int i = 0; i < lista.size(); i++) {
-            ternaArbitral2 = (TernaArbitral2) lista.get(i);
-            obj[0] = ternaArbitral2.getTernaArbitral2Id();
-            obj[1] = ternaArbitral2.getNombre();
-            obj[2] = ternaArbitral2.getEstado();
+            detallePro = (DetalleProfesional) lista.get(i);
+          
+            obj[0] = detallePro.getProfesional().getNombre_completo();
+            obj[1] = detallePro.getTipoProfesional().getNombre();
+            
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -50,7 +54,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
             botonModificar.setToolTipText("modificar");
             botonModificar.setBorder(null);
             botonModificar.setBackground(new Color(255, 198, 26));
-            obj[3] = botonModificar;
+            obj[2] = botonModificar;
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -59,7 +63,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[4] = botonEliminar;
+            obj[3] = botonEliminar;
 
             ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
             Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -68,7 +72,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
             botonVer.setToolTipText("vista del registro");
             botonVer.setBorder(null);
             botonVer.setBackground(new Color(41, 143, 96));
-            obj[5] = botonVer;
+            obj[4] = botonVer;
 
             modelo.addRow(obj);
 
@@ -78,12 +82,11 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(500);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(500);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -104,7 +107,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR TERNA ARBITRAL");
+        setTitle("GESTIONAR DETALLE PROFESIONAL");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -149,7 +152,6 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
 
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
-        btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setOpaque(true);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -163,21 +165,23 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal)
-                        .addGap(0, 733, Short.MAX_VALUE))
+                        .addComponent(lblTotal))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,8 +192,8 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblTotal))
@@ -212,7 +216,7 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarTernaArbitral2 frm = new ModalRegistrarTernaArbitral2();
+        ModalRegistrarDetalleProfesional frm = new ModalRegistrarDetalleProfesional();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,16 +240,16 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar unTernaArbitral2");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al ternaArbitral2 " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Profesional " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
-                                    ternaArbitral2C.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    detalleC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Profesional eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -259,22 +263,22 @@ public class FrmGestionarTernaArbitral2 extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ternaArbitral2");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Detalle Profesional");
                         } else {
 
-                            ModalRegistrarTernaArbitral2.idTernaArbitral = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTernaArbitral2());
-                            ModalRegistrarTernaArbitral2.btnGrabar.setText("Modificar");
+                            ModalRegistrarPais.idPais = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
+                            ModalRegistrarPais.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ternaArbitral2");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Detalle Profesional");
                         } else {
-                            ModalRegistrarTernaArbitral2.vista = true;
-                            ModalRegistrarTernaArbitral2.idTernaArbitral = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarTernaArbitral2());
+                            ModalRegistrarPais.vista = true;
+                            ModalRegistrarPais.idPais = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
                         }
                     }
                 }

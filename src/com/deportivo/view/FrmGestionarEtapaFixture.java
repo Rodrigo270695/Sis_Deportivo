@@ -1,47 +1,47 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.PosicionController;
-import com.deportivo.model.Posicion;
+import com.deportivo.controller.EtapaFixtureController;
+import com.deportivo.model.EtapaFixture;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarPosicion;
+import com.deportivo.view.modal.ModalRegistrarEtapaFixture;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
+public class FrmGestionarEtapaFixture extends javax.swing.JInternalFrame {
 
-    public static PosicionController posicionC = new PosicionController();
-    
-    public FrmGestionarPosicion() {
+    public static EtapaFixtureController etapFixC = new EtapaFixtureController();
+
+    public FrmGestionarEtapaFixture() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "DESCRIPCIÓN","ABREVIATURA", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "CONTINENTE", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        Posicion posicion;
+        EtapaFixture etapa;
         List lista;
         if (txtBuscar.getText().length() == 0) {
-            lista = posicionC.listar();
+            lista = etapFixC.listar();
         } else {
-            lista = posicionC.buscar(texto);
+            lista = etapFixC.buscar(texto);
         }
         Object obj[] = new Object[6];
 
         for (int i = 0; i < lista.size(); i++) {
-            posicion = (Posicion) lista.get(i);
-            obj[0] = posicion.getPosicionId();
-            obj[1] = posicion.getDescripcion();
-            obj[2] = posicion.getAbreviatura();
+            etapa = (EtapaFixture) lista.get(i);
+            obj[0] = etapa.getEtapa_fixture_id();
+            obj[1] = etapa.getDescripcion();
+            obj[2] = etapa.getFixtureId().getNombre();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -79,8 +79,8 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(400);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(160);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
@@ -104,7 +104,7 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR POSICIÓN");
+        setTitle("GESTIONAR PAIS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -149,7 +149,6 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
 
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
-        btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setOpaque(true);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -165,12 +164,12 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 612, Short.MAX_VALUE))
+                        .addGap(0, 735, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -188,7 +187,7 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -212,7 +211,7 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarPosicion frm = new ModalRegistrarPosicion();
+        ModalRegistrarEtapaFixture frm = new ModalRegistrarEtapaFixture();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,16 +235,16 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al posicion " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar la Etaoa Fixture " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
-                                    posicionC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    etapFixC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Etapa Fixture eliminada correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -259,22 +258,22 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
 
-                            ModalRegistrarPosicion.idPosicion = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPosicion());
-                            ModalRegistrarPosicion.btnGrabar.setText("Modificar");
+                            ModalRegistrarEtapaFixture.idEtapaFix = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEtapaFixture());
+                            ModalRegistrarEtapaFixture.btnGrabar.setText("Modificar");
 
                         }
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
-                            ModalRegistrarPosicion.vista = true;
-                            ModalRegistrarPosicion.idPosicion = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPosicion());
+                            ModalRegistrarEtapaFixture.vista = true;
+                            ModalRegistrarEtapaFixture.idEtapaFix = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEtapaFixture());
                         }
                     }
                 }

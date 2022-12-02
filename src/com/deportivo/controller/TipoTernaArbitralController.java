@@ -1,13 +1,16 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Continente;
-import java.sql.*;
+import com.deportivo.model.TipoTernaArbitral;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class ContinenteController implements CRUD {
+public class TipoTernaArbitralController implements CRUD {
 
     Conexion estado = new Conexion();
     Connection con;
@@ -19,7 +22,7 @@ public class ContinenteController implements CRUD {
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM continente ORDER BY continente_id DESC";
+        sql = "SELECT * FROM tipo_terna_arbitral ORDER BY tipo_terna_arbitral_id DESC";
 
         try {
 
@@ -28,11 +31,10 @@ public class ContinenteController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Continente continente = new Continente();
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
-                lista.add(continente);
+                TipoTernaArbitral tipoTernaArbitral = new TipoTernaArbitral();
+                tipoTernaArbitral.setTipo_terna_arbitral_id(rs.getInt(1));
+                tipoTernaArbitral.setDescripcion(rs.getString(2));
+                lista.add(tipoTernaArbitral);
             }
 
         } catch (SQLException e) {
@@ -54,19 +56,18 @@ public class ContinenteController implements CRUD {
     @Override
     public void registrar(Object obj) throws Exception {
 
-        Continente continente = (Continente) obj;
-        sql = "INSERT INTO continente(nombre, abreviatura) VALUES(?,?)";
+        TipoTernaArbitral tipoTernaArbitral = (TipoTernaArbitral) obj;
+        sql = "INSERT INTO tipo_terna_arbitral(descripcion) VALUES(?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, continente.getNombre());
-            ps.setString(2, continente.getAbreviatura());
+            ps.setString(1, tipoTernaArbitral.getDescripcion());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el continente");
+            throw new Exception("Ya existe el Tipo de Terna Arbitral");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -83,20 +84,19 @@ public class ContinenteController implements CRUD {
     @Override
     public void modificar(Object obj) throws Exception {
 
-        Continente continente = (Continente) obj;
-        sql = "UPDATE continente SET nombre=?, abreviatura=? WHERE continente_id = ?";
+        TipoTernaArbitral tipoTernaArbitral = (TipoTernaArbitral) obj;
+        sql = "UPDATE tipo_terna_arbitral SET descripcion=? WHERE tipo_terna_arbitral_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, continente.getNombre());
-            ps.setString(2, continente.getAbreviatura());
-            ps.setInt(3, continente.getContinenteId());
+            ps.setString(1, tipoTernaArbitral.getDescripcion());
+            ps.setInt(2, tipoTernaArbitral.getTipo_terna_arbitral_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el continente");
+            throw new Exception("Ya existe el Tipo de Terna Arbitral");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -113,7 +113,7 @@ public class ContinenteController implements CRUD {
     @Override
     public void eliminar(int id) throws Exception {
 
-        sql = "DELETE FROM continente WHERE continente_id = ?";
+        sql = "DELETE FROM tipo_terna_arbitral WHERE tipo_terna_arbitral_id = ?";
 
         try {
 
@@ -124,7 +124,7 @@ public class ContinenteController implements CRUD {
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El continente no se puede eliminar, porque está siendo USADO");
+            throw new Exception("El Tipo de Terna Arbitral no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -141,8 +141,8 @@ public class ContinenteController implements CRUD {
     @Override
     public Object obtenerdato(int id) {
 
-        Continente continente = new Continente();
-        sql = "SELECT * FROM continente WHERE continente_id = " + id;
+        TipoTernaArbitral tipoTernaArbitral = new TipoTernaArbitral();
+        sql = "SELECT * FROM tipo_terna_arbitral WHERE tipo_terna_arbitral_id = " + id;
 
         try {
 
@@ -151,9 +151,9 @@ public class ContinenteController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
+                tipoTernaArbitral.setTipo_terna_arbitral_id(rs.getInt(1));
+                tipoTernaArbitral.setDescripcion(rs.getString(2));
+
             }
 
         } catch (SQLException e) {
@@ -168,28 +168,26 @@ public class ContinenteController implements CRUD {
             }
         }
 
-        return continente;
+        return tipoTernaArbitral;
     }
 
     @Override
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = " select * from continente where nombre like '%" + obj + "%'";
+        sql = "SELECT * FROM tipo_terna_arbitral WHERE descripcion LIKE '%" + obj + "%'";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Continente continente = new Continente();
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
-                lista.add(continente);
+                TipoTernaArbitral tipoTernaArbitral = new TipoTernaArbitral();
+                tipoTernaArbitral.setTipo_terna_arbitral_id(rs.getInt(1));
+                tipoTernaArbitral.setDescripcion(rs.getString(2));
+                lista.add(tipoTernaArbitral);
             }
 
         } catch (SQLException e) {
@@ -210,8 +208,8 @@ public class ContinenteController implements CRUD {
 
     public Object obtenerdato(String nombre) {
 
-        Continente continente = new Continente();
-        sql = "SELECT * FROM continente WHERE nombre = '" + nombre + "'";
+        TipoTernaArbitral tipoTernaArbitral = new TipoTernaArbitral();
+        sql = "SELECT * FROM tipo_terna_arbitral WHERE descripcion = '" + nombre + "'";
 
         try {
 
@@ -220,9 +218,9 @@ public class ContinenteController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
+                tipoTernaArbitral.setTipo_terna_arbitral_id(rs.getInt(1));
+                tipoTernaArbitral.setDescripcion(rs.getString(2));
+              
             }
 
         } catch (SQLException e) {
@@ -237,7 +235,7 @@ public class ContinenteController implements CRUD {
             }
         }
 
-        return continente;
+        return tipoTernaArbitral;
     }
 
 }

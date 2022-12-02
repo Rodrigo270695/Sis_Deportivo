@@ -1,13 +1,16 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Continente;
-import java.sql.*;
+import com.deportivo.model.Fixture;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class ContinenteController implements CRUD {
+public class FixtureController implements CRUD {
 
     Conexion estado = new Conexion();
     Connection con;
@@ -19,7 +22,7 @@ public class ContinenteController implements CRUD {
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM continente ORDER BY continente_id DESC";
+        sql = "SELECT * FROM fixture ORDER BY fixture_id DESC";
 
         try {
 
@@ -28,11 +31,11 @@ public class ContinenteController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Continente continente = new Continente();
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
-                lista.add(continente);
+                Fixture fixture = new Fixture();
+                fixture.setFixture_id(rs.getInt(1));
+                fixture.setNombre(rs.getString(2));
+
+                lista.add(fixture);
             }
 
         } catch (SQLException e) {
@@ -54,19 +57,18 @@ public class ContinenteController implements CRUD {
     @Override
     public void registrar(Object obj) throws Exception {
 
-        Continente continente = (Continente) obj;
-        sql = "INSERT INTO continente(nombre, abreviatura) VALUES(?,?)";
+        Fixture fixture = (Fixture) obj;
+        sql = "INSERT INTO fixture(nombre) VALUES(?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, continente.getNombre());
-            ps.setString(2, continente.getAbreviatura());
+            ps.setString(1, fixture.getNombre());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el continente");
+            throw new Exception("Ya existe el Fixture");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -83,20 +85,19 @@ public class ContinenteController implements CRUD {
     @Override
     public void modificar(Object obj) throws Exception {
 
-        Continente continente = (Continente) obj;
-        sql = "UPDATE continente SET nombre=?, abreviatura=? WHERE continente_id = ?";
+        Fixture fixture = (Fixture) obj;
+        sql = "UPDATE fixture SET nombre=? WHERE fixture_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, continente.getNombre());
-            ps.setString(2, continente.getAbreviatura());
-            ps.setInt(3, continente.getContinenteId());
+            ps.setString(1, fixture.getNombre());
+            ps.setInt(2, fixture.getFixture_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el continente");
+            throw new Exception("Ya existe el fixture");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -113,7 +114,7 @@ public class ContinenteController implements CRUD {
     @Override
     public void eliminar(int id) throws Exception {
 
-        sql = "DELETE FROM continente WHERE continente_id = ?";
+        sql = "DELETE FROM fixture WHERE fixture_id = ?";
 
         try {
 
@@ -124,7 +125,7 @@ public class ContinenteController implements CRUD {
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El continente no se puede eliminar, porque está siendo USADO");
+            throw new Exception("El Fixture no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -141,8 +142,8 @@ public class ContinenteController implements CRUD {
     @Override
     public Object obtenerdato(int id) {
 
-        Continente continente = new Continente();
-        sql = "SELECT * FROM continente WHERE continente_id = " + id;
+        Fixture fixture = new Fixture();
+        sql = "SELECT * FROM fixture WHERE fixture_id = " + id;
 
         try {
 
@@ -151,9 +152,9 @@ public class ContinenteController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
+                fixture.setFixture_id(rs.getInt(1));
+                fixture.setNombre(rs.getString(2));
+
             }
 
         } catch (SQLException e) {
@@ -168,28 +169,27 @@ public class ContinenteController implements CRUD {
             }
         }
 
-        return continente;
+        return fixture;
     }
 
     @Override
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = " select * from continente where nombre like '%" + obj + "%'";
+        sql = "SELECT * FROM fixture WHERE nombre LIKE '%" + obj + "%' ";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Continente continente = new Continente();
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
-                lista.add(continente);
+                Fixture fixture = new Fixture();
+                fixture.setFixture_id(rs.getInt(1));
+                fixture.setNombre(rs.getString(2));
+
+                lista.add(fixture);
             }
 
         } catch (SQLException e) {
@@ -207,11 +207,12 @@ public class ContinenteController implements CRUD {
         return lista;
 
     }
-
-    public Object obtenerdato(String nombre) {
-
-        Continente continente = new Continente();
-        sql = "SELECT * FROM continente WHERE nombre = '" + nombre + "'";
+    
+    
+       public Object obtenerdato(String nombre) {
+        
+        Fixture fixture = new Fixture();
+        sql = "SELECT * FROM fixture WHERE nombre = '"+nombre+"'";
 
         try {
 
@@ -220,9 +221,9 @@ public class ContinenteController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                continente.setContinenteId(rs.getByte(1));
-                continente.setNombre(rs.getString(2));
-                continente.setAbreviatura(rs.getString(3));
+                fixture.setFixture_id(rs.getByte(1));
+                fixture.setNombre(rs.getString(2));
+                
             }
 
         } catch (SQLException e) {
@@ -237,7 +238,7 @@ public class ContinenteController implements CRUD {
             }
         }
 
-        return continente;
+        return fixture;
     }
 
 }

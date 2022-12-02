@@ -31,8 +31,8 @@ public class PosicionController implements CRUD{
             while (rs.next()) {
                 Posicion posicion = new Posicion();
                 posicion.setPosicionId(rs.getInt(1));
-                posicion.setAbreviatura(rs.getString(2));
-                posicion.setDescripcion(rs.getString(3));
+                posicion.setDescripcion(rs.getString(2));
+                posicion.setAbreviatura(rs.getString(3));
                 lista.add(posicion);
             }
 
@@ -56,14 +56,14 @@ public class PosicionController implements CRUD{
     public void registrar(Object obj) throws Exception {
         
         Posicion posicion = (Posicion) obj;
-        sql = "INSERT INTO posicion(abreviatura,descripcion) VALUES(?,?)";
+        sql = "INSERT INTO posicion(descripcion,abreviatura) VALUES(?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, posicion.getAbreviatura());
-            ps.setString(2, posicion.getDescripcion());
+            ps.setString(1, posicion.getDescripcion());
+            ps.setString(2, posicion.getAbreviatura());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
@@ -85,14 +85,14 @@ public class PosicionController implements CRUD{
     public void modificar(Object obj) throws Exception {
         
         Posicion posicion = (Posicion) obj;
-        sql = "UPDATE posicion SET abreviatura=?,descripcion=? WHERE posicion_id = ?";
+        sql = "UPDATE posicion SET descripcion=?,abreviatura=? WHERE posicion_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, posicion.getAbreviatura());
-            ps.setString(2, posicion.getDescripcion());
+            ps.setString(1, posicion.getDescripcion());
+            ps.setString(2, posicion.getAbreviatura());
             ps.setInt(3, posicion.getPosicionId());
             ps.executeUpdate();
 
@@ -152,8 +152,8 @@ public class PosicionController implements CRUD{
 
             if (rs.next()) {
                 posicion.setPosicionId(rs.getInt(1));
-                posicion.setAbreviatura(rs.getString(2));
-                posicion.setDescripcion(rs.getString(3));
+                posicion.setDescripcion(rs.getString(2));
+                posicion.setAbreviatura(rs.getString(3));
             }
 
         } catch (SQLException e) {
@@ -187,8 +187,8 @@ public class PosicionController implements CRUD{
             while (rs.next()) {
                 Posicion posicion = new Posicion();
                 posicion.setPosicionId(rs.getInt(1));
-                posicion.setAbreviatura(rs.getString(2));
-                posicion.setDescripcion(rs.getString(3));
+                posicion.setDescripcion(rs.getString(2));
+                posicion.setAbreviatura(rs.getString(3));
                 lista.add(posicion);
             }
 

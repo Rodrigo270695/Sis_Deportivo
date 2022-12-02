@@ -1,15 +1,16 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Continente;
-import com.deportivo.model.Pais;
+import com.deportivo.model.CategoriaArbitro;
+import com.deportivo.model.TipoTernaArbitral;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.postgresql.util.PSQLException;
 
-public class PaisController implements CRUD {
+public class CategoriaArbitroController implements CRUD {
 
-    ContinenteController continenteC = new ContinenteController();
+    TipoTernaArbitralController tipoTA = new TipoTernaArbitralController();
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -20,7 +21,7 @@ public class PaisController implements CRUD {
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM pais ORDER BY pais_id DESC";
+        sql = "SELECT * FROM categoria_arbitro ORDER BY categoria_arbitro_id DESC";
 
         try {
 
@@ -29,12 +30,12 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-                lista.add(pais);
+                CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
+                categoriaArbitro.setCategoria_arbitro_id(rs.getInt(1));
+                categoriaArbitro.setNombre(rs.getString(2));
+                categoriaArbitro.setSigla(rs.getString(3));
+                categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTA.obtenerdato(rs.getInt(4)));
+                lista.add(categoriaArbitro);
             }
 
         } catch (SQLException e) {
@@ -62,20 +63,21 @@ public class PaisController implements CRUD {
     @Override
     public void registrar(Object obj) throws Exception {
 
-        Pais pais = (Pais) obj;
-        sql = "INSERT INTO pais(nombre, codigo_iso, continente_id) VALUES(?,?,?)";
+        CategoriaArbitro categoriaArbitro = (CategoriaArbitro) obj;
+        sql = "INSERT INTO categoria_arbitro(nombre,sigla, tipo_terna_arbitral_id) VALUES(?,?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pais.getNombre());
-            ps.setString(2, pais.getAbreviatura());
-            ps.setInt(3, pais.getContinente().getContinenteId());
+            ps.setString(1, categoriaArbitro.getNombre());
+            ps.setString(2, categoriaArbitro.getSigla());
+            ps.setInt(3, categoriaArbitro.getTipoTA().getTipo_terna_arbitral_id());
+
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el País");
+            throw new Exception("Ya existe la Categoriade Arbitro");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -96,22 +98,23 @@ public class PaisController implements CRUD {
     @Override
     public void modificar(Object obj) throws Exception {
 
-        Pais pais = (Pais) obj;
-        sql = "UPDATE pais SET nombre=?, codigo_iso=?, continente_id=? WHERE pais_id = ?";
+        CategoriaArbitro categoriaArbitro = (CategoriaArbitro) obj;
+        sql = "UPDATE categoria_arbitro SET nombre=?,sigla=?, tipo_terna_arbitral_id=? WHERE categoria_arbitro_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pais.getNombre());
-            ps.setString(2, pais.getAbreviatura());
-            ps.setInt(3, pais.getContinente().getContinenteId());
-            ps.setInt(4, pais.getPaisId());
+            ps.setString(1, categoriaArbitro.getNombre());
+            ps.setString(2, categoriaArbitro.getSigla());
+            ps.setInt(3, categoriaArbitro.getTipoTA().getTipo_terna_arbitral_id());
+            ps.setInt(4, categoriaArbitro.getCategoria_arbitro_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el País");
+            throw new Exception("Ya existe la Categoria de Arbitro");
         } catch (SQLException e) {
+
             e.printStackTrace(System.err);
         } finally {
             try {
@@ -130,8 +133,8 @@ public class PaisController implements CRUD {
 
     @Override
     public void eliminar(int id) throws Exception {
-        
-        sql = "DELETE FROM pais WHERE pais_id = ?";
+
+        sql = "DELETE FROM categoria_arbitro WHERE categoria_arbitro_id = ?";
 
         try {
 
@@ -142,7 +145,7 @@ public class PaisController implements CRUD {
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El PAÍS no se puede eliminar, porque está siendo USADO");
+            throw new Exception("La Categoría de Árbitro no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -157,14 +160,14 @@ public class PaisController implements CRUD {
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public Object obtenerdato(int id) {
 
-        Pais pais = new Pais();
-        sql = "SELECT * FROM pais WHERE pais_id = " + id;
+        CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
+        sql = "SELECT * FROM categoria_arbitro WHERE categoria_arbitro_id = " + id;
 
         try {
 
@@ -173,10 +176,10 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
+                categoriaArbitro.setCategoria_arbitro_id(rs.getInt(1));
+                categoriaArbitro.setNombre(rs.getString(2));
+                categoriaArbitro.setSigla(rs.getString(3));
+                categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTA.obtenerdato(rs.getInt(4)));
             }
 
         } catch (SQLException e) {
@@ -197,7 +200,7 @@ public class PaisController implements CRUD {
             }
         }
 
-        return pais;
+        return categoriaArbitro;
 
     }
 
@@ -205,11 +208,10 @@ public class PaisController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "SELECT pa.pais_id, pa.nombre, pa.codigo_iso, pa.continente_id FROM pais pa\n "
-                + "INNER JOIN continente co ON pa.continente_id = co.continente_id\n "
-                + "WHERE pa.nombre LIKE '%"+obj+"%' \n"
-                + "OR pa.abreviatura LIKE '%"+obj+"%' \n"
-                + "OR co.nombre LIKE '%"+obj+"%'";
+        sql = "select ca.categoria_arbitro_id, ca.nombre, ca.sigla, tipo.descripcion \n"
+                + "from categoria_arbitro as ca inner join tipo_terna_arbitral as tipo\n"
+                + " on ca.tipo_terna_arbitral_id = tipo.tipo_terna_arbitral_id\n"
+                + " where ca.nombre like '%" + obj + "%'OR ca.sigla like '%" + obj + "%' or tipo.descripcion like '%" + obj + "%'";
 
         try {
 
@@ -218,12 +220,12 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-                lista.add(pais);
+                CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
+                categoriaArbitro.setCategoria_arbitro_id(rs.getInt(1));
+                categoriaArbitro.setNombre(rs.getString(2));
+                categoriaArbitro.setSigla(rs.getString(2));
+                categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTA.obtenerdato(rs.getString(4)));
+                lista.add(categoriaArbitro);
             }
 
         } catch (SQLException e) {
@@ -247,11 +249,11 @@ public class PaisController implements CRUD {
         return lista;
 
     }
-    
+
     public Object obtenerdato(String nombre) {
 
-        Pais pais = new Pais();
-        sql = "SELECT * FROM pais WHERE nombre = '"+nombre+"'";
+        CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
+        sql = "SELECT * FROM categoria_arbitro WHERE nombre = '" + nombre + "'";
 
         try {
 
@@ -260,10 +262,10 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
+                categoriaArbitro.setCategoria_arbitro_id(rs.getInt(1));
+                categoriaArbitro.setNombre(rs.getString(2));
+                categoriaArbitro.setSigla(rs.getString(3));
+                categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTA.obtenerdato(rs.getInt(4)));
             }
 
         } catch (SQLException e) {
@@ -284,7 +286,7 @@ public class PaisController implements CRUD {
             }
         }
 
-        return pais;
+        return categoriaArbitro;
 
     }
 

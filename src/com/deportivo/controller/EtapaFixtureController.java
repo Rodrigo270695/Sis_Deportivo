@@ -1,15 +1,16 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.Continente;
-import com.deportivo.model.Pais;
+import com.deportivo.model.EtapaFixture;
+import com.deportivo.model.Fixture;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.postgresql.util.PSQLException;
 
-public class PaisController implements CRUD {
+public class EtapaFixtureController implements CRUD {
 
-    ContinenteController continenteC = new ContinenteController();
+    FixtureController fixtureC = new FixtureController();
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -20,7 +21,7 @@ public class PaisController implements CRUD {
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM pais ORDER BY pais_id DESC";
+        sql = "SELECT * FROM etapa_fixture ORDER BY etapa_fixture_id DESC";
 
         try {
 
@@ -29,12 +30,11 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-                lista.add(pais);
+                EtapaFixture etapaFix = new EtapaFixture();
+                etapaFix.setEtapa_fixture_id(rs.getInt(1));
+                etapaFix.setDescripcion(rs.getString(2));
+                etapaFix.setFixtureId((Fixture) fixtureC.obtenerdato(rs.getInt(3)));
+                lista.add(etapaFix);
             }
 
         } catch (SQLException e) {
@@ -62,20 +62,19 @@ public class PaisController implements CRUD {
     @Override
     public void registrar(Object obj) throws Exception {
 
-        Pais pais = (Pais) obj;
-        sql = "INSERT INTO pais(nombre, codigo_iso, continente_id) VALUES(?,?,?)";
+        EtapaFixture etapaFix = (EtapaFixture) obj;
+        sql = "INSERT INTO etapa_fixture(descripcion, fixture_id) VALUES(?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pais.getNombre());
-            ps.setString(2, pais.getAbreviatura());
-            ps.setInt(3, pais.getContinente().getContinenteId());
+            ps.setString(1, etapaFix.getDescripcion());
+            ps.setInt(2, etapaFix.getFixtureId().getFixture_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el País");
+            throw new Exception("Ya existe la Etapa Fixture");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -96,21 +95,20 @@ public class PaisController implements CRUD {
     @Override
     public void modificar(Object obj) throws Exception {
 
-        Pais pais = (Pais) obj;
-        sql = "UPDATE pais SET nombre=?, codigo_iso=?, continente_id=? WHERE pais_id = ?";
+        EtapaFixture etapaFix = (EtapaFixture) obj;
+        sql = "UPDATE etapa_fixture SET descripcion=?, fixture_id=? WHERE etapa_fixture_id = ?";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pais.getNombre());
-            ps.setString(2, pais.getAbreviatura());
-            ps.setInt(3, pais.getContinente().getContinenteId());
-            ps.setInt(4, pais.getPaisId());
+            ps.setString(1, etapaFix.getDescripcion());
+            ps.setInt(2, etapaFix.getFixtureId().getFixture_id());
+            ps.setInt(3, etapaFix.getEtapa_fixture_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el País");
+            throw new Exception("Ya existe la Etapa Fixture");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -130,8 +128,8 @@ public class PaisController implements CRUD {
 
     @Override
     public void eliminar(int id) throws Exception {
-        
-        sql = "DELETE FROM pais WHERE pais_id = ?";
+
+        sql = "DELETE FROM etapa_fixture WHERE etapa_fixture_id = ?";
 
         try {
 
@@ -142,7 +140,7 @@ public class PaisController implements CRUD {
 
         } catch (PSQLException pe) {
             pe.printStackTrace(System.err);
-            throw new Exception("El PAÍS no se puede eliminar, porque está siendo USADO");
+            throw new Exception("La Etapa Fixture no se puede eliminar, porque está siendo USADO");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -157,14 +155,14 @@ public class PaisController implements CRUD {
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public Object obtenerdato(int id) {
 
-        Pais pais = new Pais();
-        sql = "SELECT * FROM pais WHERE pais_id = " + id;
+        EtapaFixture etapaFix = new EtapaFixture();
+        sql = "SELECT * FROM etapa_fixture WHERE etapa_fixture_id = " + id;
 
         try {
 
@@ -173,10 +171,9 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
+                etapaFix.setEtapa_fixture_id(rs.getInt(1));
+                etapaFix.setDescripcion(rs.getString(2));
+                etapaFix.setFixtureId((Fixture) fixtureC.obtenerdato(rs.getInt(3)));
             }
 
         } catch (SQLException e) {
@@ -197,7 +194,7 @@ public class PaisController implements CRUD {
             }
         }
 
-        return pais;
+        return etapaFix;
 
     }
 
@@ -205,11 +202,9 @@ public class PaisController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "SELECT pa.pais_id, pa.nombre, pa.codigo_iso, pa.continente_id FROM pais pa\n "
-                + "INNER JOIN continente co ON pa.continente_id = co.continente_id\n "
-                + "WHERE pa.nombre LIKE '%"+obj+"%' \n"
-                + "OR pa.abreviatura LIKE '%"+obj+"%' \n"
-                + "OR co.nombre LIKE '%"+obj+"%'";
+        sql = "select eta.etapa_fixture_id, eta.descripcion, fix.nombre  \n"
+                + "from etapa_fixture as eta inner join fixture as fix on eta.fixture_id= fix.fixture_id\n"
+                + "where eta.descripcion LIKE '%" + obj + "%'";
 
         try {
 
@@ -218,12 +213,11 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
-                lista.add(pais);
+                EtapaFixture etapaFix = new EtapaFixture();
+                etapaFix.setEtapa_fixture_id(rs.getInt(1));
+                etapaFix.setDescripcion(rs.getString(2));
+                etapaFix.setFixtureId((Fixture) fixtureC.obtenerdato(rs.getInt(3)));
+                lista.add(etapaFix);
             }
 
         } catch (SQLException e) {
@@ -247,11 +241,11 @@ public class PaisController implements CRUD {
         return lista;
 
     }
-    
+
     public Object obtenerdato(String nombre) {
 
-        Pais pais = new Pais();
-        sql = "SELECT * FROM pais WHERE nombre = '"+nombre+"'";
+        EtapaFixture etapaFix = new EtapaFixture();
+        sql = "SELECT * FROM etapa_fixture_id WHERE descripcion = '" + nombre + "'";
 
         try {
 
@@ -260,10 +254,9 @@ public class PaisController implements CRUD {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                pais.setPaisId(rs.getInt(1));
-                pais.setNombre(rs.getString(2));
-                pais.setAbreviatura(rs.getString(3));
-                pais.setContinente((Continente) continenteC.obtenerdato(rs.getInt(4)));
+                etapaFix.setEtapa_fixture_id(rs.getInt(1));
+                etapaFix.setDescripcion(rs.getString(2));
+                etapaFix.setFixtureId((Fixture) fixtureC.obtenerdato(rs.getInt(3)));
             }
 
         } catch (SQLException e) {
@@ -284,7 +277,7 @@ public class PaisController implements CRUD {
             }
         }
 
-        return pais;
+        return etapaFix;
 
     }
 

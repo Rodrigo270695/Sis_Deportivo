@@ -1,54 +1,56 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.CiudadController;
-import com.deportivo.controller.PaisController;
-import com.deportivo.model.Ciudad;
-import com.deportivo.model.Pais;
-import com.deportivo.view.FrmGestionarCiudad;
-import com.deportivo.view.FrmGestionarEvento;
+
+import com.deportivo.controller.EtapaFixtureController;
+import com.deportivo.controller.FixtureController;
+import com.deportivo.model.EtapaFixture;
+import com.deportivo.model.Fixture;
+import com.deportivo.view.FrmGestionarEtapaFixture;
 import com.deportivo.view.FrmGestionarPais;
-import com.deportivo.view.FrmMenuPrincipal;
 import com.deportivo.vista.modal.alerts.*;
+import java.awt.Toolkit;
 import java.util.List;
 
-public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
+public final class ModalRegistrarEtapaFixture extends javax.swing.JInternalFrame {
 
-    CiudadController ciudadC = new CiudadController();
-    PaisController paisC = new PaisController();
-    public static int idCiudad = 0;
+    EtapaFixtureController etapaFixC = new EtapaFixtureController();
+    FixtureController fixtureC = new FixtureController();
+    public static int idEtapaFix = 0;
     public static boolean vista = false;
 
-    public ModalRegistrarCiudad() {
+    public ModalRegistrarEtapaFixture() {
         initComponents();
-        cargarPaises();
+        cargarFixtures();
         acciones();
     }
-
-    void cargarPaises() {
-
-        cbxPaises.removeAllItems();
-        List<Pais> lista = paisC.listar();
-
-        for (Pais pais : lista) {
-            cbxPaises.addItem(pais.getNombre());
+    
+    void cargarFixtures(){
+        
+        cbxFixtures.removeAllItems();
+        List<Fixture> lista = fixtureC.listar();
+        
+        for (Fixture fixture : lista) {
+            cbxFixtures.addItem(fixture.getNombre());
         }
-
+        
     }
-
+    
     void acciones() {
 
         if (vista) {
 
+            
             txtNombre.setEnabled(false);
-            cbxPaises.setEnabled(false);
+            cbxFixtures.setEnabled(false);
             btnGrabar.setEnabled(false);
+
         }
 
-        if (idCiudad > 0) {
+        if (idEtapaFix > 0) {
 
-            Ciudad ciudad = (Ciudad) ciudadC.obtenerdato(idCiudad);
-            cbxPaises.setSelectedItem(ciudad.getPais().getNombre());
-            txtNombre.setText(ciudad.getNombre_completo());
+            EtapaFixture etapaFix = (EtapaFixture) etapaFixC.obtenerdato(idEtapaFix);
+            cbxFixtures.setSelectedItem(etapaFix.getFixtureId().getNombre());
+            txtNombre.setText(etapaFix.getDescripcion());
 
         }
 
@@ -56,42 +58,42 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
 
     void grabar() {
 
-        if (txtNombre.getText().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE COMPLETO es obligatorio");
+        if (txtNombre.getText().isEmpty() && cbxFixtures.getSelectedItem() == null) {
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y FIXTURE es obligatorio");
             return;
         }
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
-            Ciudad ciudad = new Ciudad();
-            ciudad.setNombre_completo(txtNombre.getText().toUpperCase());
-            ciudad.setPais((Pais) paisC.obtenerdato(cbxPaises.getSelectedItem().toString()));
+            EtapaFixture etapaFix = new EtapaFixture();
+            etapaFix.setDescripcion(txtNombre.getText().toUpperCase());
+            etapaFix.setFixtureId((Fixture) fixtureC.obtenerdato(cbxFixtures.getSelectedItem().toString()));
 
             try {
-                ciudadC.registrar(ciudad);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la ciudad");
-                FrmGestionarCiudad.listar("");
+                etapaFixC.registrar(etapaFix);
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el pais");
+                FrmGestionarEtapaFixture.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        } else {
-
-            Ciudad ciudad = new Ciudad();
-            ciudad.setNombre_completo(txtNombre.getText().toUpperCase());
-            ciudad.setPais((Pais) paisC.obtenerdato(cbxPaises.getSelectedItem().toString()));
-            ciudad.setCiudad_id(idCiudad);
+        }else{
+            
+            EtapaFixture etapaFix = new EtapaFixture();
+            etapaFix.setDescripcion(txtNombre.getText().toUpperCase());
+            etapaFix.setFixtureId((Fixture) fixtureC.obtenerdato(cbxFixtures.getSelectedItem().toString()));
+            etapaFix.setEtapa_fixture_id(idEtapaFix);
 
             try {
-                ciudadC.modificar(ciudad);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la ciudad");
-                FrmGestionarCiudad.listar("");
+                etapaFixC.modificar(etapaFix);
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Etapa Fixture");
+                FrmGestionarEtapaFixture.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-
+            
         }
     }
 
@@ -104,12 +106,11 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
         txtNombre = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        cbxPaises = new javax.swing.JComboBox<>();
-        btnRegistrarPais = new javax.swing.JButton();
+        cbxFixtures = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("REGISTRAR CIUDAD");
+        setTitle("REGISTRAR ETAPA FIXTURE");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -132,15 +133,10 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Nombre* ");
+        jLabel1.setText("Descripción* ");
 
-        txtNombre.setDescripcion("Ej. Doha");
+        txtNombre.setDescripcion("");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreKeyTyped(evt);
-            }
-        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -159,37 +155,27 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("País");
+        jLabel3.setText("Fixture");
 
-        cbxPaises.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnRegistrarPais.setText("Registrar País");
-        btnRegistrarPais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarPaisActionPerformed(evt);
-            }
-        });
+        cbxFixtures.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cbxFixtures.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRegistrarPais)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxPaises, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 65, Short.MAX_VALUE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxFixtures, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,12 +187,10 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbxPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarPais))
-                .addGap(19, 19, 19))
+                .addComponent(cbxFixtures, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,43 +211,19 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
 
         grabar();
 
-
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-
-        idCiudad = 0;
+        
+        idEtapaFix = 0;
         vista = false;
-
+        
     }//GEN-LAST:event_formInternalFrameClosed
-
-    private void btnRegistrarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPaisActionPerformed
-
-        try {
-
-            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
-
-        } catch (Exception e) {
-
-            e.printStackTrace(System.err);
-        }
-
-
-    }//GEN-LAST:event_btnRegistrarPaisActionPerformed
-
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-
-        
-        
-
-
-    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
-    private javax.swing.JButton btnRegistrarPais;
-    private javax.swing.JComboBox<String> cbxPaises;
+    private javax.swing.JComboBox<String> cbxFixtures;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
