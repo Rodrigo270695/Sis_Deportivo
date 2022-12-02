@@ -63,7 +63,7 @@ public class PaisController implements CRUD {
     public void registrar(Object obj) throws Exception {
 
         Pais pais = (Pais) obj;
-        sql = "INSERT INTO pais(nombre, abreviatura, continente_id) VALUES(?,?,?)";
+        sql = "INSERT INTO pais(nombre, codigo_iso, continente_id) VALUES(?,?,?)";
 
         try {
 
@@ -97,7 +97,7 @@ public class PaisController implements CRUD {
     public void modificar(Object obj) throws Exception {
 
         Pais pais = (Pais) obj;
-        sql = "UPDATE pais SET nombre=?, abreviatura=?, continente_id=? WHERE pais_id = ?";
+        sql = "UPDATE pais SET nombre=?, codigo_iso=?, continente_id=? WHERE pais_id = ?";
 
         try {
 
@@ -205,7 +205,7 @@ public class PaisController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "SELECT pa.pais_id, pa.nombre, pa.abreviatura, pa.continente_id FROM pais pa\n "
+        sql = "SELECT pa.pais_id, pa.nombre, pa.codigo_iso, pa.continente_id FROM pais pa\n "
                 + "INNER JOIN continente co ON pa.continente_id = co.continente_id\n "
                 + "WHERE pa.nombre LIKE '%"+obj+"%' \n"
                 + "OR pa.abreviatura LIKE '%"+obj+"%' \n"

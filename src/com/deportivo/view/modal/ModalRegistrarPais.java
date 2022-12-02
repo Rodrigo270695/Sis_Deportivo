@@ -5,6 +5,7 @@ import com.deportivo.controller.PaisController;
 import com.deportivo.model.Continente;
 import com.deportivo.model.Pais;
 import com.deportivo.view.FrmGestionarPais;
+import com.deportivo.view.FrmMenuPrincipal;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Toolkit;
 import java.util.List;
@@ -21,18 +22,18 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
         cargarContinentes();
         acciones();
     }
-    
-    void cargarContinentes(){
-        
+
+    void cargarContinentes() {
+
         cbxContinente.removeAllItems();
         List<Continente> lista = continenteC.listar();
-        
+
         for (Continente continente : lista) {
             cbxContinente.addItem(continente.getNombre());
         }
-        
+
     }
-    
+
     void acciones() {
 
         if (vista) {
@@ -57,8 +58,8 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
     void grabar() {
 
-        if (txtNombre.getText().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE es obligatorio");
+        if ((txtNombre.getText().length() == 0) || (txtAbreviatura.getText().length() == 0)) {
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE, CÓDIGO ISO y CONTINENTE son obligatorios");
             return;
         }
 
@@ -78,8 +79,8 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        }else{
-            
+        } else {
+
             Pais pais = new Pais();
             pais.setNombre(txtNombre.getText().toUpperCase());
             pais.setAbreviatura(txtAbreviatura.getText().toUpperCase());
@@ -94,7 +95,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -110,10 +111,11 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
         btnGrabar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         cbxContinente = new javax.swing.JComboBox<>();
+        btnRegistrarContinente = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Registrar País");
+        setTitle("REGISTRAR PAÍS");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -143,7 +145,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Abreviatura");
+        jLabel2.setText("Código ISO");
 
         txtAbreviatura.setDescripcion("Ej. PER");
         txtAbreviatura.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -175,28 +177,38 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
         cbxContinente.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxContinente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnRegistrarContinente.setText("Registrar Continente");
+        btnRegistrarContinente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarContinenteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAbreviatura, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxContinente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 19, Short.MAX_VALUE))
+                        .addComponent(btnRegistrarContinente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAbreviatura, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbxContinente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 19, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +226,9 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
                     .addComponent(cbxContinente)
                     .addComponent(txtAbreviatura, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrarContinente))
                 .addContainerGap())
         );
 
@@ -239,25 +253,40 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
+
         idPais = 0;
         vista = false;
-        
+
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void txtAbreviaturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbreviaturaKeyTyped
-        
+
         if (txtAbreviatura.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres");
         }
-        
+
     }//GEN-LAST:event_txtAbreviaturaKeyTyped
+
+    private void btnRegistrarContinenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarContinenteActionPerformed
+
+        try {
+
+            FrmMenuPrincipal.centrarVentana(new ModalRegistrarContinente());
+
+        } catch (Exception e) {
+
+            e.printStackTrace(System.err);
+        }
+
+
+    }//GEN-LAST:event_btnRegistrarContinenteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
+    private javax.swing.JButton btnRegistrarContinente;
     private javax.swing.JComboBox<String> cbxContinente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

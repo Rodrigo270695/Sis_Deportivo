@@ -58,7 +58,7 @@ public final class ModalRegistrarEtapaFixture extends javax.swing.JInternalFrame
 
     void grabar() {
 
-        if (txtNombre.getText().length() == 0 && cbxFixtures.getSelectedItem() == null) {
+        if (txtNombre.getText().isEmpty() && cbxFixtures.getSelectedItem() == null) {
             Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y FIXTURE es obligatorio");
             return;
         }

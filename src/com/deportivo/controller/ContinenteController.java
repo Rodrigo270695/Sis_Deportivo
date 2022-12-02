@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.postgresql.util.PSQLException;
 
-public class ContinenteController  implements CRUD{
+public class ContinenteController implements CRUD {
 
     Conexion estado = new Conexion();
     Connection con;
@@ -82,7 +82,7 @@ public class ContinenteController  implements CRUD{
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
+
         Continente continente = (Continente) obj;
         sql = "UPDATE continente SET nombre=?, abreviatura=? WHERE continente_id = ?";
 
@@ -107,12 +107,12 @@ public class ContinenteController  implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
-    public void eliminar(int id) throws Exception{
-        
+    public void eliminar(int id) throws Exception {
+
         sql = "DELETE FROM continente WHERE continente_id = ?";
 
         try {
@@ -135,14 +135,14 @@ public class ContinenteController  implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public Object obtenerdato(int id) {
-        
+
         Continente continente = new Continente();
-        sql = "SELECT * FROM continente WHERE continente_id = "+id;
+        sql = "SELECT * FROM continente WHERE continente_id = " + id;
 
         try {
 
@@ -173,15 +173,15 @@ public class ContinenteController  implements CRUD{
 
     @Override
     public List buscar(Object obj) {
-        
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM continente WHERE nombre LIKE '%"+obj+"%' "
-                + "OR abreviatura LIKE '%"+obj+"%'";
+        sql = " select * from continente where nombre like '%" + obj + "%'";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -205,13 +205,13 @@ public class ContinenteController  implements CRUD{
         }
 
         return lista;
-        
+
     }
-    
+
     public Object obtenerdato(String nombre) {
-        
+
         Continente continente = new Continente();
-        sql = "SELECT * FROM continente WHERE nombre = '"+nombre+"'";
+        sql = "SELECT * FROM continente WHERE nombre = '" + nombre + "'";
 
         try {
 

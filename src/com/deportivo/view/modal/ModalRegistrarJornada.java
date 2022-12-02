@@ -59,8 +59,8 @@ public final class ModalRegistrarJornada extends javax.swing.JInternalFrame {
         a = cal.get(Calendar.YEAR);
         fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
 
-        if (txtNombreJornada.getText().length() == 0 && txtFechaCorta.getDate() == null) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y FECHA CORTA es obligatorio");
+        if (txtNombreJornada.getText().isEmpty() || txtFechaLarga.getText().isEmpty()) {
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE, FECHA CORTA y FECHA LARGA son obligatorios");
             return;
         }
 
@@ -72,7 +72,7 @@ public final class ModalRegistrarJornada extends javax.swing.JInternalFrame {
 
             try {
                 jornadaC.registrar(jornada);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la jornada");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Jornada");
                 FrmGestionarJornada.listar("");
                 dispose();
             } catch (Exception e) {
@@ -88,7 +88,7 @@ public final class ModalRegistrarJornada extends javax.swing.JInternalFrame {
 
             try {
                 jornadaC.modificar(jornada);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el jornada");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el Jornada");
                 FrmGestionarJornada.listar("");
                 dispose();
             } catch (Exception e) {
