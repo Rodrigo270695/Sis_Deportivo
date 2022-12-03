@@ -214,4 +214,47 @@ public class CompetenciaController implements CRUD{
         
     }
     
+    
+    public Object obtenerdato(String nombre) {
+        
+  
+        Competencia competencia = new Competencia();
+        sql = "SELECT * FROM competencia WHERE nombre = '" + nombre + "'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                competencia.setCompetenciaId(rs.getInt(1));
+                competencia.setNombre(rs.getString(2));
+                competencia.setFechaInicio(rs.getDate(3));
+                competencia.setFechaFin(rs.getDate(4));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return competencia;
+        
+
+    }
+    
+    
+    
+    
+    
+    
+    
 }
