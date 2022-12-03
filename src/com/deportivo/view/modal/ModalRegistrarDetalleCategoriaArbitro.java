@@ -5,25 +5,24 @@ import com.deportivo.controller.DetalleCategoriaArbitroController;
 import com.deportivo.controller.ArbitroController;
 import com.deportivo.controller.CategoriaArbitroController;
 import com.deportivo.model.CategoriaArbitro;
-import com.deportivo.view.FrmGestionarDetalleProfesional;
+import com.deportivo.view.FrmGestionarDetalleCategoriaArbitro;
 import com.deportivo.vista.modal.alerts.*;
-import java.awt.Toolkit;
 import java.util.List;
 
 public final class ModalRegistrarDetalleCategoriaArbitro extends javax.swing.JInternalFrame {
 
     DetalleCategoriaArbitroController detalleC = new DetalleCategoriaArbitroController();
-    ArbitroController profesionalC = new ArbitroController();
+    ArbitroController arbitroC = new ArbitroController();
     CategoriaArbitroController tipoC = new CategoriaArbitroController();
 
-    public static int idProfesional;
+    public static int idArbitro;
 
     public ModalRegistrarDetalleCategoriaArbitro() {
         initComponents();
-        cargarTipoProfesionales();
+        cargarTipoArbitroes();
     }
 
-    void cargarTipoProfesionales() {
+    void cargarTipoArbitroes() {
 
         cbxTipo.removeAllItems();
         List<CategoriaArbitro> lista = tipoC.listar();
@@ -39,11 +38,12 @@ public final class ModalRegistrarDetalleCategoriaArbitro extends javax.swing.JIn
         CategoriaArbitro tipoP = (CategoriaArbitro) tipoC.obtenerdato(cbxTipo.getSelectedItem().toString());
 
         try {
-            detalleC.registrarDetalle(idProfesional, tipoP.getCategoria_arbitro_id());
-            AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detaelle de profesional");
-            FrmGestionarDetalleProfesional.listar("");
+            detalleC.registrarDetalle(idArbitro, tipoP.getCategoria_arbitro_id());
+            AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detaelle de arbitro");
+            FrmGestionarDetalleCategoriaArbitro.listar("");
             dispose();
         } catch (Exception e) {
+            e.printStackTrace(System.err);
             AlertaError err = new AlertaError("Error", e.getMessage());
         }
 
@@ -59,7 +59,7 @@ public final class ModalRegistrarDetalleCategoriaArbitro extends javax.swing.JIn
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("REGISTRAR DETALLE PROFESIONAL");
+        setTitle("REGISTRAR DETALLE ARBITRO");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -150,7 +150,7 @@ public final class ModalRegistrarDetalleCategoriaArbitro extends javax.swing.JIn
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
-        idProfesional = 0;
+        idArbitro = 0;
 
     }//GEN-LAST:event_formInternalFrameClosed
 

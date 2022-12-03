@@ -58,8 +58,10 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el continente");
                 if (activarContinente == false) {
                     FrmGestionarContinente.listar("");
+                } else {
+                    ModalRegistrarPais.cargarContinentes();
+
                 }
-                ModalRegistrarPais.cargarContinentes();
                 dispose();
             } catch (Exception e) {
                 e.printStackTrace(System.err);

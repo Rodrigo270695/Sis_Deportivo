@@ -1,6 +1,5 @@
 package com.deportivo.controller;
 
-import com.deportivo.interfac.CRUD;
 import com.deportivo.model.DetalleCategoriaArbitro;
 import com.deportivo.model.Arbitro;
 import java.sql.Connection;

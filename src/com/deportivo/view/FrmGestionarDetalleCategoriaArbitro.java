@@ -15,7 +15,7 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
 
     public static DetalleCategoriaArbitroController detalleC = new DetalleCategoriaArbitroController();
     CategoriaArbitroController tipoC = new CategoriaArbitroController();
-    public static int idProfesional;
+    public static int idArbitro;
 
     public FrmGestionarDetalleCategoriaArbitro() {
         initComponents();
@@ -34,7 +34,7 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
         DetalleCategoriaArbitro detallePro = null;
         CategoriaArbitro tipoP;
         if (txtBuscar.getText().length() == 0) {
-            detallePro = detalleC.listar(idProfesional);
+            detallePro = detalleC.listar(idArbitro);
         } else {
 //            lista = detalleC.buscar(texto);
         }
@@ -195,7 +195,7 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarDetalleCategoriaArbitro.idProfesional = idProfesional;
+        ModalRegistrarDetalleCategoriaArbitro.idArbitro = idArbitro;
         ModalRegistrarDetalleCategoriaArbitro frm = new ModalRegistrarDetalleCategoriaArbitro();
         FrmMenuPrincipal.centrarVentana(frm);
 
@@ -223,14 +223,14 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 0));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Profesional " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Arbitro " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
                                 
                                 CategoriaArbitro tipoP = (CategoriaArbitro) tipoC.obtenerdato(valor);
                                 
                                 try {
-                                    detalleC.eliminarDetalle(idProfesional,tipoP.getCategoria_arbitro_id());
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Profesional eliminado correctamente!");
+                                    detalleC.eliminarDetalle(idArbitro,tipoP.getCategoria_arbitro_id());
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Arbitro eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
