@@ -1,4 +1,3 @@
-
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
@@ -8,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.postgresql.util.PSQLException;
 
-public class PosicionController implements CRUD{
-    
+public class PosicionController implements CRUD {
+
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -17,9 +16,9 @@ public class PosicionController implements CRUD{
     String sql = "";
 
     @Override
-    public List listar(){
-        
-         List lista = new ArrayList();
+    public List listar() {
+
+        List lista = new ArrayList();
         sql = "SELECT * FROM posicion ORDER BY posicion_id DESC";
 
         try {
@@ -49,12 +48,12 @@ public class PosicionController implements CRUD{
         }
 
         return lista;
-        
+
     }
 
     @Override
     public void registrar(Object obj) throws Exception {
-        
+
         Posicion posicion = (Posicion) obj;
         sql = "INSERT INTO posicion(descripcion,abreviatura) VALUES(?,?)";
 
@@ -78,12 +77,12 @@ public class PosicionController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
+
         Posicion posicion = (Posicion) obj;
         sql = "UPDATE posicion SET descripcion=?,abreviatura=? WHERE posicion_id = ?";
 
@@ -108,12 +107,12 @@ public class PosicionController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void eliminar(int id) throws Exception {
-        
+
         sql = "DELETE FROM posicion WHERE posicion_id = ?";
 
         try {
@@ -139,10 +138,10 @@ public class PosicionController implements CRUD{
     }
 
     @Override
-    public Object obtenerdato(int id)  {
-        
+    public Object obtenerdato(int id) {
+
         Posicion posicion = new Posicion();
-        sql = "SELECT * FROM posicion WHERE posicion_id = "+id;
+        sql = "SELECT * FROM posicion WHERE posicion_id = " + id;
 
         try {
 
@@ -169,14 +168,14 @@ public class PosicionController implements CRUD{
         }
 
         return posicion;
-        
+
     }
 
     @Override
-    public List buscar(Object obj){
-        
+    public List buscar(Object obj) {
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM posicion WHERE descripcion LIKE '%"+obj+"%' ";
+        sql = "SELECT * FROM posicion WHERE descripcion LIKE '%" + obj + "%' ";
 
         try {
 
@@ -205,7 +204,40 @@ public class PosicionController implements CRUD{
         }
 
         return lista;
-        
+
     }
-    
+
+    public Object obtenerdato(String nombre) {
+
+        Posicion posicion = new Posicion();
+        sql = "SELECT * FROM posicion WHERE descripcion = '" + nombre + "'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                posicion.setPosicionId(rs.getInt(1));
+                posicion.setDescripcion(rs.getString(2));
+                posicion.setAbreviatura(rs.getString(3));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return posicion;
+    }
+
 }

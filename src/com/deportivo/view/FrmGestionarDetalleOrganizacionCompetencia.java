@@ -1,59 +1,51 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.CompetenciaController;
-import com.deportivo.model.Competencia;
+import com.deportivo.controller.DetalleOrganizacionCompetenciaController;
+import com.deportivo.controller.PaisController;
+import com.deportivo.model.DetalleOrganizacionCompetencia;
+import com.deportivo.model.Pais;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarCompetencia;
+import com.deportivo.view.modal.ModalRegistrarDetalleOrganizacionCompetencia;
+import com.deportivo.view.modal.ModalRegistrarPais;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
+public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInternalFrame {
 
-    public static CompetenciaController competenciaC = new CompetenciaController();
+    public static DetalleOrganizacionCompetenciaController detalleC = new DetalleOrganizacionCompetenciaController();
+    PaisController tipoC = new PaisController();
+    public static int idCompetencia;
 
-    public FrmGestionarCompetencia() {
+    public FrmGestionarDetalleOrganizacionCompetencia() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "FECHA INICIO", "FECHA FIN", "", "", "",""};
+        String columas[] = {"PAÍS", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        Competencia competencia;
-        List lista;
+        DetalleOrganizacionCompetencia detalle = null;
+        Pais pais;
         if (txtBuscar.getText().length() == 0) {
-            lista = competenciaC.listar();
+            detalle = detalleC.listar(idCompetencia);
         } else {
-            lista = competenciaC.buscar(texto);
+//            lista = detalleC.buscar(texto);
         }
-        Object obj[] = new Object[8];
-        SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
+        Object obj[] = new Object[2];
 
-        for (int i = 0; i < lista.size(); i++) {
-            competencia = (Competencia) lista.get(i);
-            obj[0] = competencia.getCompetenciaId();
-            obj[1] = competencia.getNombre();
-            obj[2] = formato.format(competencia.getFechaInicio());
-            obj[3] = formato.format(competencia.getFechaFin());
+        for (int i = 0; i < detalle.getPais().size(); i++) {
+            pais = detalle.getPais().get(i);
 
-            ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
-            Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonModificar = new JButton("", btnModificar);
-            botonModificar.setName("btnModificar");
-            botonModificar.setToolTipText("modificar");
-            botonModificar.setBorder(null);
-            botonModificar.setBackground(new Color(255, 198, 26));
-            obj[4] = botonModificar;
+            obj[0] = pais.getNombre();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -62,25 +54,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[5] = botonEliminar;
-
-            ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
-            Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonVer = new JButton("", btnVer);
-            botonVer.setName("btnVer");
-            botonVer.setToolTipText("vista del registro");
-            botonVer.setBorder(null);
-            botonVer.setBackground(new Color(41, 143, 96));
-            obj[6] = botonVer;
-
-            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
-            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-            JButton botonAdd = new JButton("", btnAdd);
-            botonAdd.setName("btnAdd");
-            botonAdd.setToolTipText("AñadirTipo");
-            botonAdd.setBorder(null);
-            botonAdd.setBackground(new Color(25, 38, 49));
-            obj[7] = botonAdd;
+            obj[1] = botonEliminar;
 
             modelo.addRow(obj);
 
@@ -90,14 +64,8 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(150);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(375);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -118,7 +86,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR COMPETENCIA");
+        setTitle("GESTIONAR DETALLE ORGANIZACIÓN COMPETENCIA");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -163,7 +131,6 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
-        btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setOpaque(true);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -178,14 +145,17 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal)
+                .addContainerGap(434, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal)
-                        .addGap(0, 705, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,12 +167,13 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -226,7 +197,8 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarCompetencia frm = new ModalRegistrarCompetencia();
+        ModalRegistrarDetalleOrganizacionCompetencia.idCompetencia = idCompetencia;
+        ModalRegistrarDetalleOrganizacionCompetencia frm = new ModalRegistrarDetalleOrganizacionCompetencia();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -234,7 +206,6 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
 
         int fila = tblListado.getSelectedRow();
-        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
 
         int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / tblListado.getRowHeight();
@@ -250,16 +221,18 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un competencia");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 0));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al competencia " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
-
+                                
+                                Pais tipoP = (Pais) tipoC.obtenerdato(valor);
+                                
                                 try {
-                                    competenciaC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Competencia eliminado correctamente!");
+                                    detalleC.eliminarDetalle(tipoP.getPaisId(),idCompetencia);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle  eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -271,35 +244,6 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
                         }
                     }
-                    case "btnModificar" -> {
-                        if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una competencia");
-                        } else {
-
-                            ModalRegistrarCompetencia.idCompetencia = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarCompetencia());
-                            ModalRegistrarCompetencia.btnGrabar.setText("Modificar");
-
-                        }
-                    }
-                    case "btnVer" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una competencia");
-                        } else {
-                            ModalRegistrarCompetencia.vista = true;
-                            ModalRegistrarCompetencia.idCompetencia = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarCompetencia());
-                        }
-                    }
-                    
-                    case "btnAdd" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una Competencia");
-                        } else {
-                            FrmGestionarDetalleOrganizacionCompetencia.idCompetencia = id;
-                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleOrganizacionCompetencia());
-                        }
-                    }
                 }
             }
         }
@@ -308,9 +252,9 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
 
-        if (txtBuscar.getText().length() % 2 == 0) {
-            listar(txtBuscar.getText().toUpperCase());
-        }
+//        if (txtBuscar.getText().length() % 2 == 0) {
+//            listar(txtBuscar.getText().toUpperCase());
+//        }
 
     }//GEN-LAST:event_txtBuscarKeyReleased
 

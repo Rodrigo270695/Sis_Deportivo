@@ -1,9 +1,7 @@
 package com.deportivo.controller;
 
-import com.deportivo.interfac.CRUD;
-import com.deportivo.model.DetalleProfesional;
-import com.deportivo.model.Profesional;
-import com.deportivo.model.TipoProfesional;
+import com.deportivo.model.Competencia;
+import com.deportivo.model.DetalleOrganizacionCompetencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +10,10 @@ import java.util.List;
 import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class DetalleProfesionalController {
+public class DetalleOrganizacionCompetenciaController {
 
-    ProfesionalController profesionalC = new ProfesionalController();
-    TipoProfesionalController tipoP = new TipoProfesionalController();
+    PaisController paisC = new PaisController();
+    CompetenciaController competenciaC = new CompetenciaController();
 
     Conexion estado = new Conexion();
     Connection con;
@@ -23,11 +21,11 @@ public class DetalleProfesionalController {
     ResultSet rs;
     String sql = "";
 
-    public DetalleProfesional listar(int id) {
+    public DetalleOrganizacionCompetencia listar(int id) {
 
-        DetalleProfesional detalleP = new DetalleProfesional();
-        List tipos = new ArrayList<>();
-        sql = "select * from detalle_profesional where profesional_id = " + id;
+        DetalleOrganizacionCompetencia detalleCom = new DetalleOrganizacionCompetencia();
+        List paises = new ArrayList<>();
+        sql = "select * from detalle_organizacion_competencia where competencia_id = " + id;
 
         try {
 
@@ -36,10 +34,10 @@ public class DetalleProfesionalController {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                detalleP.setProfesional((Profesional) profesionalC.obtenerdato(rs.getInt(1)));
-                tipos.add(tipoP.obtenerdato(rs.getInt(2)));
+                detalleCom.setCompetencia((Competencia) competenciaC.obtenerdato(rs.getInt(1)));
+                paises.add(paisC.obtenerdato(rs.getInt(2)));
             }
-            detalleP.setTipoProfesional(tipos);
+            detalleCom.setPais(paises);
 
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -59,26 +57,26 @@ public class DetalleProfesionalController {
             }
         }
 
-        return detalleP;
+        return detalleCom;
     }
 
-    public void registrarDetalle(int idProfesional, int idTipo) throws Exception {
+    public void registrarDetalleOrganizacionCompetencia(int idPais, int idCompetencia) throws Exception {
 
-        sql = "insert into detalle_profesional(profesional_id,tipo_profesional_id) values(?,?) ";
+        sql = "insert into detalle_organizacion_competencia(pais_id,competencia_id) values(?,?) ";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProfesional);
-            ps.setInt(2, idTipo);
+            ps.setInt(1, idPais);
+            ps.setInt(2, idCompetencia);
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el Tipo para el profesional");
+            throw new Exception("Ya existe el Detalle Competencia");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-        }finally {
+        } finally {
             try {
                 if (con != null) {
                     con.close();
@@ -92,21 +90,21 @@ public class DetalleProfesionalController {
         }
     }
 
-    public void eliminarDetalle(int idProfesional, int idTipo){
-        
-        sql = "delete from detalle_profesional where profesional_id =? and tipo_profesional_id = ?";
-        
+    public void eliminarDetalle(int idPais, int idCompetencia) {
+
+        sql = "delete from detalle_organizacion_competencia where pais_id =? and competencia_id = ?";
+
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProfesional);
-            ps.setInt(2, idTipo);
+            ps.setInt(1, idPais);
+            ps.setInt(2, idCompetencia);
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-        }finally {
+        } finally {
             try {
                 if (con != null) {
                     con.close();
@@ -118,6 +116,7 @@ public class DetalleProfesionalController {
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
+
 }

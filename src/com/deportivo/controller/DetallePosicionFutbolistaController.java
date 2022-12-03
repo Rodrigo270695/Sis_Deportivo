@@ -1,9 +1,7 @@
 package com.deportivo.controller;
 
-import com.deportivo.interfac.CRUD;
-import com.deportivo.model.DetalleProfesional;
-import com.deportivo.model.Profesional;
-import com.deportivo.model.TipoProfesional;
+import com.deportivo.model.DetallePosicionFutbolista;
+import com.deportivo.model.Futbolista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +10,10 @@ import java.util.List;
 import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class DetalleProfesionalController {
+public class DetallePosicionFutbolistaController {
 
-    ProfesionalController profesionalC = new ProfesionalController();
-    TipoProfesionalController tipoP = new TipoProfesionalController();
+    FutbolistaController futbolistaC = new FutbolistaController();
+    PosicionController posicionC = new PosicionController();
 
     Conexion estado = new Conexion();
     Connection con;
@@ -23,11 +21,11 @@ public class DetalleProfesionalController {
     ResultSet rs;
     String sql = "";
 
-    public DetalleProfesional listar(int id) {
+    public DetallePosicionFutbolista listar(int id) {
 
-        DetalleProfesional detalleP = new DetalleProfesional();
+        DetallePosicionFutbolista detalleP = new DetallePosicionFutbolista();
         List tipos = new ArrayList<>();
-        sql = "select * from detalle_profesional where profesional_id = " + id;
+        sql = "select * from detalle_posicion_futbolista where futbolista_id = " + id;
 
         try {
 
@@ -36,10 +34,10 @@ public class DetalleProfesionalController {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                detalleP.setProfesional((Profesional) profesionalC.obtenerdato(rs.getInt(1)));
-                tipos.add(tipoP.obtenerdato(rs.getInt(2)));
+                detalleP.setFutbolista((Futbolista) futbolistaC.obtenerdato(rs.getInt(1)));
+                tipos.add(posicionC.obtenerdato(rs.getInt(2)));
             }
-            detalleP.setTipoProfesional(tipos);
+            detalleP.setPosicionFutbolista(tipos);
 
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -62,23 +60,23 @@ public class DetalleProfesionalController {
         return detalleP;
     }
 
-    public void registrarDetalle(int idProfesional, int idTipo) throws Exception {
+    public void registrarDetalle(int idFutbolista, int idPosicion) throws Exception {
 
-        sql = "insert into detalle_profesional(profesional_id,tipo_profesional_id) values(?,?) ";
+        sql = "insert into detalle_posicion_futbolista(futbolista_id,posicion_id) values(?,?) ";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProfesional);
-            ps.setInt(2, idTipo);
+            ps.setInt(1, idFutbolista);
+            ps.setInt(2, idPosicion);
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el Tipo para el profesional");
+            throw new Exception("Ya existe la Posición para el futbolista");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-        }finally {
+        } finally {
             try {
                 if (con != null) {
                     con.close();
@@ -91,10 +89,11 @@ public class DetalleProfesionalController {
             }
         }
     }
-
-    public void eliminarDetalle(int idProfesional, int idTipo){
+    
+    
+      public void eliminarDetalle(int idProfesional, int idTipo){
         
-        sql = "delete from detalle_profesional where profesional_id =? and tipo_profesional_id = ?";
+        sql = "delete from detalle_posicion_futbolista where futbolista_id =? and posicion_id = ?";
         
         try {
 
@@ -120,4 +119,5 @@ public class DetalleProfesionalController {
         }
         
     }
+
 }

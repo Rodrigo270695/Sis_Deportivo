@@ -301,6 +301,8 @@ public class FrmGestionarProfesional extends javax.swing.JInternalFrame {
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarProfesional());
                         }
                     }
+                    
+                    
                 }
             }
         }
