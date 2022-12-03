@@ -68,6 +68,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem29 = new javax.swing.JMenuItem();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem31 = new javax.swing.JMenuItem();
+        jMenuItem32 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
@@ -335,6 +336,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem31);
 
+        jMenuItem32.setText("Gestionar Detalle Competencia Grupo");
+        jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem32ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem32);
+
         jMenuItem20.setText("Gestionar Fixture");
         jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,6 +577,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         centrarVentana(new FrmGestionarDetalleOrganizacionCompetencia());
     }//GEN-LAST:event_jMenuItem30ActionPerformed
 
+    private void jMenuItem32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem32ActionPerformed
+        centrarVentana(new FrmGestionarDetalleCompetenciaGrupo());
+    }//GEN-LAST:event_jMenuItem32ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane escritorio;
@@ -601,6 +614,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
+    private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

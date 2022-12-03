@@ -1,8 +1,8 @@
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
-import com.deportivo.model.DetalleCategoriaArbitro;
-import com.deportivo.model.Arbitro;
+import com.deportivo.model.DetalleCompetenciaGrupo;
+import com.deportivo.model.Competencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.sql.*;
 import org.postgresql.util.PSQLException;
 
-public class DetalleCategoriaArbitroController {
+public class DetalleCompetenciaGrupoController {
 
-    ArbitroController arbitroC = new ArbitroController();
-    CategoriaArbitroController tipoP = new CategoriaArbitroController();
+    CompetenciaController arbitroC = new CompetenciaController();
+    GrupoController tipoP = new GrupoController();
 
     Conexion estado = new Conexion();
     Connection con;
@@ -22,11 +22,11 @@ public class DetalleCategoriaArbitroController {
     ResultSet rs;
     String sql = "";
 
-    public DetalleCategoriaArbitro listar(int id) {
+    public DetalleCompetenciaGrupo listar(int id) {
 
-        DetalleCategoriaArbitro detalleP = new DetalleCategoriaArbitro();
+        DetalleCompetenciaGrupo detalleP = new DetalleCompetenciaGrupo();
         List tipos = new ArrayList<>();
-        sql = "select * from detalle_categoria_arbitro where arbitro_id= " + id;
+        sql = "select * from detalle_competencia_grupo where competencia_id= " + id;
 
         try {
 
@@ -35,10 +35,10 @@ public class DetalleCategoriaArbitroController {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                detalleP.setArbitro((Arbitro) arbitroC.obtenerdato(rs.getInt(1)));
+                detalleP.setCompetencia((Competencia) arbitroC.obtenerdato(rs.getInt(1)));
                 tipos.add(tipoP.obtenerdato(rs.getInt(2)));
             }
-            detalleP.setTipoCategoriaArbitro(tipos);
+            detalleP.setTipoGrupo(tipos);
 
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -63,7 +63,7 @@ public class DetalleCategoriaArbitroController {
 
     public void registrarDetalle(int idProfesional, int idTipo) throws Exception {
 
-        sql = "insert into detalle_categoria_arbitro(arbitro_id,categoria_arbitro_id) values(?,?) ";
+        sql = "insert into detalle_competencia_grupo(grupo_id,competencia_id) values(?,?) ";
 
         try {
 
@@ -74,7 +74,7 @@ public class DetalleCategoriaArbitroController {
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el Tipo para el arbitro");
+            throw new Exception("Ya existe el grupo");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }finally {
@@ -93,7 +93,7 @@ public class DetalleCategoriaArbitroController {
 
     public void eliminarDetalle(int idProfesional, int idTipo){
         
-        sql = "delete from detalle_categoria_arbitro where arbitro_id =? and categoria_arbitro_id = ?";
+        sql = "delete from detalle_competencia_grupo where grupo_id =? and competencia_id = ?";
         
         try {
 
