@@ -169,6 +169,38 @@ public class CuerpoTecnicoController implements CRUD{
         
     }
 
+    public Object obtenerdato(String nombre)  {
+        
+        CuerpoTecnico cuerpoTecnico = new CuerpoTecnico();
+        sql = "SELECT * FROM cuerpo_tecnico WHERE nombre = '"+nombre+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                cuerpoTecnico.setCuerpoTecnicoId(rs.getInt(1));
+                cuerpoTecnico.setNombre(rs.getString(2));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return cuerpoTecnico;
+        
+    }
+    
     @Override
     public List buscar(Object obj){
         

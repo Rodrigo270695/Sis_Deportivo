@@ -298,5 +298,47 @@ public class ConfederacionController implements CRUD {
 
         return confederacion;
     }
+    
+    public Object obtenerdatoAcronimo(String nombre) {
+
+        Confederacion confederacion = new Confederacion();
+        sql = "SELECT * FROM confederacion_futbol WHERE acronimo = '" + nombre + "'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                confederacion.setConfederacion_id(rs.getInt(1));
+                confederacion.setNombre_oficial(rs.getString(2));
+                confederacion.setAcronimo(rs.getString(3));
+                confederacion.setUbicaicon(rs.getString(4));
+                confederacion.setSede(rs.getString(5));
+                confederacion.setFecha_fundacion(rs.getDate(6));
+                confederacion.setNumero_federaciones_afiliadas(rs.getInt(7));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return confederacion;
+    }
 
 }

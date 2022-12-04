@@ -7,12 +7,19 @@ import java.sql.Date;
 public class Equipo {
     
     private int equipoId;
-    private String nombreCompleto;
-    private String nombrecorto;
+    private String nombreOficial;
+    private String nombreCorto;
+    private String seudonimo;
+    private String codigoFifa;
     private Date fundacion;
-    private String apodo;
     private String ubicacion;
-    private byte numeroSocios;
+    private int numSocios;
+    private int numTitulosGandos;
+    private int participacionesCopas;
+    private int numFinalesJugadas;
+    private CuerpoTecnico cuerpoTecnico;
+    private Confederacion confederacion;
+    private Pais pais;
     private InputStream foto;
 
     public int getEquipoId() {
@@ -23,20 +30,36 @@ public class Equipo {
         this.equipoId = equipoId;
     }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    public String getNombreOficial() {
+        return nombreOficial;
     }
 
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public void setNombreOficial(String nombreOficial) {
+        this.nombreOficial = nombreOficial;
     }
 
-    public String getNombrecorto() {
-        return nombrecorto;
+    public String getNombreCorto() {
+        return nombreCorto;
     }
 
-    public void setNombrecorto(String nombrecorto) {
-        this.nombrecorto = nombrecorto;
+    public void setNombreCorto(String nombreCorto) {
+        this.nombreCorto = nombreCorto;
+    }
+
+    public String getSeudonimo() {
+        return seudonimo;
+    }
+
+    public void setSeudonimo(String seudonimo) {
+        this.seudonimo = seudonimo;
+    }
+
+    public String getCodigoFifa() {
+        return codigoFifa;
+    }
+
+    public void setCodigoFifa(String codigoFifa) {
+        this.codigoFifa = codigoFifa;
     }
 
     public Date getFundacion() {
@@ -47,14 +70,6 @@ public class Equipo {
         this.fundacion = fundacion;
     }
 
-    public String getApodo() {
-        return apodo;
-    }
-
-    public void setApodo(String apodo) {
-        this.apodo = apodo;
-    }
-
     public String getUbicacion() {
         return ubicacion;
     }
@@ -63,12 +78,60 @@ public class Equipo {
         this.ubicacion = ubicacion;
     }
 
-    public byte getNumeroSocios() {
-        return numeroSocios;
+    public int getNumSocios() {
+        return numSocios;
     }
 
-    public void setNumeroSocios(byte numeroSocios) {
-        this.numeroSocios = numeroSocios;
+    public void setNumSocios(int numSocios) {
+        this.numSocios = numSocios;
+    }
+
+    public int getNumTitulosGandos() {
+        return numTitulosGandos;
+    }
+
+    public void setNumTitulosGandos(int numTitulosGandos) {
+        this.numTitulosGandos = numTitulosGandos;
+    }
+
+    public int getParticipacionesCopas() {
+        return participacionesCopas;
+    }
+
+    public void setParticipacionesCopas(int participacionesCopas) {
+        this.participacionesCopas = participacionesCopas;
+    }
+
+    public int getNumFinalesJugadas() {
+        return numFinalesJugadas;
+    }
+
+    public void setNumFinalesJugadas(int numFinalesJugadas) {
+        this.numFinalesJugadas = numFinalesJugadas;
+    }
+
+    public CuerpoTecnico getCuerpoTecnico() {
+        return cuerpoTecnico;
+    }
+
+    public void setCuerpoTecnico(CuerpoTecnico cuerpoTecnico) {
+        this.cuerpoTecnico = cuerpoTecnico;
+    }
+
+    public Confederacion getConfederacion() {
+        return confederacion;
+    }
+
+    public void setConfederacion(Confederacion confederacion) {
+        this.confederacion = confederacion;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public InputStream getFoto() {
@@ -79,5 +142,5 @@ public class Equipo {
         this.foto = foto;
     }
     
-    
+
 }

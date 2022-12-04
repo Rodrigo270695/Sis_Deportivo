@@ -25,7 +25,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "FOTO", "NOMBRE COMPLETO", "NOMBRE CORTO", "FUNDACIÓN", "APODO", "", "", ""};
+        String columas[] = {"#", "FOTO", "NOMBRE COMPLETO", "NOMBRE CORTO", "FUNDACIÓN", "CODIGO FIFA", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -40,26 +40,26 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
             lista = equipoC.buscar(texto);
         }
         Object obj[] = new Object[9];
-        ImageIcon foto;
-        Image img = null;
+//        ImageIcon foto;
+//        Image img = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
             equipo = (Equipo) lista.get(i);
 
-            try {
-                BufferedImage bi = ImageIO.read(equipo.getFoto());
-                foto = new ImageIcon(bi);
-                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-            } catch (IOException e) {
-            }
+//            try {
+//                BufferedImage bi = ImageIO.read(equipo.getFoto());
+//                foto = new ImageIcon(bi);
+//                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+//            } catch (IOException e) {
+//            }
 
             obj[0] = equipo.getEquipoId();
-            obj[1] = new JLabel(new ImageIcon(img));
-            obj[2] = equipo.getNombreCompleto();
-            obj[3] = equipo.getNombrecorto();
+            obj[1] = new JLabel(new ImageIcon(""));
+            obj[2] = equipo.getNombreOficial();
+            obj[3] = equipo.getNombreCorto();
             obj[4] = formato.format(equipo.getFundacion());
-            obj[5] = equipo.getApodo();
+            obj[5] = equipo.getCodigoFifa();
 
             ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
             Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
@@ -101,7 +101,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(2).setPreferredWidth(250);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(120);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(5).setPreferredWidth(130);
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(8).setPreferredWidth(30);
