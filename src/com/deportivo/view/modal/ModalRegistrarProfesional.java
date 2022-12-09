@@ -3,6 +3,7 @@ package com.deportivo.view.modal;
 import com.deportivo.controller.*;
 import com.deportivo.model.*;
 import com.deportivo.view.FrmGestionarProfesional;
+import com.deportivo.view.FrmMenuPrincipal;
 import static com.deportivo.view.modal.ModalRegistrarPais.idPais;
 import com.deportivo.vista.modal.alerts.*;
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.*;
 public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame {
 
     ProfesionalController profesionalC = new ProfesionalController();
-    PaisController paisC = new PaisController();
+    public static PaisController paisC = new PaisController();
     public static int idProfesional = 0;
     public static boolean vista = false;
 
@@ -20,7 +21,7 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
         acciones();
     }
 
-    void cargarPaises() {
+    public static void cargarPaises() {
 
         cbxPais.removeAllItems();
         List<Pais> lista = paisC.listar();
@@ -54,7 +55,7 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
             txtNombre.setText(profesional.getNombre_completo());
             txtFechaNac.setDate(profesional.getFecha_nacimiento());
-            txtEstado.setText(""+profesional.getEstado());
+            txtEstado.setText("" + profesional.getEstado());
             txtSeudonimo.setText(profesional.getSeudonimo());
             txtFechaDebut.setDate(profesional.getFecha_debut());
             txtPalmares.setText(profesional.getPalmares());
@@ -69,7 +70,7 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
         Calendar cal;
         int d, m, a;
-        String fecha1,fecha2;
+        String fecha1, fecha2;
         Profesional profesional = new Profesional();
 
         cal = txtFechaNac.getCalendar();
@@ -94,11 +95,11 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
             profesional.setPalmares(txtPalmares.getText().toUpperCase());
             profesional.setRecords(txtRecords.getText().toUpperCase());
             profesional.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
-    
-    
+
             try {
                 profesionalC.registrar(profesional);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el profesional");
+
                 FrmGestionarProfesional.listar("");
                 dispose();
             } catch (Exception e) {
@@ -108,7 +109,6 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
         } else {
 
-        
             profesional.setNombre_completo(txtNombre.getText().toUpperCase());
             profesional.setFecha_nacimiento((java.sql.Date.valueOf(fecha1)));
             profesional.setEstado(txtEstado.getText().charAt(0));
@@ -119,8 +119,6 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 //            profesional.setPais((Pais) paisC.obtenerdato((int) cbxPais.getSelectedItem()));
             profesional.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
             profesional.setProfesional_id(idProfesional);
-
-      
 
             try {
                 profesionalC.modificar(profesional);
@@ -155,6 +153,7 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
         txtFechaNac = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         txtFechaDebut = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -243,42 +242,52 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Fecha Debut");
 
+        jButton1.setText("+");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPalmares, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSeudonimo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtFechaDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRecords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPalmares, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSeudonimo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFechaDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRecords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxPais, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbxPais, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(47, 47, 47)
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +321,9 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,11 +331,11 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxPais, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxPais, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
                         .addGap(66, 66, 66)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -354,10 +365,29 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+
+         try {
+
+            ModalRegistrarPais.activarPais= true;
+            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPais());
+
+        } catch (Exception e) {
+
+            e.printStackTrace(System.err);
+        }
+
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox<String> cbxPais;
+    public static javax.swing.JComboBox<String> cbxPais;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

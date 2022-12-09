@@ -82,7 +82,7 @@ public final class ModalRegistrarDetalleCategoriaArbitro extends javax.swing.JIn
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Tipo Profesional*");
+        jLabel2.setText("Categoría Árbitro*");
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -127,6 +127,8 @@ public final class ModalRegistrarDetalleCategoriaArbitro extends javax.swing.JIn
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        jLabel2.getAccessibleContext().setAccessibleName("Categoría Árbitro*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

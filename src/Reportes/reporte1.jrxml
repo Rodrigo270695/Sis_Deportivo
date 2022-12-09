@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56c40d1d-c6b6-4ac5-bb21-7f6d71de1970">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select nombre_oficial as estadio, capacidad, equipo_propietario, costo, ciu.nombre_completo as ciudad from 
+estadio as es inner join ciudad as ciu on es.ciudad_id = ciu.ciudad_id]]>
+	</queryString>
+	<field name="estadio" class="java.lang.String"/>
+	<field name="capacidad" class="java.lang.Integer"/>
+	<field name="equipo_propietario" class="java.lang.String"/>
+	<field name="costo" class="java.lang.Double"/>
+	<field name="ciudad" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="154" y="10" width="247" height="20" uuid="a786dbc5-4965-43cc-86c7-288b75db8d11"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DE ESTADIOS QATAR 2022]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="401" y="41" width="154" height="20" uuid="bf6fceed-a9c8-4710-ac56-9a701e15bdf2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="112" height="60" uuid="5a6bb9cb-6511-47ca-87f0-1116d754e231"/>
+				<imageExpression><![CDATA["D:\\SEPTIMO CICLO\\INGENIERIA Y CALIDAD DE SOFTWARE\\SISTEMA MUNDIAL\\Sis_Deportivo\\src\\com\\deportivo\\iconos\\sin_fondo_depor.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="30" backcolor="#CCCCCC" uuid="5f516003-0a47-484c-9809-4fd5e2bf472b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="8" width="74" height="20" uuid="d13cb577-b9c3-4db0-9eac-b904e926ed90"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estadio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="8" width="72" height="20" uuid="50f116b1-a145-4372-a866-079b8ae12549"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Capacidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="8" width="123" height="20" uuid="bbac0033-08b8-47da-9fd6-a5357fc6b2bd"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo Propietario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="8" width="61" height="20" uuid="05e8af68-a3f8-4684-8d4d-47f33c51cccc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="8" width="46" height="20" uuid="317918bc-99d7-44d1-b29e-d8b1a649886f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciudad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="0" width="100" height="20" uuid="be09dcee-7e30-4011-aacb-6499a098e337"/>
+				<textFieldExpression><![CDATA[$F{estadio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="0" width="72" height="20" uuid="e7f80b15-7e10-4ec9-8e46-f0634a1cd93c"/>
+				<textFieldExpression><![CDATA[$F{capacidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="0" width="123" height="20" uuid="ee346e61-b1e8-4804-8e89-0ace3419ef32"/>
+				<textFieldExpression><![CDATA[$F{equipo_propietario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="0" width="61" height="20" uuid="3a2c0738-5c40-4a6a-ac13-14d44fd155f3"/>
+				<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="59" height="20" uuid="df26e22d-e837-422b-a2cd-7c5e0d831716"/>
+				<textFieldExpression><![CDATA[$F{ciudad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="31" width="555" height="1" uuid="e2e4e8a4-de4b-4091-9a89-d94661d3684f"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="22" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="527" y="0" width="28" height="20" uuid="7403c37a-e8dc-4964-8cc8-8ad8b6bb12cd"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

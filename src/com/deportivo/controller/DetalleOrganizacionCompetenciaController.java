@@ -1,6 +1,6 @@
 package com.deportivo.controller;
 
-import com.deportivo.interfac.CRUD;
+import com.deportivo.model.Competencia;
 import com.deportivo.model.DetalleOrganizacionCompetencia;
 import com.deportivo.model.Pais;
 import java.sql.Connection;
@@ -13,8 +13,8 @@ import org.postgresql.util.PSQLException;
 
 public class DetalleOrganizacionCompetenciaController {
 
-    PaisController profesionalC = new PaisController();
-    CompetenciaController tipoP = new CompetenciaController();
+    PaisController paisC = new PaisController();
+    CompetenciaController competenciaC = new CompetenciaController();
 
     Conexion estado = new Conexion();
     Connection con;
@@ -26,7 +26,7 @@ public class DetalleOrganizacionCompetenciaController {
 
         DetalleOrganizacionCompetencia detalleP = new DetalleOrganizacionCompetencia();
         List tipos = new ArrayList<>();
-        sql = "select * from detalle_organizacion_competencia where pais_id = " + id;
+        sql = "select * from detalle_organizacion_competencia where competencia_id = " + id;
 
         try {
 
@@ -35,10 +35,11 @@ public class DetalleOrganizacionCompetenciaController {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                detalleP.setPais((Pais) profesionalC.obtenerdato(rs.getInt(1)));
-                tipos.add(tipoP.obtenerdato(rs.getInt(2)));
+                tipos.add(paisC.obtenerdato(rs.getInt(1)));
+                detalleP.setCompetencia((Competencia) competenciaC.obtenerdato(rs.getInt(2)));
+
             }
-            detalleP.setTipoCompetencia(tipos);
+            detalleP.setPais(tipos);
 
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -61,7 +62,7 @@ public class DetalleOrganizacionCompetenciaController {
         return detalleP;
     }
 
-    public void registrarDetalle(int idProfesional, int idTipo) throws Exception {
+    public void registrarDetalle(int idPais, int idCompetencia) throws Exception {
 
         sql = "insert into detalle_organizacion_competencia(pais_id,competencia_id) values(?,?) ";
 
@@ -69,12 +70,12 @@ public class DetalleOrganizacionCompetenciaController {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProfesional);
-            ps.setInt(2, idTipo);
+            ps.setInt(1, idPais);
+            ps.setInt(2, idCompetencia);
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-            throw new Exception("Ya existe el Tipo para la organizacion competencia");
+            throw new Exception("Ya existe el País para la organizacion competencia");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         } finally {
@@ -91,7 +92,7 @@ public class DetalleOrganizacionCompetenciaController {
         }
     }
 
-    public void eliminarDetalle(int idProfesional, int idTipo) {
+    public void eliminarDetalle(int idPais, int idCompetencia) {
 
         sql = "delete from detalle_organizacion_competencia where pais_id =? and competencia_id = ?";
 
@@ -99,8 +100,8 @@ public class DetalleOrganizacionCompetenciaController {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProfesional);
-            ps.setInt(2, idTipo);
+            ps.setInt(1, idPais);
+            ps.setInt(2, idCompetencia);
             ps.executeUpdate();
 
         } catch (SQLException e) {

@@ -4,42 +4,42 @@ import com.deportivo.controller.DetalleOrganizacionCompetenciaController;
 import com.deportivo.controller.PaisController;
 import com.deportivo.controller.CompetenciaController;
 import com.deportivo.model.Competencia;
+import com.deportivo.model.Pais;
 import com.deportivo.view.FrmGestionarDetalleProfesional;
 import com.deportivo.vista.modal.alerts.*;
-import java.awt.Toolkit;
 import java.util.List;
 
 public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.swing.JInternalFrame {
 
     DetalleOrganizacionCompetenciaController detalleC = new DetalleOrganizacionCompetenciaController();
-    PaisController profesionalC = new PaisController();
-    CompetenciaController tipoC = new CompetenciaController();
+    PaisController paisC = new PaisController();
+    CompetenciaController competenciaC = new CompetenciaController();
 
-    public static int idProfesional;
+    public static int idPais;
 
     public ModalRegistrarDetalleOrganizacionCompetencia() {
         initComponents();
-        cargarTipoProfesionales();
+        cargarPaises();
     }
 
-    void cargarTipoProfesionales() {
+    void cargarPaises() {
 
         cbxTipo.removeAllItems();
-        List<Competencia> lista = tipoC.listar();
+        List<Pais> lista = paisC.listar();
 
-        for (Competencia tipoPro : lista) {
-            cbxTipo.addItem(tipoPro.getNombre());
+        for (Pais pais : lista) {
+            cbxTipo.addItem(pais.getNombre());
         }
 
     }
 
     void grabar() {
 
-        Competencia tipoP = (Competencia) tipoC.obtenerdato(cbxTipo.getSelectedItem().toString());
+        Competencia tipoP = (Competencia) competenciaC.obtenerdato(cbxTipo.getSelectedItem().toString());
 
         try {
-            detalleC.registrarDetalle(idProfesional, tipoP.getCompetenciaId());
-            AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detaelle de profesional");
+            detalleC.registrarDetalle(idPais, tipoP.getCompetenciaId());
+            AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detalle de Competenecia");
             FrmGestionarDetalleProfesional.listar("");
             dispose();
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.sw
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("REGISTRAR DETALLE PROFESIONAL");
+        setTitle("REGISTRAR DETALLE COMPETENCIA");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -81,7 +81,7 @@ public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.sw
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Tipo Profesional*");
+        jLabel2.setText("País*");
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -149,7 +149,7 @@ public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.sw
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
-        idProfesional = 0;
+        idPais = 0;
 
     }//GEN-LAST:event_formInternalFrameClosed
 

@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
     public static CompetenciaController competenciaC = new CompetenciaController();
-    
+
     public FrmGestionarCompetencia() {
         initComponents();
         listar("");
@@ -22,7 +22,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE","FECHA INICIO","FECHA FIN", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "FECHA INICIO", "FECHA FIN", "", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -36,7 +36,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
         } else {
             lista = competenciaC.buscar(texto);
         }
-        Object obj[] = new Object[7];
+        Object obj[] = new Object[8];
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
@@ -73,6 +73,15 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
             botonVer.setBackground(new Color(41, 143, 96));
             obj[6] = botonVer;
 
+            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd = new JButton("", btnAdd);
+            botonAdd.setName("btnAdd");
+            botonAdd.setToolTipText("AñadirTipo");
+            botonAdd.setBorder(null);
+            botonAdd.setBackground(new Color(25, 38, 49));
+            obj[7] = botonAdd;
+
             modelo.addRow(obj);
 
         }
@@ -88,6 +97,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -272,6 +282,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
                         }
                     }
+
                     case "btnVer" -> {
                         if (filas == 0) {
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar una competencia");
@@ -279,6 +290,15 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
                             ModalRegistrarCompetencia.vista = true;
                             ModalRegistrarCompetencia.idCompetencia = id;
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarCompetencia());
+                        }
+                    }
+
+                    case "btnAdd" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una Competencia");
+                        } else {
+                            FrmGestionarDetalleOrganizacionCompetencia.idCompetencia = id;
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleOrganizacionCompetencia());
                         }
                     }
                 }

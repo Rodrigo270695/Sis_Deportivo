@@ -6,11 +6,11 @@ import com.deportivo.view.FrmGestionarTipoProfesional;
 import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
-import java.awt.Toolkit;
 
 public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFrame {
 
     TipoProfesionalController tipoProfesionalC = new TipoProfesionalController();
+    public static boolean activarTipoProfesional = false;
     public static int idTipoProfesional = 0;
     public static boolean vista = false;
 
@@ -61,7 +61,12 @@ public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFr
             try {
                 tipoProfesionalC.registrar(tipoProfesional);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el tipoProfesional");
-                FrmGestionarTipoProfesional.listar("");
+
+                if (activarTipoProfesional == false) {
+                    FrmGestionarTipoProfesional.listar("");
+                } else {
+                    ModalRegistrarDetalleProfesional.cargarTipoProfesionales();
+                }
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());

@@ -85,8 +85,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tipo Profesional*"/>
+            <Property name="text" type="java.lang.String" value="Categor&#xed;a &#xc1;rbitro*"/>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Categor&#xed;a &#xc1;rbitro*"/>
+          </AccessibilityProperties>
         </Component>
         <Component class="javax.swing.JButton" name="btnGrabar">
           <Properties>

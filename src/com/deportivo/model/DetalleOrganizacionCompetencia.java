@@ -1,43 +1,35 @@
-
 package com.deportivo.model;
 
 import java.util.List;
 
-
 public class DetalleOrganizacionCompetencia {
-    
-    private Pais pais;
-    private List<Competencia> tipoCompetencia;
+
+    private Competencia competencia;
+    private List<Pais> pais;
 
     public DetalleOrganizacionCompetencia() {
     }
 
-    public DetalleOrganizacionCompetencia(Pais pais) {
+    public DetalleOrganizacionCompetencia(Competencia competencia, List<Pais> pais) {
+
+        this.competencia = competencia;
         this.pais = pais;
-    }
-    
-    public DetalleOrganizacionCompetencia(Pais pais, List<Competencia> tipoCompetencia) {
-        this.pais = pais;
-        this.tipoCompetencia = tipoCompetencia;
     }
 
-    public Pais getPais() {
+    public Competencia getCompetencia() {
+        return competencia;
+    }
+
+    public void setCompetencia(Competencia competencia) {
+        this.competencia = competencia;
+    }
+
+    public List<Pais> getPais() {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(List<Pais> pais) {
         this.pais = pais;
     }
 
-    public List<Competencia> getTipoCompetencia() {
-        return tipoCompetencia;
-    }
-
-    public void setTipoCompetencia(List<Competencia> tipoCompetencia) {
-        this.tipoCompetencia = tipoCompetencia;
-    }
-
-    
-
-    
 }

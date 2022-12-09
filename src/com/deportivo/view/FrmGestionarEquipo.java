@@ -125,7 +125,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR FUTBOLISTA");
+        setTitle("GESTIONAR EQUIPO");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

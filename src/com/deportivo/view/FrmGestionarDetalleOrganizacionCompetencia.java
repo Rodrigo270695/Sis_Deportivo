@@ -2,8 +2,10 @@ package com.deportivo.view;
 
 import com.deportivo.controller.DetalleOrganizacionCompetenciaController;
 import com.deportivo.controller.CompetenciaController;
+import com.deportivo.controller.PaisController;
 import com.deportivo.model.DetalleOrganizacionCompetencia;
 import com.deportivo.model.Competencia;
+import com.deportivo.model.Pais;
 import com.deportivo.properties.RenderTable;
 import com.deportivo.view.modal.ModalRegistrarDetalleOrganizacionCompetencia;
 import com.deportivo.vista.modal.alerts.*;
@@ -15,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
 public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInternalFrame {
 
     public static DetalleOrganizacionCompetenciaController detalleC = new DetalleOrganizacionCompetenciaController();
-    CompetenciaController tipoC = new CompetenciaController();
-    public static int idProfesional;
+    PaisController tipoC = new PaisController();
+    public static int idCompetencia;
 
     public FrmGestionarDetalleOrganizacionCompetencia() {
         initComponents();
@@ -25,7 +27,7 @@ public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInt
 
     public static void listar(String texto) {
 
-        String columas[] = {"COMPETENCIA", ""};
+        String columas[] = {"PAÍS", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -33,18 +35,18 @@ public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInt
         }
 
         DetalleOrganizacionCompetencia detallePro = null;
-        Competencia tipoP;
+        Pais pais;
         if (txtBuscar.getText().length() == 0) {
-            detallePro = detalleC.listar(idProfesional);
+            detallePro = detalleC.listar(idCompetencia);
         } else {
-//            lista = detalleC.buscar(texto);
+//          lista = detalleC.buscar(texto);
         }
         Object obj[] = new Object[2];
 
-        for (int i = 0; i < detallePro.getTipoCompetencia().size(); i++) {
-            tipoP = detallePro.getTipoCompetencia().get(i);
+        for (int i = 0; i < detallePro.getPais().size(); i++) {
+            pais = detallePro.getPais().get(i);
 
-            obj[0] = tipoP.getNombre();
+            obj[0] = pais.getNombre();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -196,7 +198,7 @@ public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInt
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarDetalleOrganizacionCompetencia.idProfesional = idProfesional;
+        ModalRegistrarDetalleOrganizacionCompetencia.idPais = idCompetencia;
         ModalRegistrarDetalleOrganizacionCompetencia frm = new ModalRegistrarDetalleOrganizacionCompetencia();
         FrmMenuPrincipal.centrarVentana(frm);
 
@@ -224,14 +226,14 @@ public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInt
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 0));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Profesional " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle  " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
                                 
-                                Competencia tipoP = (Competencia) tipoC.obtenerdato(valor);
+                                Pais pais = (Pais) tipoC.obtenerdato(valor);
                                 
                                 try {
-                                    detalleC.eliminarDetalle(idProfesional,tipoP.getCompetenciaId());
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Profesional eliminado correctamente!");
+                                    detalleC.eliminarDetalle(pais.getPaisId(),idCompetencia);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());

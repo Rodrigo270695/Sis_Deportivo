@@ -49,44 +49,48 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel5" min="-2" pref="211" max="-2" attributes="0"/>
+                      <Component id="jLabel11" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="txtNombre" alignment="0" min="-2" pref="351" max="-2" attributes="0"/>
+                      <Component id="txtPalmares" alignment="0" min="-2" pref="304" max="-2" attributes="0"/>
+                      <Component id="txtSeudonimo" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtFechaDebut" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel7" min="-2" pref="64" max="-2" attributes="0"/>
+                      <Component id="txtRecords" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtFechaNac" alignment="0" pref="162" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel5" min="-2" pref="211" max="-2" attributes="0"/>
-                              <Component id="jLabel11" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
-                              <Component id="txtNombre" alignment="0" min="-2" pref="351" max="-2" attributes="0"/>
-                              <Component id="txtPalmares" alignment="0" min="-2" pref="304" max="-2" attributes="0"/>
-                              <Component id="txtSeudonimo" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
+                              <Component id="jLabel9" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtFechaDebut" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel7" min="-2" pref="64" max="-2" attributes="0"/>
-                              <Component id="txtRecords" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtFechaNac" alignment="0" pref="162" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel10" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="jLabel9" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" pref="152" max="-2" attributes="0"/>
                               <Component id="txtEstado" min="-2" pref="58" max="-2" attributes="0"/>
-                              <Component id="cbxPais" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cbxPais" min="-2" pref="143" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" pref="34" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="jLabel8" min="-2" pref="58" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                           <Component id="btnGrabar" min="-2" pref="148" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -126,7 +130,10 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtRecords" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txtRecords" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="btnGrabar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -137,13 +144,14 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cbxPais" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jButton1" max="32767" attributes="0"/>
+                              <Component id="cbxPais" pref="34" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
-                  <Component id="btnGrabar" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -223,6 +231,7 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -326,6 +335,14 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="txtFechaDebut">
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
