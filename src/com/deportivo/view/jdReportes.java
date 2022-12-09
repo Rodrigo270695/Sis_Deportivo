@@ -8,27 +8,20 @@ import net.sf.jasperreports.swing.JRViewer;
 
 public class jdReportes extends javax.swing.JDialog {
 
-    public String nombreReporte;
+    private String nombreArchivo;
 
     public jdReportes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.visorReportes.setVisible(false);
-    }
-
-    public String getNombreReporte() {
-        return nombreReporte;
-    }
-
-    public void setNombreReporte(String nombreReporte) {
-        this.nombreReporte = nombreReporte;
+//        this.setLocationRelativeTo(null);
+//        this.vista.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        visorReportes = new javax.swing.JDesktopPane();
+        vista = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -37,14 +30,14 @@ public class jdReportes extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout visorReportesLayout = new javax.swing.GroupLayout(visorReportes);
-        visorReportes.setLayout(visorReportesLayout);
-        visorReportesLayout.setHorizontalGroup(
-            visorReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout vistaLayout = new javax.swing.GroupLayout(vista);
+        vista.setLayout(vistaLayout);
+        vistaLayout.setHorizontalGroup(
+            vistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 745, Short.MAX_VALUE)
         );
-        visorReportesLayout.setVerticalGroup(
-            visorReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        vistaLayout.setVerticalGroup(
+            vistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 480, Short.MAX_VALUE)
         );
 
@@ -52,11 +45,11 @@ public class jdReportes extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(visorReportes)
+            .addComponent(vista)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(visorReportes)
+            .addComponent(vista)
         );
 
         pack();
@@ -65,15 +58,13 @@ public class jdReportes extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         try {
-
-            Container contenedor = this.visorReportes;
+            Container contenedor = this.vista;
             contenedor.setLayout(new BorderLayout());
-            JRViewer vistRep = new clsReporte().reporteInterno(nombreReporte, null);
-            contenedor.add(vistRep);
-            this.visorReportes.setVisible(true);
+            JRViewer vistaRep= new clsReporte().reporteInterno(nombreArchivo, null);
+            contenedor.add(vistaRep);
+            this.vista.setVisible(true);
         } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this,e.getMessage());
         }
 
     }//GEN-LAST:event_formWindowOpened
@@ -118,6 +109,14 @@ public class jdReportes extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane visorReportes;
+    private javax.swing.JDesktopPane vista;
     // End of variables declaration//GEN-END:variables
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
 }

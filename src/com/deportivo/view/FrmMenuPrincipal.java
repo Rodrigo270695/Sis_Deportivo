@@ -571,9 +571,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
         
-        jdReportes objFrmReporte = new jdReportes(this, true);
-        objFrmReporte.setNombreReporte("reporte1.jasper");
-        objFrmReporte.setVisible(true);
+        jdReportes objCli = new jdReportes(this, true);
+        objCli.setLocationRelativeTo(this);
+        objCli.setNombreArchivo("reporte1.jasper");
+        objCli.setVisible(true);
         
         
     }//GEN-LAST:event_jMenuItem19ActionPerformed
