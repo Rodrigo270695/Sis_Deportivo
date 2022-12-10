@@ -10,7 +10,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Men&#xfa; Principal"/>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="mnuMatenimiento">
+        <Menu class="javax.swing.JMenu" name="mnuMantenimiento">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/deportivo/iconos/Mantenimiento30.png"/>
@@ -253,12 +253,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemFormacionActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itenInstanciaPartido">
+            <MenuItem class="javax.swing.JMenuItem" name="itemInstanciaPartido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Instancia Partido"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itenInstanciaPartidoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemInstanciaPartidoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemTipoJugador">
@@ -287,9 +287,9 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="mnuReportes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reportes"/>
+            <Property name="text" type="java.lang.String" value="REPORTES"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem19">
@@ -302,20 +302,25 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu4">
+        <Menu class="javax.swing.JMenu" name="mnuTv">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Admistraci&#xf3;n"/>
+            <Property name="text" type="java.lang.String" value="TELEVISION"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mnuAdministracion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ADMINISTRACI&#xd3;N"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem27">
+            <MenuItem class="javax.swing.JMenuItem" name="itemRol">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Rol"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem27ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemRolActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem28">
+            <MenuItem class="javax.swing.JMenuItem" name="itemUsuario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Usuario"/>
               </Properties>
@@ -326,6 +331,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="USER"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

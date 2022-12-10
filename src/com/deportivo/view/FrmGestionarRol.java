@@ -3,6 +3,7 @@ package com.deportivo.view;
 import com.deportivo.controller.RolController;
 import com.deportivo.model.Rol;
 import com.deportivo.properties.RenderTable;
+import com.deportivo.view.modal.ModalDarPermisos;
 import com.deportivo.view.modal.ModalRegistrarRol;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
@@ -276,6 +277,10 @@ public class FrmGestionarRol extends javax.swing.JInternalFrame {
                             ModalRegistrarRol.btnGrabar.setText("Modificar");
 
                         }
+                    }
+                    case "btnPermiso" -> {
+                        ModalDarPermisos.idRol = id;
+                        FrmMenuPrincipal.centrarVentana(new ModalDarPermisos());
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
