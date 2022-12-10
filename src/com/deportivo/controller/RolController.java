@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import org.postgresql.util.PSQLException;
 
 public class RolController implements CRUD{
     
@@ -18,23 +20,123 @@ public class RolController implements CRUD{
     String sql = "";
 
     @Override
-    public List listar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List listar() {
+        
+        List lista = new ArrayList();
+        sql = "SELECT * FROM rol ORDER BY rol_id DESC";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Rol rol = new Rol();
+                rol.setRolId(rs.getByte(1));
+                rol.setNombre(rs.getString(2));
+                lista.add(rol);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return lista;
+        
     }
 
     @Override
     public void registrar(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Rol rol = (Rol) obj;
+        sql = "INSERT INTO rol(nombre) VALUES(?)";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, rol.getNombre());
+            ps.executeUpdate();
+
+        } catch (PSQLException pe) {
+            throw new Exception("Ya existe el rol");
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        
     }
 
     @Override
     public void modificar(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Rol rol = (Rol) obj;
+        sql = "UPDATE rol SET nombre=? WHERE rol_id = ?";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, rol.getNombre());
+            ps.setInt(2, rol.getRolId());
+            ps.executeUpdate();
+
+        } catch (PSQLException pe) {
+            throw new Exception("Ya existe el rol");
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        
     }
 
     @Override
     public void eliminar(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        sql = "DELETE FROM rol WHERE rol_id = ?";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (PSQLException pe) {
+            pe.printStackTrace(System.err);
+            throw new Exception("El rol no se puede eliminar, porque está siendo USADO");
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        
     }
 
     @Override
@@ -67,8 +169,39 @@ public class RolController implements CRUD{
     }
 
     @Override
-    public List buscar(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List buscar(Object obj){
+        
+        List lista = new ArrayList();
+        sql = " select * from rol where nombre like '%" + obj + "%'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Rol rol = new Rol();
+                rol.setRolId(rs.getByte(1));
+                rol.setNombre(rs.getString(2));
+                lista.add(rol);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return lista;
+        
     }
     
 }

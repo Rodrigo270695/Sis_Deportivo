@@ -45,42 +45,42 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         txtCantEquipo = new javax.swing.JLabel();
         txtCantEquipo1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mnuMatenimiento = new javax.swing.JMenu();
+        itemContinente = new javax.swing.JMenuItem();
+        itemArbitro = new javax.swing.JMenuItem();
+        itemTernaArbitral = new javax.swing.JMenuItem();
+        itemCuerpoTecnico = new javax.swing.JMenuItem();
+        itemTipoProfesional = new javax.swing.JMenuItem();
+        itemPosicion = new javax.swing.JMenuItem();
+        itemEvento = new javax.swing.JMenuItem();
+        itemGrupo = new javax.swing.JMenuItem();
+        itemEquipo = new javax.swing.JMenuItem();
+        itemAlineacion = new javax.swing.JMenuItem();
+        itemCompetencia = new javax.swing.JMenuItem();
+        itemConfedacion = new javax.swing.JMenuItem();
+        itemProfesional = new javax.swing.JMenuItem();
+        mnuGestion = new javax.swing.JMenu();
+        itemPais = new javax.swing.JMenuItem();
+        itemFutbolista = new javax.swing.JMenuItem();
+        itemContrato = new javax.swing.JMenuItem();
+        itemCuidad = new javax.swing.JMenuItem();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem31 = new javax.swing.JMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
-        jMenuItem20 = new javax.swing.JMenuItem();
-        jMenuItem21 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
-        jMenuItem23 = new javax.swing.JMenuItem();
-        jMenuItem24 = new javax.swing.JMenuItem();
-        jMenuItem25 = new javax.swing.JMenuItem();
-        jMenuItem26 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
+        itemFixture = new javax.swing.JMenuItem();
+        itemEtapaFixture = new javax.swing.JMenuItem();
+        itemJornada = new javax.swing.JMenuItem();
+        itemFormacion = new javax.swing.JMenuItem();
+        itenInstanciaPartido = new javax.swing.JMenuItem();
+        itemTipoJugador = new javax.swing.JMenuItem();
+        itemTipoTernaArbitral = new javax.swing.JMenuItem();
+        itemCategoriaArbitro = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem19 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem27 = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
         mnuUsuario = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem19 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/com/deportivo/iconos/sin_fondo_depor.png")).getImage());
@@ -143,166 +143,166 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 51, 0));
         jMenuBar1.setToolTipText("Menú Principal");
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Mantenimiento30.png"))); // NOI18N
-        jMenu1.setText("Mantenimiento");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuMatenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Mantenimiento30.png"))); // NOI18N
+        mnuMatenimiento.setText("Mantenimiento");
+        mnuMatenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Continente25.png"))); // NOI18N
-        jMenuItem1.setText("Gestionar Continente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itemContinente.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        itemContinente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Continente25.png"))); // NOI18N
+        itemContinente.setText("Gestionar Continente");
+        itemContinente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itemContinenteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mnuMatenimiento.add(itemContinente);
 
-        jMenuItem14.setText("Gestionar Arbitro");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+        itemArbitro.setText("Gestionar Arbitro");
+        itemArbitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
+                itemArbitroActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem14);
+        mnuMatenimiento.add(itemArbitro);
 
-        jMenuItem16.setText("Gestionar Terna Arbitral ");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+        itemTernaArbitral.setText("Gestionar Terna Arbitral ");
+        itemTernaArbitral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
+                itemTernaArbitralActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem16);
+        mnuMatenimiento.add(itemTernaArbitral);
 
-        jMenuItem6.setText("Gestionar Cuerpo Técnico");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        itemCuerpoTecnico.setText("Gestionar Cuerpo Técnico");
+        itemCuerpoTecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                itemCuerpoTecnicoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        mnuMatenimiento.add(itemCuerpoTecnico);
 
-        jMenuItem7.setText("Gestionar Tipo Profesional");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        itemTipoProfesional.setText("Gestionar Tipo Profesional");
+        itemTipoProfesional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                itemTipoProfesionalActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        mnuMatenimiento.add(itemTipoProfesional);
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/posicion25.png"))); // NOI18N
-        jMenuItem8.setText("Gestionar Posición");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        itemPosicion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/posicion25.png"))); // NOI18N
+        itemPosicion.setText("Gestionar Posición");
+        itemPosicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                itemPosicionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
+        mnuMatenimiento.add(itemPosicion);
 
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/evento25.png"))); // NOI18N
-        jMenuItem9.setText("Gestionar Evento");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        itemEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/evento25.png"))); // NOI18N
+        itemEvento.setText("Gestionar Evento");
+        itemEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                itemEventoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem9);
+        mnuMatenimiento.add(itemEvento);
 
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/grupo25.png"))); // NOI18N
-        jMenuItem10.setText("Gestionar Grupo");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        itemGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/grupo25.png"))); // NOI18N
+        itemGrupo.setText("Gestionar Grupo");
+        itemGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                itemGrupoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem10);
+        mnuMatenimiento.add(itemGrupo);
 
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/equipo25.png"))); // NOI18N
-        jMenuItem11.setText("Gestionar equipo");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        itemEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/equipo25.png"))); // NOI18N
+        itemEquipo.setText("Gestionar equipo");
+        itemEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
+                itemEquipoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem11);
+        mnuMatenimiento.add(itemEquipo);
 
-        jMenuItem12.setText("Gestionar Alineación");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        itemAlineacion.setText("Gestionar Alineación");
+        itemAlineacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                itemAlineacionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem12);
+        mnuMatenimiento.add(itemAlineacion);
 
-        jMenuItem13.setText("Gestionar Competencia");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+        itemCompetencia.setText("Gestionar Competencia");
+        itemCompetencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
+                itemCompetenciaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem13);
+        mnuMatenimiento.add(itemCompetencia);
 
-        jMenuItem3.setText("Gestionar Confederacion");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        itemConfedacion.setText("Gestionar Confederacion");
+        itemConfedacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                itemConfedacionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        mnuMatenimiento.add(itemConfedacion);
 
-        jMenuItem18.setText("Gestionar Profesional");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+        itemProfesional.setText("Gestionar Profesional");
+        itemProfesional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
+                itemProfesionalActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem18);
+        mnuMatenimiento.add(itemProfesional);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnuMatenimiento);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Gestion30.png"))); // NOI18N
-        jMenu2.setText("Gestión");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuGestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Gestion30.png"))); // NOI18N
+        mnuGestion.setText("Gestión");
+        mnuGestion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Pais25.png"))); // NOI18N
-        jMenuItem2.setText("Gestionar Pais");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        itemPais.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        itemPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Pais25.png"))); // NOI18N
+        itemPais.setText("Gestionar Pais");
+        itemPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                itemPaisActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        mnuGestion.add(itemPais);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/futbolista25.png"))); // NOI18N
-        jMenuItem4.setText("Gestionar Futbolista");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        itemFutbolista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/futbolista25.png"))); // NOI18N
+        itemFutbolista.setText("Gestionar Futbolista");
+        itemFutbolista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                itemFutbolistaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        mnuGestion.add(itemFutbolista);
 
-        jMenuItem17.setText("Gestionar Contrato");
-        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+        itemContrato.setText("Gestionar Contrato");
+        itemContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem17ActionPerformed(evt);
+                itemContratoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem17);
+        mnuGestion.add(itemContrato);
 
-        jMenuItem5.setText("Gestionar Ciudad");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        itemCuidad.setText("Gestionar Ciudad");
+        itemCuidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                itemCuidadActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        mnuGestion.add(itemCuidad);
 
         jMenuItem30.setText("Gestionar Detalle Organizacion Competencia");
         jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
@@ -310,7 +310,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 jMenuItem30ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem30);
+        mnuGestion.add(jMenuItem30);
 
         jMenuItem31.setText("Gestionar Detalle Terna Arbitral");
         jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +318,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 jMenuItem31ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem31);
+        mnuGestion.add(jMenuItem31);
 
         jMenuItem32.setText("Gestionar Detalle Competencia Grupo");
         jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
@@ -326,86 +326,73 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 jMenuItem32ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem32);
+        mnuGestion.add(jMenuItem32);
 
-        jMenuItem20.setText("Gestionar Fixture");
-        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+        itemFixture.setText("Gestionar Fixture");
+        itemFixture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem20ActionPerformed(evt);
+                itemFixtureActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem20);
+        mnuGestion.add(itemFixture);
 
-        jMenuItem21.setText("Gestionar Etapa Fixture");
-        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+        itemEtapaFixture.setText("Gestionar Etapa Fixture");
+        itemEtapaFixture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem21ActionPerformed(evt);
+                itemEtapaFixtureActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem21);
+        mnuGestion.add(itemEtapaFixture);
 
-        jMenuItem22.setText("Gestionar Jornada");
-        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+        itemJornada.setText("Gestionar Jornada");
+        itemJornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem22ActionPerformed(evt);
+                itemJornadaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem22);
+        mnuGestion.add(itemJornada);
 
-        jMenuItem23.setText("Gestionar Formación");
-        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+        itemFormacion.setText("Gestionar Formación");
+        itemFormacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem23ActionPerformed(evt);
+                itemFormacionActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem23);
+        mnuGestion.add(itemFormacion);
 
-        jMenuItem24.setText("Gestionar Instancia Partido");
-        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+        itenInstanciaPartido.setText("Gestionar Instancia Partido");
+        itenInstanciaPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem24ActionPerformed(evt);
+                itenInstanciaPartidoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem24);
+        mnuGestion.add(itenInstanciaPartido);
 
-        jMenuItem25.setText("Tipo de Jugador");
-        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+        itemTipoJugador.setText("Tipo de Jugador");
+        itemTipoJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem25ActionPerformed(evt);
+                itemTipoJugadorActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem25);
+        mnuGestion.add(itemTipoJugador);
 
-        jMenuItem26.setText("Tipo de Terna Arbitral");
-        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+        itemTipoTernaArbitral.setText("Tipo de Terna Arbitral");
+        itemTipoTernaArbitral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem26ActionPerformed(evt);
+                itemTipoTernaArbitralActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem26);
+        mnuGestion.add(itemTipoTernaArbitral);
 
-        jMenuItem15.setText("Categoria Arbitro");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+        itemCategoriaArbitro.setText("Categoria Arbitro");
+        itemCategoriaArbitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
+                itemCategoriaArbitroActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem15);
+        mnuGestion.add(itemCategoriaArbitro);
 
-        jMenuBar1.add(jMenu2);
-
-        jMenu4.setText("Admistración");
-
-        jMenuItem27.setText("Gestionar Rol");
-        jMenu4.add(jMenuItem27);
-
-        jMenuItem28.setText("Gestionar Usuario");
-        jMenu4.add(jMenuItem28);
-
-        jMenuBar1.add(jMenu4);
-
-        mnuUsuario.setText("USER");
-        jMenuBar1.add(mnuUsuario);
+        jMenuBar1.add(mnuGestion);
 
         jMenu3.setText("Reportes");
 
@@ -418,6 +405,24 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem19);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Admistración");
+
+        jMenuItem27.setText("Gestionar Rol");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem27);
+
+        jMenuItem28.setText("Gestionar Usuario");
+        jMenu4.add(jMenuItem28);
+
+        jMenuBar1.add(jMenu4);
+
+        mnuUsuario.setText("USER");
+        jMenuBar1.add(mnuUsuario);
 
         setJMenuBar(jMenuBar1);
 
@@ -435,127 +440,127 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void itemPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPaisActionPerformed
 
         centrarVentana(new FrmGestionarPais());
 
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_itemPaisActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void itemFutbolistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFutbolistaActionPerformed
 
         centrarVentana(new FrmGestionarFutbolista());
 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_itemFutbolistaActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+    private void itemCompetenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompetenciaActionPerformed
 
         centrarVentana(new FrmGestionarCompetencia());
 
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
+    }//GEN-LAST:event_itemCompetenciaActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void itemAlineacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAlineacionActionPerformed
 
         centrarVentana(new FrmGestionarAlineacion());
 
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    }//GEN-LAST:event_itemAlineacionActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void itemEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEquipoActionPerformed
 
         centrarVentana(new FrmGestionarEquipo());
 
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
+    }//GEN-LAST:event_itemEquipoActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void itemGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGrupoActionPerformed
 
         centrarVentana(new FrmGestionarGrupo());
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_itemGrupoActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void itemEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEventoActionPerformed
 
         centrarVentana(new FrmGestionarEvento());
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_itemEventoActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void itemPosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPosicionActionPerformed
 
         centrarVentana(new FrmGestionarPosicion());
 
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_itemPosicionActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void itemTipoProfesionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTipoProfesionalActionPerformed
 
         centrarVentana(new FrmGestionarTipoProfesional());
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_itemTipoProfesionalActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void itemCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCuerpoTecnicoActionPerformed
 
         centrarVentana(new FrmGestionarCuerpoTecnico());
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_itemCuerpoTecnicoActionPerformed
 
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+    private void itemTernaArbitralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTernaArbitralActionPerformed
 //        centrarVentana(new FrmGestionarTernaArbitral2());
-    }//GEN-LAST:event_jMenuItem16ActionPerformed
+    }//GEN-LAST:event_itemTernaArbitralActionPerformed
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+    private void itemArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemArbitroActionPerformed
 
         centrarVentana(new FrmGestionarArbitro());
 
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
+    }//GEN-LAST:event_itemArbitroActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void itemContinenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContinenteActionPerformed
 
         centrarVentana(new FrmGestionarContinente());
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_itemContinenteActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void itemConfedacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConfedacionActionPerformed
 
         centrarVentana(new FrmGestionarConfederacion());
 
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_itemConfedacionActionPerformed
 
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+    private void itemProfesionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProfesionalActionPerformed
 
         centrarVentana(new FrmGestionarProfesional());
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
+    }//GEN-LAST:event_itemProfesionalActionPerformed
 
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+    private void itemContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContratoActionPerformed
         centrarVentana(new FrmGestionarContrato());
-    }//GEN-LAST:event_jMenuItem17ActionPerformed
+    }//GEN-LAST:event_itemContratoActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void itemCuidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCuidadActionPerformed
         centrarVentana(new FrmGestionarCiudad());
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_itemCuidadActionPerformed
 
-    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+    private void itemFixtureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFixtureActionPerformed
         centrarVentana(new FrmGestionarFixture());
-    }//GEN-LAST:event_jMenuItem20ActionPerformed
+    }//GEN-LAST:event_itemFixtureActionPerformed
 
-    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+    private void itemEtapaFixtureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEtapaFixtureActionPerformed
         centrarVentana(new FrmGestionarEtapaFixture());
-    }//GEN-LAST:event_jMenuItem21ActionPerformed
+    }//GEN-LAST:event_itemEtapaFixtureActionPerformed
 
-    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+    private void itemJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemJornadaActionPerformed
         centrarVentana(new FrmGestionarJornada());
-    }//GEN-LAST:event_jMenuItem22ActionPerformed
+    }//GEN-LAST:event_itemJornadaActionPerformed
 
-    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+    private void itemFormacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFormacionActionPerformed
         centrarVentana(new FrmGestionarFormacionEquipo());
-    }//GEN-LAST:event_jMenuItem23ActionPerformed
+    }//GEN-LAST:event_itemFormacionActionPerformed
 
-    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+    private void itenInstanciaPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itenInstanciaPartidoActionPerformed
         centrarVentana(new FrmGestionarInstanciaPartido());
-    }//GEN-LAST:event_jMenuItem24ActionPerformed
+    }//GEN-LAST:event_itenInstanciaPartidoActionPerformed
 
-    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+    private void itemTipoJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTipoJugadorActionPerformed
         centrarVentana(new FrmGestionarTipoJugador());
-    }//GEN-LAST:event_jMenuItem25ActionPerformed
+    }//GEN-LAST:event_itemTipoJugadorActionPerformed
 
-    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+    private void itemTipoTernaArbitralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTipoTernaArbitralActionPerformed
         centrarVentana(new FrmGestionarTipoTernaArbitral());
-    }//GEN-LAST:event_jMenuItem26ActionPerformed
+    }//GEN-LAST:event_itemTipoTernaArbitralActionPerformed
 
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+    private void itemCategoriaArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriaArbitroActionPerformed
         centrarVentana(new FrmGestionarCategoriaArbitro());
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
+    }//GEN-LAST:event_itemCategoriaArbitroActionPerformed
 
     private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
         centrarVentana(new FrmGestionarDetalleTernaArbitral());
@@ -579,47 +584,51 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        centrarVentana(new FrmGestionarRol());
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuItem itemAlineacion;
+    private javax.swing.JMenuItem itemArbitro;
+    private javax.swing.JMenuItem itemCategoriaArbitro;
+    private javax.swing.JMenuItem itemCompetencia;
+    private javax.swing.JMenuItem itemConfedacion;
+    private javax.swing.JMenuItem itemContinente;
+    private javax.swing.JMenuItem itemContrato;
+    private javax.swing.JMenuItem itemCuerpoTecnico;
+    private javax.swing.JMenuItem itemCuidad;
+    private javax.swing.JMenuItem itemEquipo;
+    private javax.swing.JMenuItem itemEtapaFixture;
+    private javax.swing.JMenuItem itemEvento;
+    private javax.swing.JMenuItem itemFixture;
+    private javax.swing.JMenuItem itemFormacion;
+    private javax.swing.JMenuItem itemFutbolista;
+    private javax.swing.JMenuItem itemGrupo;
+    private javax.swing.JMenuItem itemJornada;
+    private javax.swing.JMenuItem itemPais;
+    private javax.swing.JMenuItem itemPosicion;
+    private javax.swing.JMenuItem itemProfesional;
+    private javax.swing.JMenuItem itemTernaArbitral;
+    private javax.swing.JMenuItem itemTipoJugador;
+    private javax.swing.JMenuItem itemTipoProfesional;
+    private javax.swing.JMenuItem itemTipoTernaArbitral;
+    private javax.swing.JMenuItem itenInstanciaPartido;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
-    private javax.swing.JMenuItem jMenuItem23;
-    private javax.swing.JMenuItem jMenuItem24;
-    private javax.swing.JMenuItem jMenuItem25;
-    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu mnuGestion;
+    private javax.swing.JMenu mnuMatenimiento;
     private javax.swing.JMenu mnuUsuario;
     public static javax.swing.JLabel txtCantEquipo;
     private javax.swing.JLabel txtCantEquipo1;
