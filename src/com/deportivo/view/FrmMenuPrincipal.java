@@ -81,6 +81,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuUsuario = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/com/deportivo/iconos/sin_fondo_depor.png")).getImage());
@@ -417,6 +418,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem19);
 
+        jMenuItem29.setText("Reporte 2");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem29);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -570,14 +579,23 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem32ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        
+
         jdReportes objCli = new jdReportes(this, true);
         objCli.setLocationRelativeTo(this);
         objCli.setNombreArchivo("reporte1.jasper");
         objCli.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+
+        jdReporteParametrizado objCli = new jdReporteParametrizado(this, true);
+        objCli.setVisible(true);
+   
+
+
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -609,6 +627,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
