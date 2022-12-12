@@ -143,6 +143,16 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemProfesionalActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemTipoDoc">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestionar Tipo Documento"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemDimensionEstadio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestionar Dimension Estadio"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuGestion">
@@ -260,6 +270,16 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemCategoriaArbitroActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemEstadio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestionar estadio"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemPartido">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestionar Partido"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>

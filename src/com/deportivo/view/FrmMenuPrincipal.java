@@ -212,6 +212,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemCompetencia = new javax.swing.JMenuItem();
         itemConfedacion = new javax.swing.JMenuItem();
         itemProfesional = new javax.swing.JMenuItem();
+        itemTipoDoc = new javax.swing.JMenuItem();
+        itemDimensionEstadio = new javax.swing.JMenuItem();
         mnuGestion = new javax.swing.JMenu();
         itemPais = new javax.swing.JMenuItem();
         itemFutbolista = new javax.swing.JMenuItem();
@@ -225,6 +227,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemTipoJugador = new javax.swing.JMenuItem();
         itemTipoTernaArbitral = new javax.swing.JMenuItem();
         itemCategoriaArbitro = new javax.swing.JMenuItem();
+        itemEstadio = new javax.swing.JMenuItem();
+        itemPartido = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
@@ -415,6 +419,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemProfesional);
 
+        itemTipoDoc.setText("Gestionar Tipo Documento");
+        mnuMantenimiento.add(itemTipoDoc);
+
+        itemDimensionEstadio.setText("Gestionar Dimension Estadio");
+        mnuMantenimiento.add(itemDimensionEstadio);
+
         jMenuBar1.add(mnuMantenimiento);
 
         mnuGestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Gestion30.png"))); // NOI18N
@@ -519,6 +529,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
         mnuGestion.add(itemCategoriaArbitro);
+
+        itemEstadio.setText("Gestionar estadio");
+        mnuGestion.add(itemEstadio);
+
+        itemPartido.setText("Gestionar Partido");
+        mnuGestion.add(itemPartido);
 
         jMenuBar1.add(mnuGestion);
 
@@ -736,7 +752,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemContrato;
     private javax.swing.JMenuItem itemCuerpoTecnico;
     private javax.swing.JMenuItem itemCuidad;
+    private javax.swing.JMenuItem itemDimensionEstadio;
     private javax.swing.JMenuItem itemEquipo;
+    private javax.swing.JMenuItem itemEstadio;
     private javax.swing.JMenuItem itemEtapaFixture;
     private javax.swing.JMenuItem itemEvento;
     private javax.swing.JMenuItem itemFixture;
@@ -746,10 +764,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemInstanciaPartido;
     private javax.swing.JMenuItem itemJornada;
     private javax.swing.JMenuItem itemPais;
+    private javax.swing.JMenuItem itemPartido;
     private javax.swing.JMenuItem itemPosicion;
     private javax.swing.JMenuItem itemProfesional;
     private javax.swing.JMenuItem itemRol;
     private javax.swing.JMenuItem itemTernaArbitral;
+    private javax.swing.JMenuItem itemTipoDoc;
     private javax.swing.JMenuItem itemTipoJugador;
     private javax.swing.JMenuItem itemTipoProfesional;
     private javax.swing.JMenuItem itemTipoTernaArbitral;
