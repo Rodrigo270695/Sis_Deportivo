@@ -147,11 +147,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Tipo Documento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemTipoDocActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemDimensionEstadio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Dimension Estadio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemDimensionEstadioActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

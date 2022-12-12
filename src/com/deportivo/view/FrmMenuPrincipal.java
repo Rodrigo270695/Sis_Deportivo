@@ -420,9 +420,19 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuMantenimiento.add(itemProfesional);
 
         itemTipoDoc.setText("Gestionar Tipo Documento");
+        itemTipoDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTipoDocActionPerformed(evt);
+            }
+        });
         mnuMantenimiento.add(itemTipoDoc);
 
         itemDimensionEstadio.setText("Gestionar Dimension Estadio");
+        itemDimensionEstadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemDimensionEstadioActionPerformed(evt);
+            }
+        });
         mnuMantenimiento.add(itemDimensionEstadio);
 
         jMenuBar1.add(mnuMantenimiento);
@@ -739,6 +749,17 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void itemTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTipoDocActionPerformed
+
+       centrarVentana(new FrmGestionarTipoDocumentoIdentidad());
+    }//GEN-LAST:event_itemTipoDocActionPerformed
+
+    private void itemDimensionEstadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDimensionEstadioActionPerformed
+
+         centrarVentana(new FrmGestionarDimensionCampo());
+       
+    }//GEN-LAST:event_itemDimensionEstadioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
