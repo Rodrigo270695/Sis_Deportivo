@@ -202,8 +202,9 @@ public class EtapaFixtureController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "select eta.etapa_fixture_id, eta.descripcion, fix.nombre  \n"
-                + "from etapa_fixture as eta inner join fixture as fix on eta.fixture_id= fix.fixture_id\n"
+        sql = "select eta.etapa_fixture_id, eta.descripcion, fix.fixture_id  \n"
+                + "from etapa_fixture as eta "
+                + "inner join fixture as fix on eta.fixture_id= fix.fixture_id\n"
                 + "where eta.descripcion LIKE '%" + obj + "%'";
 
         try {

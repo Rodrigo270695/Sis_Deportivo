@@ -1,6 +1,5 @@
 package com.deportivo.view.modal;
 
-
 import com.deportivo.controller.InstanciaPartidoController;
 import com.deportivo.model.InstanciaPartido;
 import com.deportivo.view.FrmGestionarInstanciaPartido;
@@ -19,12 +18,11 @@ public final class ModalRegistrarInstanciaPartido extends javax.swing.JInternalF
         initComponents();
         acciones();
     }
-    
+
     void acciones() {
 
         if (vista) {
 
-       
             txtNombre.setEnabled(false);
             btnGrabar.setEnabled(false);
 
@@ -45,12 +43,12 @@ public final class ModalRegistrarInstanciaPartido extends javax.swing.JInternalF
             Alerta alerta = new Alerta("Alerta", "El campo DESCRIPCIÓN es obligatorio");
             return;
         }
+        
+        InstanciaPartido instanciaPartido = new InstanciaPartido();
+        instanciaPartido.setDescripcion(txtNombre.getText().toUpperCase());
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
-            InstanciaPartido instanciaPartido = new InstanciaPartido();
-            instanciaPartido.setDescripcion(txtNombre.getText().toUpperCase());
-            
             try {
                 instanciaPartidoC.registrar(instanciaPartido);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el InstanciaPartido");
@@ -60,21 +58,19 @@ public final class ModalRegistrarInstanciaPartido extends javax.swing.JInternalF
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        }else{
-            
-            InstanciaPartido instanciaPartido = new InstanciaPartido();
-            instanciaPartido.setDescripcion(txtNombre.getText().toUpperCase());
+        } else {
+
             instanciaPartido.setInstancia_partido_id((int) idInstanciaPartido);
 
             try {
                 instanciaPartidoC.modificar(instanciaPartido);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el instanciaPartido");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el instanciaPartido");
                 FrmGestionarInstanciaPartido.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -137,15 +133,12 @@ public final class ModalRegistrarInstanciaPartido extends javax.swing.JInternalF
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,10 +174,10 @@ public final class ModalRegistrarInstanciaPartido extends javax.swing.JInternalF
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
+
         idInstanciaPartido = 0;
         vista = false;
-        
+
     }//GEN-LAST:event_formInternalFrameClosed
 
 

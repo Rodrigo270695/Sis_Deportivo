@@ -240,12 +240,12 @@ public class FrmGestionarTipoProfesional extends javax.swing.JInternalFrame {
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al tipoProfesional " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al tipo Profesional " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
                                     tipoProfesionalC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Tipo Profesional eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());

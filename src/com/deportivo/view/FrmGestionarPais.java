@@ -81,7 +81,7 @@ public class FrmGestionarPais extends javax.swing.JInternalFrame {
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(160);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(140);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(168);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);

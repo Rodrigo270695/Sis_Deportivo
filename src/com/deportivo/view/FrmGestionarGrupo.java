@@ -165,12 +165,12 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 733, Short.MAX_VALUE))
+                        .addGap(0, 754, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -245,7 +245,7 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
 
                                 try {
                                     grupoC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Grupo eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());

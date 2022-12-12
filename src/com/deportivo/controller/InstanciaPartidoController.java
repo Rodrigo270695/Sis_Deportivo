@@ -86,7 +86,7 @@ public class InstanciaPartidoController implements CRUD {
     public void modificar(Object obj) throws Exception {
 
         InstanciaPartido instanciaPartido = (InstanciaPartido) obj;
-        sql = "UPDATE instancia_partido SET nombre=? WHERE instancia_partido_id = ?";
+        sql = "UPDATE instancia_partido SET descripcion=? WHERE instancia_partido_id = ?";
 
         try {
 
@@ -97,6 +97,7 @@ public class InstanciaPartidoController implements CRUD {
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
+            pe.printStackTrace(System.err);
             throw new Exception("Ya existe la  instancia de Partido");
         } catch (SQLException e) {
             e.printStackTrace(System.err);

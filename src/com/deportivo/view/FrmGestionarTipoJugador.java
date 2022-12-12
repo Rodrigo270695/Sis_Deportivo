@@ -104,7 +104,7 @@ public class FrmGestionarTipoJugador extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR POSICIÓN");
+        setTitle("GESTIONAR TIPO JUGADOR");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

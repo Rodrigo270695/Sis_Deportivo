@@ -208,7 +208,7 @@ public class PaisController implements CRUD {
         sql = "SELECT pa.pais_id, pa.nombre, pa.codigo_iso, pa.continente_id FROM pais pa\n "
                 + "INNER JOIN continente co ON pa.continente_id = co.continente_id\n "
                 + "WHERE pa.nombre LIKE '%"+obj+"%' \n"
-                + "OR pa.abreviatura LIKE '%"+obj+"%' \n"
+                + "OR pa.codigo_iso LIKE '%"+obj+"%' \n"
                 + "OR co.nombre LIKE '%"+obj+"%'";
 
         try {

@@ -21,7 +21,7 @@ public class FrmGestionarEtapaFixture extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "CONTINENTE", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "FIXTURE", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -79,8 +79,8 @@ public class FrmGestionarEtapaFixture extends javax.swing.JInternalFrame {
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(160);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(210);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
@@ -104,7 +104,7 @@ public class FrmGestionarEtapaFixture extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR PAIS");
+        setTitle("GESTIONAR ETAPA FIXTURE");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -164,12 +164,12 @@ public class FrmGestionarEtapaFixture extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 735, Short.MAX_VALUE))
+                        .addGap(0, 584, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -187,7 +187,7 @@ public class FrmGestionarEtapaFixture extends javax.swing.JInternalFrame {
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)

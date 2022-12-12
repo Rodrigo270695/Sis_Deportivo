@@ -141,7 +141,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
         m = cal.get(Calendar.MONTH) + 1;
         a = cal.get(Calendar.YEAR);
         fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
-        
+
         Equipo equipo = new Equipo();
         equipo.setNombreCorto(txtNombreCorto.getText().toUpperCase());
         equipo.setNombreOficial(txtNombreCompleto.getText().toUpperCase());
@@ -153,8 +153,6 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
         equipo.setCuerpoTecnico((CuerpoTecnico) cuerpoC.obtenerdato(cbxCuerpoTecnico.getSelectedItem().toString()));
         equipo.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
         equipo.setConfederacion((Confederacion) confederacionC.obtenerdatoAcronimo(cbxConfederacion.getSelectedItem().toString()));
-
-        
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
@@ -196,7 +194,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
 
             try {
                 equipoC.modificar(equipo);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el equipo");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el equipo");
                 FrmGestionarEquipo.listar("");
                 FrmMenuPrincipal.txtCantEquipo.setText("" + equipoC.listar().size());
                 dispose();

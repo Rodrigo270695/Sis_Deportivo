@@ -285,6 +285,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
                         } else {
 
                             ModalRegistrarEquipo.idEquipo = id;
+                            System.out.println(id);
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarEquipo());
                             ModalRegistrarEquipo.btnGrabar.setText("Modificar");
 

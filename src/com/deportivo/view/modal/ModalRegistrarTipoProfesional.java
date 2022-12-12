@@ -60,7 +60,7 @@ public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFr
 
             try {
                 tipoProfesionalC.registrar(tipoProfesional);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el tipoProfesional");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el tipo Profesional");
 
                 if (activarTipoProfesional == false) {
                     FrmGestionarTipoProfesional.listar("");
@@ -81,7 +81,7 @@ public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFr
 
             try {
                 tipoProfesionalC.modificar(tipoProfesional);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el tipo de Profesional");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el tipo de Profesional");
                 FrmGestionarTipoProfesional.listar("");
                 dispose();
             } catch (Exception e) {

@@ -23,7 +23,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.setTitle("..:: SISTEMA DEPORTIVO - GRUPO GO ::..");
         txtCantEquipo.setText("" + equipoC.listar().size());
         mnuUsuario.setText(usuario.getNombre());
-        desactivarControles();
+//        desactivarControles();
         cargarPermisos();
     }
     
@@ -217,9 +217,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemFutbolista = new javax.swing.JMenuItem();
         itemContrato = new javax.swing.JMenuItem();
         itemCuidad = new javax.swing.JMenuItem();
-        jMenuItem30 = new javax.swing.JMenuItem();
-        jMenuItem31 = new javax.swing.JMenuItem();
-        jMenuItem32 = new javax.swing.JMenuItem();
         itemFixture = new javax.swing.JMenuItem();
         itemEtapaFixture = new javax.swing.JMenuItem();
         itemJornada = new javax.swing.JMenuItem();
@@ -459,30 +456,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemCuidad);
 
-        jMenuItem30.setText("Gestionar Detalle Organizacion Competencia");
-        jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem30ActionPerformed(evt);
-            }
-        });
-        mnuGestion.add(jMenuItem30);
-
-        jMenuItem31.setText("Gestionar Detalle Terna Arbitral");
-        jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem31ActionPerformed(evt);
-            }
-        });
-        mnuGestion.add(jMenuItem31);
-
-        jMenuItem32.setText("Gestionar Detalle Competencia Grupo");
-        jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem32ActionPerformed(evt);
-            }
-        });
-        mnuGestion.add(jMenuItem32);
-
         itemFixture.setText("Gestionar Fixture");
         itemFixture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -582,6 +555,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuUsuario.setText("USER");
 
         jMenuItem1.setText("Cerrar Sesión");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         mnuUsuario.add(jMenuItem1);
 
         jMenuBar1.add(mnuUsuario);
@@ -659,7 +637,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCuerpoTecnicoActionPerformed
 
     private void itemTernaArbitralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTernaArbitralActionPerformed
-//        centrarVentana(new FrmGestionarTernaArbitral2());
+        centrarVentana(new FrmGestionarTernaArbitral());
     }//GEN-LAST:event_itemTernaArbitralActionPerformed
 
     private void itemArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemArbitroActionPerformed
@@ -724,18 +702,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         centrarVentana(new FrmGestionarCategoriaArbitro());
     }//GEN-LAST:event_itemCategoriaArbitroActionPerformed
 
-    private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
-        centrarVentana(new FrmGestionarDetalleTernaArbitral());
-    }//GEN-LAST:event_jMenuItem31ActionPerformed
-
-    private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
-        centrarVentana(new FrmGestionarDetalleOrganizacionCompetencia());
-    }//GEN-LAST:event_jMenuItem30ActionPerformed
-
-    private void jMenuItem32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem32ActionPerformed
-        centrarVentana(new FrmGestionarDetalleCompetenciaGrupo());
-    }//GEN-LAST:event_jMenuItem32ActionPerformed
-
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
         
         jdReportes objCli = new jdReportes(this, true);
@@ -749,6 +715,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void itemRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRolActionPerformed
         centrarVentana(new FrmGestionarRol());
     }//GEN-LAST:event_itemRolActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+        FrmLogin frm = new FrmLogin();
+        frm.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -784,9 +758,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem30;
-    private javax.swing.JMenuItem jMenuItem31;
-    private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuAdministracion;
     private javax.swing.JMenu mnuGestion;

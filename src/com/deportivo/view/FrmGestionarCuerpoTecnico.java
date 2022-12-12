@@ -163,12 +163,12 @@ public class FrmGestionarCuerpoTecnico extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 612, Short.MAX_VALUE))
+                        .addGap(0, 626, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -238,12 +238,12 @@ public class FrmGestionarCuerpoTecnico extends javax.swing.JInternalFrame {
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al cuerpoTecnico " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al cuerpo Tecnico " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
                                     cuerpoTecnicoC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contienente eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Cuerpo Técnico eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());

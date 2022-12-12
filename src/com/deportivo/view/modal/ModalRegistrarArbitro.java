@@ -39,7 +39,7 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         if (vista) {
 
             txtNombre.setEnabled(false);
-            txtEstado.setEnabled(false);
+            cbxEstado.setEnabled(false);
             btnGrabar.setEnabled(false);
             cbxPais.setEnabled(false);
 
@@ -50,7 +50,7 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
             Arbitro arbitro = (Arbitro) arbitroC.obtenerdato(idArbitro);
 
             txtNombre.setText(arbitro.getArbitro_nombre());
-            txtEstado.setText("" + arbitro.getEstado_arbitro());
+            cbxEstado.setSelectedIndex(arbitro.getEstado_arbitro() == 'A' ? 0:1);
             cbxPais.setSelectedItem(arbitro.getPais().getNombre());
 
         }
@@ -61,7 +61,7 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
 
         Arbitro arbitro = new Arbitro();
 
-        if (txtNombre.getText().length() == 0 || txtEstado.getText().length() == 0) {
+        if (txtNombre.getText().length() == 0 ) {
             Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y ESTADO es obligatorio");
             return;
         }
@@ -69,8 +69,8 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
             arbitro.setArbitro_nombre(txtNombre.getText().toUpperCase());
-            arbitro.setEstado_arbitro(txtEstado.getText().toUpperCase().charAt(0));
-            arbitro.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedIndex()));
+            arbitro.setEstado_arbitro(cbxEstado.getSelectedItem().toString().charAt(0));
+            arbitro.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
 
             try {
                 arbitroC.registrar(arbitro);
@@ -84,13 +84,13 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         } else {
 
             arbitro.setArbitro_nombre(txtNombre.getText().toUpperCase());
-            arbitro.setEstado_arbitro(txtEstado.getText().toUpperCase().charAt(0));
-            arbitro.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedIndex()));
+            arbitro.setEstado_arbitro(cbxEstado.getSelectedItem().toString().charAt(0));
+            arbitro.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
             arbitro.setArbitro_id(idArbitro);
 
             try {
                 arbitroC.modificar(arbitro);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el arbitro");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se Modificó correctamente el arbitro");
                 FrmGestionarArbitro.listar("");
                 dispose();
             } catch (Exception e) {
@@ -108,9 +108,9 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         txtNombre = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtEstado = new org.edisoncor.gui.textField.TextFieldRectBackground();
         jLabel3 = new javax.swing.JLabel();
         cbxPais = new javax.swing.JComboBox<>();
+        cbxEstado = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -160,19 +160,13 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Estado* ");
 
-        txtEstado.setDescripcion("");
-        txtEstado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtEstadoKeyTyped(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Nacionalidad* ");
 
         cbxPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,22 +174,27 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 41, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxEstado, 0, 105, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbxPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(41, 41, 41))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,12 +208,12 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(cbxPais))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxPais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,24 +243,15 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void txtEstadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyTyped
-        if (txtEstado.getText().length() >= 1) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 1 caracteres");
-        }
-
-    }//GEN-LAST:event_txtEstadoKeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
+    private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JComboBox<String> cbxPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private org.edisoncor.gui.textField.TextFieldRectBackground txtEstado;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,9 +45,9 @@ public class UsuarioController implements CRUD {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public Usuario Logear(String documento, String password) {
+    public Usuario Logear(String documento, String password, int rol) {
 
-        sql = "select * from usuario where documento_identidad = ? and password = ?";
+        sql = "select * from usuario where documento_identidad = ? and password = ? and rol_id = ?";
 
         try {
 
@@ -55,6 +55,7 @@ public class UsuarioController implements CRUD {
             ps = con.prepareCall(sql);
             ps.setString(1, documento);
             ps.setString(2, password);
+            ps.setInt(3, rol);
             rs = ps.executeQuery();
 
             if (rs.next()) {

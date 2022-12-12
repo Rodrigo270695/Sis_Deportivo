@@ -52,7 +52,7 @@ public final class ModalRegistrarCuerpoTecnico extends javax.swing.JInternalFram
 
             try {
                 cuerpoTecnicoC.registrar(cuerpoTecnico);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el cuerpoTecnico");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el cuerpo Tecnico");
                 FrmGestionarCuerpoTecnico.listar("");
                 dispose();
             } catch (Exception e) {
@@ -67,7 +67,7 @@ public final class ModalRegistrarCuerpoTecnico extends javax.swing.JInternalFram
 
             try {
                 cuerpoTecnicoC.modificar(cuerpoTecnico);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el tipo de Contrato");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el cuerpo Tecnico");
                 FrmGestionarCuerpoTecnico.listar("");
                 dispose();
             } catch (Exception e) {

@@ -80,7 +80,7 @@ public final class ModalRegistrarPosicion extends javax.swing.JInternalFrame {
 
             try {
                 posicionC.modificar(posicion);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el tipo de Profesional");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente la posisición");
                 FrmGestionarPosicion.listar("");
                 dispose();
             } catch (Exception e) {

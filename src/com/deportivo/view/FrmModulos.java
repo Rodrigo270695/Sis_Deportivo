@@ -122,12 +122,14 @@ public class FrmModulos extends javax.swing.JFrame {
     private void btnFutbolisticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFutbolisticoActionPerformed
         FrmLogin frm = new FrmLogin();
         frm.setVisible(true);
+        FrmLogin.rol = 2;
         this.dispose();
     }//GEN-LAST:event_btnFutbolisticoActionPerformed
 
     private void btnEstadisticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticoActionPerformed
         FrmLogin frm = new FrmLogin();
         frm.setVisible(true);
+        FrmLogin.rol = 3;
         this.dispose();
     }//GEN-LAST:event_btnEstadisticoActionPerformed
 

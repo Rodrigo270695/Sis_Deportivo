@@ -9,6 +9,7 @@ public class Competencia {
     private String nombre;
     private Date fechaInicio;
     private Date fechaFin;
+    private Fixture fixture;
 
     public int getCompetenciaId() {
         return competenciaId;
@@ -40,6 +41,14 @@ public class Competencia {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public Fixture getFixture() {
+        return fixture;
+    }
+
+    public void setFixture(Fixture fixture) {
+        this.fixture = fixture;
     }
     
 }

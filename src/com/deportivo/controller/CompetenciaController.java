@@ -3,6 +3,7 @@ package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
 import com.deportivo.model.Competencia;
+import com.deportivo.model.Fixture;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.postgresql.util.PSQLException;
 
 public class CompetenciaController implements CRUD{
     
+    FixtureController fixtureC = new FixtureController();
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -34,6 +36,7 @@ public class CompetenciaController implements CRUD{
                 competencia.setNombre(rs.getString(2));
                 competencia.setFechaInicio(rs.getDate(3));
                 competencia.setFechaFin(rs.getDate(4));
+                competencia.setFixture((Fixture) fixtureC.obtenerdato(rs.getInt(5)));
                 lista.add(competencia);
             }
 
@@ -57,7 +60,7 @@ public class CompetenciaController implements CRUD{
     public void registrar(Object obj) throws Exception {
         
         Competencia competencia = (Competencia) obj;
-        sql = "INSERT INTO competencia(nombre,fecha_inicio,fecha_fin) VALUES(?,?,?)";
+        sql = "INSERT INTO competencia(nombre,fecha_inicio,fecha_fin,fixture_id) VALUES(?,?,?,?)";
 
         try {
 
@@ -66,10 +69,10 @@ public class CompetenciaController implements CRUD{
             ps.setString(1, competencia.getNombre());
             ps.setDate(2, competencia.getFechaInicio());
             ps.setDate(3, competencia.getFechaFin());
+            ps.setInt(4, competencia.getFixture().getFixture_id());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
-           
             throw new Exception("Ya existe la competencia");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -88,7 +91,7 @@ public class CompetenciaController implements CRUD{
     public void modificar(Object obj) throws Exception {
         
         Competencia competencia = (Competencia) obj;
-        sql = "UPDATE competencia SET nombre=?,fecha_inicio=?,fecha_fin=? WHERE competencia_id = ?";
+        sql = "UPDATE competencia SET nombre=?,fecha_inicio=?,fecha_fin=?,fixture_id = ? WHERE competencia_id = ?";
 
         try {
 
@@ -97,7 +100,8 @@ public class CompetenciaController implements CRUD{
             ps.setString(1, competencia.getNombre());
             ps.setDate(2, competencia.getFechaInicio());
             ps.setDate(3, competencia.getFechaFin());
-            ps.setInt(4, competencia.getCompetenciaId());
+            ps.setInt(4, competencia.getFixture().getFixture_id());
+            ps.setInt(5, competencia.getCompetenciaId());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
@@ -159,6 +163,7 @@ public class CompetenciaController implements CRUD{
                 competencia.setNombre(rs.getString(2));
                 competencia.setFechaInicio(rs.getDate(3));
                 competencia.setFechaFin(rs.getDate(4));
+                competencia.setFixture((Fixture) fixtureC.obtenerdato(rs.getInt(5)));
             }
 
         } catch (SQLException e) {
@@ -195,6 +200,7 @@ public class CompetenciaController implements CRUD{
                 competencia.setNombre(rs.getString(2));
                 competencia.setFechaInicio(rs.getDate(3));
                 competencia.setFechaFin(rs.getDate(4));
+                competencia.setFixture((Fixture) fixtureC.obtenerdato(rs.getInt(5)));
                 lista.add(competencia);
             }
 
@@ -232,6 +238,7 @@ public class CompetenciaController implements CRUD{
                 competencia.setNombre(rs.getString(2));
                 competencia.setFechaInicio(rs.getDate(3));
                 competencia.setFechaFin(rs.getDate(4));
+                competencia.setFixture((Fixture) fixtureC.obtenerdato(rs.getInt(5)));
             }
 
         } catch (SQLException e) {

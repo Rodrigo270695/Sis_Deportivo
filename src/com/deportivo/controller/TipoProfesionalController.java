@@ -176,7 +176,7 @@ public class TipoProfesionalController implements CRUD{
     public List buscar(Object obj){
         
         List lista = new ArrayList();
-        sql = "SELECT * FROM tipo_profesional WHERE descripcion LIKE '%"+obj+"%' ";
+        sql = "SELECT * FROM tipo_profesional WHERE nombre LIKE '%"+obj+"%' ";
 
         try {
 

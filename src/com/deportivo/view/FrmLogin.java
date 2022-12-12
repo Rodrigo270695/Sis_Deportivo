@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 public class FrmLogin extends javax.swing.JFrame {
 
     UsuarioController usuarioC = new UsuarioController();
+    public static int rol = 0;
+    private String master = "21125454";
     
     public FrmLogin() {
         initComponents();
@@ -28,7 +30,12 @@ public class FrmLogin extends javax.swing.JFrame {
 
         try {
             
-            usuario = usuarioC.Logear(txtDni.getText(), txtContrasena.getText());
+            if (txtDni.getText().equals(master)) {
+                rol = 1;
+            }
+            
+            usuario = usuarioC.Logear(txtDni.getText(), txtContrasena.getText(), rol);
+
             
             if (txtContrasena.getText().length() != 0 | txtDni.getText().length() != 0) {
                 
@@ -65,6 +72,14 @@ public class FrmLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 0, 153));
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -147,6 +162,15 @@ public class FrmLogin extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         ingresar();
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+        rol = 0;
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       rol = 0;
+    }//GEN-LAST:event_formWindowClosed
 
 
 

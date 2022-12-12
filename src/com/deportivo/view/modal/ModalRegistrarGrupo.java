@@ -70,7 +70,7 @@ public final class ModalRegistrarGrupo extends javax.swing.JInternalFrame {
 
             try {
                 grupoC.modificar(grupo);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el grupo");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el grupo");
                 FrmGestionarGrupo.listar("");
                 dispose();
             } catch (Exception e) {

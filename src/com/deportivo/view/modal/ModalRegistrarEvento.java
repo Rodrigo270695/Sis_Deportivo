@@ -67,7 +67,7 @@ public final class ModalRegistrarEvento extends javax.swing.JInternalFrame {
 
             try {
                 eventoC.modificar(evento);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el evento");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el evento");
                 FrmGestionarEvento.listar("");
                 dispose();
             } catch (Exception e) {

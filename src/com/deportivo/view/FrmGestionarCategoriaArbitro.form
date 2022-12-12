@@ -5,7 +5,7 @@
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="maximizable" type="boolean" value="true"/>
-    <Property name="title" type="java.lang.String" value="GESTIONAR CIUDAD"/>
+    <Property name="title" type="java.lang.String" value="GESTIONAR CATEGORIA DEL ARBITRO"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -48,12 +48,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" pref="610" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="616" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblTotal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="572" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="578" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" pref="37" max="-2" attributes="0"/>

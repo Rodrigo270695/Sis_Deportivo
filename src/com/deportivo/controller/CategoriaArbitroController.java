@@ -211,7 +211,8 @@ public class CategoriaArbitroController implements CRUD {
         sql = "select ca.categoria_arbitro_id, ca.nombre, ca.sigla, tipo.descripcion \n"
                 + "from categoria_arbitro as ca inner join tipo_terna_arbitral as tipo\n"
                 + " on ca.tipo_terna_arbitral_id = tipo.tipo_terna_arbitral_id\n"
-                + " where ca.nombre like '%" + obj + "%'OR ca.sigla like '%" + obj + "%' or tipo.descripcion like '%" + obj + "%'";
+                + " where ca.nombre like '%" + obj + "%'OR ca.sigla like '%" + obj + "%' "
+                + " or tipo.descripcion like '%" + obj + "%'";
 
         try {
 
@@ -223,7 +224,7 @@ public class CategoriaArbitroController implements CRUD {
                 CategoriaArbitro categoriaArbitro = new CategoriaArbitro();
                 categoriaArbitro.setCategoria_arbitro_id(rs.getInt(1));
                 categoriaArbitro.setNombre(rs.getString(2));
-                categoriaArbitro.setSigla(rs.getString(2));
+                categoriaArbitro.setSigla(rs.getString(3));
                 categoriaArbitro.setTipoTA((TipoTernaArbitral) tipoTA.obtenerdato(rs.getString(4)));
                 lista.add(categoriaArbitro);
             }
