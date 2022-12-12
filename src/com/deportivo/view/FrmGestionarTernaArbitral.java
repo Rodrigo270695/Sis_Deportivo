@@ -245,7 +245,7 @@ public class FrmGestionarTernaArbitral extends javax.swing.JInternalFrame {
 
                                 try {
                                     ternaArbitralC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Terna Arbitral eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Terna Arbitral eliminada correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
