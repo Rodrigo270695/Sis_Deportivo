@@ -541,6 +541,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuGestion.add(itemCategoriaArbitro);
 
         itemEstadio.setText("Gestionar estadio");
+        itemEstadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEstadioActionPerformed(evt);
+            }
+        });
         mnuGestion.add(itemEstadio);
 
         itemPartido.setText("Gestionar Partido");
@@ -760,6 +765,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          centrarVentana(new FrmGestionarDimensionCampo());
        
     }//GEN-LAST:event_itemDimensionEstadioActionPerformed
+
+    private void itemEstadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEstadioActionPerformed
+        
+        centrarVentana(new FrmGestionarEstadio());
+        
+    }//GEN-LAST:event_itemEstadioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
