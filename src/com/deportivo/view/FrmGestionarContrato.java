@@ -83,10 +83,10 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(120);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(120);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(3).setPreferredWidth(120);
+        tblListado.getColumnModel().getColumn(4).setPreferredWidth(200);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
@@ -171,12 +171,12 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 848, Short.MAX_VALUE))
+                        .addGap(0, 732, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -244,7 +244,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
                         if (filas == 0) {//si no elije ninguna fila
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar un contrato");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 4));
 
                             int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al contrato " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {

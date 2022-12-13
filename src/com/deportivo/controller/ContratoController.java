@@ -1,4 +1,3 @@
-
 package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
@@ -9,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.postgresql.util.PSQLException;
 
-public class ContratoController implements CRUD{
-    
+public class ContratoController implements CRUD {
+
     Conexion estado = new Conexion();
     FutbolistaController futbolistaC = new FutbolistaController();
     Connection con;
@@ -19,9 +18,9 @@ public class ContratoController implements CRUD{
     String sql = "";
 
     @Override
-    public List listar(){
-        
-         List lista = new ArrayList();
+    public List listar() {
+
+        List lista = new ArrayList();
         sql = "SELECT * FROM contrato_futbol ORDER BY contrato_id DESC";
 
         try {
@@ -54,12 +53,12 @@ public class ContratoController implements CRUD{
         }
 
         return lista;
-        
+
     }
 
     @Override
     public void registrar(Object obj) throws Exception {
-        
+
         Contrato contrato = (Contrato) obj;
         sql = "INSERT INTO contrato_futbol(fecha_inicio,fecha_fin,remuneracion,descripcion,futbolista_id) "
                 + "VALUES(?,?,?,?,?)";
@@ -73,9 +72,10 @@ public class ContratoController implements CRUD{
             ps.setDouble(3, contrato.getRemuneracion());
             ps.setString(4, contrato.getDescripcion());
             ps.setInt(5, contrato.getFutbolista().getFutbolistaId());
+            ps.executeUpdate();
 
         } catch (PSQLException pe) {
-           
+
             throw new Exception("Ya existe la contrato");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -87,12 +87,12 @@ public class ContratoController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
+
         Contrato contrato = (Contrato) obj;
         sql = "UPDATE contrato_futbol SET fecha_inicio=?,fecha_fin=?,remuneracion=?,descripcion=?,futbolista_id=? "
                 + "WHERE contrato_id = ?";
@@ -121,12 +121,12 @@ public class ContratoController implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public void eliminar(int id) throws Exception {
-        
+
         sql = "DELETE FROM contrato_futbol WHERE contrato_id = ?";
 
         try {
@@ -152,10 +152,10 @@ public class ContratoController implements CRUD{
     }
 
     @Override
-    public Object obtenerdato(int id)  {
-        
+    public Object obtenerdato(int id) {
+
         Contrato contrato = new Contrato();
-        sql = "SELECT * FROM contrato_futbol WHERE contrato_id = "+id;
+        sql = "SELECT * FROM contrato_futbol WHERE contrato_id = " + id;
 
         try {
 
@@ -185,14 +185,16 @@ public class ContratoController implements CRUD{
         }
 
         return contrato;
-        
+
     }
 
     @Override
-    public List buscar(Object obj){
-        
+    public List buscar(Object obj) {
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM contrato_futbol WHERE nombre LIKE '%"+obj+"%' ";
+        sql = "SELECT co.contrato_id,co.fecha_inicio,co.fecha_fin,co.remuneracion,co.descripcion,co.futbolista_id FROM contrato_futbol co \n"
+                + "inner join futbolista fu on fu.futbolista_id = co.futbolista_id \n"
+                + "WHERE fu.nombre_completo LIKE '%"+obj+"%' ";
 
         try {
 
@@ -224,7 +226,7 @@ public class ContratoController implements CRUD{
         }
 
         return lista;
-        
+
     }
-    
+
 }

@@ -259,7 +259,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
                         if (filas == 0) {//si no elije ninguna fila
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 2));
 
                             int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al futbolista " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {

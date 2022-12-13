@@ -2,6 +2,7 @@ package com.deportivo.view.modal;
 
 import com.deportivo.controller.*;
 import com.deportivo.model.Contrato;
+import com.deportivo.model.Futbolista;
 import com.deportivo.view.FrmGestionarContrato;
 import com.deportivo.vista.modal.alerts.*;
 import java.util.Calendar;
@@ -10,35 +11,37 @@ import java.util.List;
 public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
 
     ContratoController contratoC = new ContratoController();
+    FutbolistaController futbolistaC = new FutbolistaController();
     public static int idContrato = 0;
     public static boolean vista = false;
 
     public ModalRegistrarContrato() {
         initComponents();
+        futbolistas();
         acciones();
     }
-    
-//    void cargarAgentes(){
-//        
-//        jComboBox1.removeAllItems();
-//        jComboBox1.setEditable(true);
-//        List<Agente> lista = agentec.listar();
-//
-//        for (Agente agente : lista) {
-//            jComboBox1.addItem(agente.getNombreCompleto());
-//        }
-//        
-//        jComboBox1.setSelectedIndex(-1);
-//        
-//    }
-    
+
+    void futbolistas() {
+
+        cbxFutbolista.removeAllItems();
+
+        List<Futbolista> lista = futbolistaC.listar();
+
+        for (Futbolista futbolista : lista) {
+            cbxFutbolista.addItem(futbolista.getNombreCompleto());
+        }
+
+    }
+
     void acciones() {
 
         if (vista) {
 
-            txtNombre.setEnabled(false);
+            txtRemuneracion.setEnabled(false);
+            txtDescripcion.setEnabled(false);
             txtFechaFin.setEnabled(false);
             txtFechaInicio.setEnabled(false);
+            cbxFutbolista.setEnabled(false);
             btnGrabar.setEnabled(false);
 
         }
@@ -46,51 +49,53 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
         if (idContrato > 0) {
 
             Contrato contrato = (Contrato) contratoC.obtenerdato(idContrato);
-//            txtNombre.setText(contrato.getNombre());
+            txtRemuneracion.setText("" + contrato.getRemuneracion());
+            txtDescripcion.setText("" + contrato.getDescripcion());
             txtFechaFin.setDate(contrato.getFechaFin());
             txtFechaInicio.setDate(contrato.getFechaInicio());
+            cbxFutbolista.setSelectedItem(contrato.getFutbolista().getNombreCompleto());
 
         }
 
     }
 
     void grabar() {
-        
+
         try {
-            if (txtNombre.getText().length() == 0 | txtFechaFin.getDate().toString().length() == 0 | txtFechaInicio.getDate().toString().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "Los Campos son obligatorios");
-            return;
-        }
-            
+            if (txtRemuneracion.getText().length() == 0 | txtFechaFin.getDate().toString().length() == 0 | txtFechaInicio.getDate().toString().length() == 0) {
+                Alerta alerta = new Alerta("Alerta", "Los Campos son obligatorios");
+                return;
+            }
+
         } catch (NullPointerException e) {
             Alerta alerta = new Alerta("Alerta", "Los Campos son obligatorios");
         }
 
-        
-        
         Calendar cal, cal2;
         int d, m, a, d2, m2, a2;
         String fecha1, fecha2;
         Contrato contrato = new Contrato();
-        
+
         cal = txtFechaFin.getCalendar();
         d = cal.get(Calendar.DAY_OF_MONTH);
         m = cal.get(Calendar.MONTH) + 1;
         a = cal.get(Calendar.YEAR);
-        
+
         cal2 = txtFechaInicio.getCalendar();
         d2 = cal2.get(Calendar.DAY_OF_MONTH);
         m2 = cal2.get(Calendar.MONTH) + 1;
         a2 = cal2.get(Calendar.YEAR);
-        
+
         fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
         fecha2 = String.valueOf(a2) + "-" + String.valueOf(m2) + "-" + String.valueOf(d2);
 
+        contrato.setRemuneracion(Double.parseDouble(txtRemuneracion.getText()));
+        contrato.setDescripcion(txtDescripcion.getText());
+        contrato.setFutbolista((Futbolista) futbolistaC.obtenerdato(cbxFutbolista.getSelectedItem().toString()));
+        contrato.setFechaFin((java.sql.Date.valueOf(fecha1)));
+        contrato.setFechaInicio((java.sql.Date.valueOf(fecha2)));
+
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
-            
-//            contrato.setNombre(txtNombre.getText().toUpperCase());
-            contrato.setFechaFin((java.sql.Date.valueOf(fecha1)));
-            contrato.setFechaInicio((java.sql.Date.valueOf(fecha2)));
 
             try {
                 contratoC.registrar(contrato);
@@ -101,22 +106,19 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
-        }else{
-            
-//            contrato.setNombre(txtNombre.getText().toUpperCase());
-            contrato.setFechaFin((java.sql.Date.valueOf(fecha1)));
-            contrato.setFechaInicio((java.sql.Date.valueOf(fecha2)));
+        } else {
+
             contrato.setContratoId(idContrato);
 
             try {
                 contratoC.modificar(contrato);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Contrato");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente la Contrato");
                 FrmGestionarContrato.listar("");
                 dispose();
             } catch (Exception e) {
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
-            
+
         }
     }
 
@@ -126,16 +128,16 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNombre = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        txtRemuneracion = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         txtFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
-        txtNombre1 = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        txtDescripcion = new org.edisoncor.gui.textField.TextFieldRectBackground();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxFutbolista = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -164,8 +166,8 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Remuneración");
 
-        txtNombre.setDescripcion("Ej. 0000.00");
-        txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtRemuneracion.setDescripcion("Ej. 0000.00");
+        txtRemuneracion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -194,14 +196,14 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Descripción");
 
-        txtNombre1.setDescripcion("Ej. 0000.00");
-        txtNombre1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDescripcion.setDescripcion("Ej. 0000.00");
+        txtDescripcion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Descripción");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFutbolista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,7 +217,7 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,11 +232,11 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(0, 26, Short.MAX_VALUE))
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(txtRemuneracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbxFutbolista, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(17, 17, 17))
         );
@@ -247,7 +249,7 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRemuneracion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,11 +261,11 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxFutbolista, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -290,25 +292,25 @@ public final class ModalRegistrarContrato extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
+
         idContrato = 0;
         vista = false;
-        
+
     }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxFutbolista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private org.edisoncor.gui.textField.TextFieldRectBackground txtDescripcion;
     private com.toedter.calendar.JDateChooser txtFechaFin;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
-    private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre;
-    private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre1;
+    private org.edisoncor.gui.textField.TextFieldRectBackground txtRemuneracion;
     // End of variables declaration//GEN-END:variables
 }

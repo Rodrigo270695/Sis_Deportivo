@@ -2,7 +2,6 @@ package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
 import com.deportivo.model.Futbolista;
-import com.deportivo.model.Pais;
 import com.deportivo.model.TipoDocumentoIdentidad;
 import java.sql.*;
 import java.util.*;
@@ -219,39 +218,88 @@ public class FutbolistaController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-//        sql = "SELECT * FROM futbolista WHERE nombre_completo LIKE '%"+obj+"%'\n"
-//                + "OR direccion LIKE '%"+obj+"%'\n"
-//                + "OR correo LIKE '%"+obj+"%'";
-//
-//        try {
-//
-//            con = estado.conectar();
-//            ps = con.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                Futbolista futbolista = new Futbolista();
-//                futbolista.setFutbolistaId(rs.getInt(1));
-//                futbolista.setNombreCompleto(rs.getString(2));
-//                futbolista.setDireccion(rs.getString(3));
-//                futbolista.setCorreo(rs.getString(4));
-//                futbolista.setFoto(rs.getBinaryStream(5));
-//                lista.add(futbolista);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace(System.err);
-//        } finally {
-//            try {
-//                con.close();
-//                ps.close();
-//                rs.close();
-//            } catch (SQLException ex) {
-//                ex.printStackTrace(System.err);
-//            }
-//        }
+        sql = "SELECT * FROM futbolista WHERE nombre_completo LIKE '%"+obj+"%'\n"
+                + "OR nombre_corto LIKE '%"+obj+"%'\n"
+                + "OR numero_documento_identidad LIKE '%"+obj+"%'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Futbolista futbolista = new Futbolista();
+                futbolista.setFutbolistaId(rs.getInt(1));
+                futbolista.setDocumentoIdentidad(rs.getString(2));
+                futbolista.setNombreCompleto(rs.getString(3));
+                futbolista.setNombreCorto(rs.getString(4));
+                futbolista.setFechaNacimiento(rs.getDate(5));
+                futbolista.setNumeroCamiseta(rs.getInt(6));
+                futbolista.setValorMercado(rs.getFloat(7));
+                futbolista.setAltura(rs.getFloat(8));
+                futbolista.setPeso(rs.getFloat(9));
+                futbolista.setEmail(rs.getString(10));
+                futbolista.setFoto(rs.getBinaryStream(11));
+                futbolista.setTipoDocumentoIdentidad((TipoDocumentoIdentidad) tipodocC.obtenerdato(rs.getInt(12)));
+                lista.add(futbolista);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
 
         return lista;
+
+    }
+    
+    public Object obtenerdato(String nombre) {
+
+        Futbolista futbolista = new Futbolista();
+        sql = "SELECT * FROM futbolista WHERE nombre_completo = '"+nombre+"'" ;
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                futbolista.setFutbolistaId(rs.getInt(1));
+                futbolista.setDocumentoIdentidad(rs.getString(2));
+                futbolista.setNombreCompleto(rs.getString(3));
+                futbolista.setNombreCorto(rs.getString(4));
+                futbolista.setFechaNacimiento(rs.getDate(5));
+                futbolista.setNumeroCamiseta(rs.getInt(6));
+                futbolista.setValorMercado(rs.getFloat(7));
+                futbolista.setAltura(rs.getFloat(8));
+                futbolista.setPeso(rs.getFloat(9));
+                futbolista.setEmail(rs.getString(10));
+                futbolista.setFoto(rs.getBinaryStream(11));
+                futbolista.setTipoDocumentoIdentidad((TipoDocumentoIdentidad) tipodocC.obtenerdato(rs.getInt(12)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return futbolista;
 
     }
 
