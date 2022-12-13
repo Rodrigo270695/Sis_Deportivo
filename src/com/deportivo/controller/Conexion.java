@@ -18,10 +18,8 @@ public class Conexion {
             Class.forName("org.postgresql.Driver");
             
             con = DriverManager.getConnection(URL, USER, PASS);
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace(System.err);
-        }catch (SQLException e) {
-            e.printStackTrace(System.err);
         }
         
         return con;

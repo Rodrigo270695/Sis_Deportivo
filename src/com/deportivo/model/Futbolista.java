@@ -11,14 +11,13 @@ public class Futbolista {
     private String nombreCompleto;
     private String nombreCorto;
     private Date fechaNacimiento;
+    private int numeroCamiseta;
+    private double valorMercado;
     private float altura;
     private float peso;
-    private char sexo;
-    private String pieDominante;
     private String email;
     private InputStream foto;
-    private char estado;
-    private Pais pais;
+    private TipoDocumentoIdentidad tipoDocumentoIdentidad;
 
     public int getFutbolistaId() {
         return futbolistaId;
@@ -60,6 +59,22 @@ public class Futbolista {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public int getNumeroCamiseta() {
+        return numeroCamiseta;
+    }
+
+    public void setNumeroCamiseta(int numeroCamiseta) {
+        this.numeroCamiseta = numeroCamiseta;
+    }
+
+    public double getValorMercado() {
+        return valorMercado;
+    }
+
+    public void setValorMercado(double valorMercado) {
+        this.valorMercado = valorMercado;
+    }
+
     public float getAltura() {
         return altura;
     }
@@ -74,22 +89,6 @@ public class Futbolista {
 
     public void setPeso(float peso) {
         this.peso = peso;
-    }
-
-    public char getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getPieDominante() {
-        return pieDominante;
-    }
-
-    public void setPieDominante(String pieDominante) {
-        this.pieDominante = pieDominante;
     }
 
     public String getEmail() {
@@ -108,20 +107,13 @@ public class Futbolista {
         this.foto = foto;
     }
 
-    public char getEstado() {
-        return estado;
+    public TipoDocumentoIdentidad getTipoDocumentoIdentidad() {
+        return tipoDocumentoIdentidad;
     }
 
-    public void setEstado(char estado) {
-        this.estado = estado;
+    public void setTipoDocumentoIdentidad(TipoDocumentoIdentidad tipoDocumentoIdentidad) {
+        this.tipoDocumentoIdentidad = tipoDocumentoIdentidad;
     }
-
-    public Pais getPais() {
-        return pais;
-    }
-
-    public void setPais(Pais pais) {
-        this.pais = pais;
-    }
+    
     
 }

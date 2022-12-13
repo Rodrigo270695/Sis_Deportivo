@@ -15,27 +15,27 @@ import javax.swing.*;
 public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
     FutbolistaController futbolistaC = new FutbolistaController();
-    PaisController paisC = new PaisController();
+    TipoDocumentoIdentidadController tipoDocC = new TipoDocumentoIdentidadController();
     FileInputStream fis;
     public static int idFutbolista = 0;
     public static boolean vista = false;
 
     public ModalRegistrarFutbolista() {
         initComponents();
-        cargarFutbolistaes();
+        cargarTipoDocs();
         if (lblFoto.getIcon() == null) {
             lblFoto.setIcon(new ImageIcon("src/com/deportivo/iconos/foto_default.png"));
         }
         acciones();
     }
 
-    void cargarFutbolistaes() {
+    void cargarTipoDocs() {
 
-        cbxPais.removeAllItems();
-        List<Pais> lista = paisC.listar();
+        cbxTipoDoc.removeAllItems();
+        List<TipoDocumentoIdentidad> lista = tipoDocC.listar();
 
-        for (Pais pais : lista) {
-            cbxPais.addItem(pais.getNombre());
+        for (TipoDocumentoIdentidad tipo : lista) {
+            cbxTipoDoc.addItem(tipo.getDescripcion_larga());
         }
 
     }
@@ -51,9 +51,9 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
             txtNombre.setEnabled(false);
             txtNombreCorto.setEnabled(false);
             txtPeso.setEnabled(false);
-            txtPieDominante.setEnabled(false);
-            cbxPais.setEnabled(false);
-            cbxSexo.setEnabled(false);
+            txtNumCamiseta.setEnabled(false);
+            cbxTipoDoc.setEnabled(false);
+            txtValorMercado.setEnabled(false);
             btnGrabar.setEnabled(false);
             btnFoto.setEnabled(false);
 
@@ -71,9 +71,9 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
             txtNombre.setText(futbolista.getNombreCompleto());
             txtNombreCorto.setText(futbolista.getNombreCorto());
             txtPeso.setText("" + futbolista.getPeso());
-            txtPieDominante.setText(futbolista.getPieDominante());
-            cbxPais.setSelectedItem(futbolista.getPais().getNombre());
-            cbxSexo.setSelectedIndex(futbolista.getSexo() == 'M' ? 0 : 1);
+            txtValorMercado.setText("" + futbolista.getValorMercado());
+            cbxTipoDoc.setSelectedItem(futbolista.getTipoDocumentoIdentidad().getDescripcion_larga());
+            txtNumCamiseta.setText("" + futbolista.getNumeroCamiseta());
 
             try {
                 BufferedImage bi = ImageIO.read(futbolista.getFoto());
@@ -107,18 +107,18 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
+        futbolista.setNombreCorto(txtNombreCorto.getText().toUpperCase());
+        futbolista.setNombreCompleto(txtNombre.getText().toUpperCase());
+        futbolista.setDocumentoIdentidad(txtDocIdentidad.getText().toUpperCase());
+        futbolista.setValorMercado(Double.parseDouble(txtNumCamiseta.getText().toUpperCase()));
+        futbolista.setNumeroCamiseta(Integer.parseInt(txtNumCamiseta.getText()));
+        futbolista.setEmail(txtCorreo.getText().toUpperCase());
+        futbolista.setTipoDocumentoIdentidad((TipoDocumentoIdentidad) tipoDocC.obtenerdato(cbxTipoDoc.getSelectedItem().toString()));
+        futbolista.setFechaNacimiento((java.sql.Date.valueOf(fecha1)));
+        futbolista.setPeso(Float.parseFloat(txtPeso.getText()));
+        futbolista.setAltura(Float.parseFloat(txtAltura.getText()));
 
-            futbolista.setNombreCorto(txtNombreCorto.getText().toUpperCase());
-            futbolista.setNombreCompleto(txtNombre.getText().toUpperCase());
-            futbolista.setDocumentoIdentidad(txtDocIdentidad.getText().toUpperCase());
-            futbolista.setPieDominante(txtPieDominante.getText().toUpperCase());
-            futbolista.setSexo(cbxSexo.getSelectedIndex() == 0 ? 'M' : 'F');
-            futbolista.setEmail(txtCorreo.getText().toUpperCase());
-            futbolista.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
-            futbolista.setFechaNacimiento((java.sql.Date.valueOf(fecha1)));
-            futbolista.setPeso(Float.parseFloat(txtPeso.getText()));
-            futbolista.setAltura(Float.parseFloat(txtAltura.getText()));
+        if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
             if (fis == null) {
                 try {
@@ -142,16 +142,6 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         } else {
 
-            futbolista.setNombreCorto(txtNombreCorto.getText().toUpperCase());
-            futbolista.setNombreCompleto(txtNombre.getText().toUpperCase());
-            futbolista.setDocumentoIdentidad(txtDocIdentidad.getText().toUpperCase());
-            futbolista.setPieDominante(txtPieDominante.getText().toUpperCase());
-            futbolista.setSexo(cbxSexo.getSelectedIndex() == 0 ? 'M' : 'F');
-            futbolista.setEmail(txtCorreo.getText().toUpperCase());
-            futbolista.setPais((Pais) paisC.obtenerdato(cbxPais.getSelectedItem().toString()));
-            futbolista.setFechaNacimiento((java.sql.Date.valueOf(fecha1)));
-            futbolista.setPeso(Float.parseFloat(txtPeso.getText()));
-            futbolista.setAltura(Float.parseFloat(txtAltura.getText()));
             futbolista.setFutbolistaId(idFutbolista);
 
             if (fis == null) {
@@ -185,9 +175,7 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
         txtNombre = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        cbxPais = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        cbxSexo = new javax.swing.JComboBox<>();
+        cbxTipoDoc = new javax.swing.JComboBox<>();
         lblFoto = new javax.swing.JLabel();
         btnFoto = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -203,7 +191,9 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
         txtFechaNac = new com.toedter.calendar.JDateChooser();
         txtAltura = new org.edisoncor.gui.textField.TextFieldRectBackground();
         jLabel12 = new javax.swing.JLabel();
-        txtPieDominante = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        txtNumCamiseta = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        txtValorMercado = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        jLabel13 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -251,17 +241,10 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Pais");
+        jLabel3.setText("Tipo Documemto");
 
-        cbxPais.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Sexo");
-
-        cbxSexo.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MASCULINO", "FEMENINO" }));
+        cbxTipoDoc.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cbxTipoDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -318,10 +301,17 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Pie. dom.");
+        jLabel12.setText("N° Camiseta");
 
-        txtPieDominante.setDescripcion("Ej. PER");
-        txtPieDominante.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNumCamiseta.setDescripcion("Ej. PER");
+        txtNumCamiseta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        txtValorMercado.setDescripcion("Ej. PER");
+        txtValorMercado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Valor Mercado");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -339,19 +329,34 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(cbxTipoDoc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtDocIdentidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtValorMercado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNumCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,21 +364,7 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDocIdentidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(cbxSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPieDominante, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnFoto, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -403,14 +394,15 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtDocIdentidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel4)
+                                .addComponent(txtDocIdentidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPieDominante, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNumCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValorMercado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -437,7 +429,7 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxPais, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(cbxTipoDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                             .addComponent(txtFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,14 +494,13 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnFoto;
     public static javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox<String> cbxPais;
-    private javax.swing.JComboBox<String> cbxSexo;
+    private javax.swing.JComboBox<String> cbxTipoDoc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -522,7 +513,8 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser txtFechaNac;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtNombre;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtNombreCorto;
+    private org.edisoncor.gui.textField.TextFieldRectBackground txtNumCamiseta;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtPeso;
-    private org.edisoncor.gui.textField.TextFieldRectBackground txtPieDominante;
+    private org.edisoncor.gui.textField.TextFieldRectBackground txtValorMercado;
     // End of variables declaration//GEN-END:variables
 }

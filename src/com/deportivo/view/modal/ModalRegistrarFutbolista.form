@@ -60,24 +60,45 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel3" min="-2" pref="152" max="-2" attributes="0"/>
-                                      <Component id="cbxPais" max="32767" attributes="0"/>
+                                      <Component id="cbxTipoDoc" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
-                                      <Component id="txtNombre" alignment="0" min="-2" pref="351" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel1" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                                              <Component id="txtNombre" alignment="0" min="-2" pref="351" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="txtNombreCorto" alignment="1" min="-2" pref="58" max="-2" attributes="0"/>
+                                              <Component id="jLabel8" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtDocIdentidad" max="32767" attributes="0"/>
+                                              <Component id="jLabel5" min="-2" pref="211" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jLabel12" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtValorMercado" max="32767" attributes="0"/>
+                                              <Component id="jLabel13" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="txtNombreCorto" alignment="1" min="-2" pref="58" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel11" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="txtCorreo" min="-2" pref="304" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="txtNumCamiseta" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel11" min="-2" pref="84" max="-2" attributes="0"/>
+                                          <Component id="txtCorreo" min="-2" pref="304" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -88,25 +109,6 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="txtAltura" min="-2" pref="46" max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" pref="46" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtDocIdentidad" max="32767" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" pref="211" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel4" min="-2" pref="72" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="cbxSexo" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtPieDominante" min="-2" pref="58" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" min="-2" pref="58" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -148,16 +150,17 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtDocIdentidad" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="cbxSexo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtDocIdentidad" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtPieDominante" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="txtNumCamiseta" min="-2" pref="28" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtValorMercado" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -195,7 +198,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="cbxPais" pref="28" max="32767" attributes="0"/>
+                              <Component id="cbxTipoDoc" pref="28" max="32767" attributes="0"/>
                               <Component id="txtFechaNac" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -263,10 +266,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pais"/>
+            <Property name="text" type="java.lang.String" value="Tipo Documemto"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbxPais">
+        <Component class="javax.swing.JComboBox" name="cbxTipoDoc">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="0"/>
@@ -277,33 +280,6 @@
                 <StringItem index="1" value="Item 2"/>
                 <StringItem index="2" value="Item 3"/>
                 <StringItem index="3" value="Item 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="66" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Sexo"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cbxSexo">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="13" style="0"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="MASCULINO"/>
-                <StringItem index="1" value="FEMENINO"/>
               </StringArray>
             </Property>
           </Properties>
@@ -456,15 +432,34 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pie. dom."/>
+            <Property name="text" type="java.lang.String" value="N&#xb0; Camiseta"/>
           </Properties>
         </Component>
-        <Component class="org.edisoncor.gui.textField.TextFieldRectBackground" name="txtPieDominante">
+        <Component class="org.edisoncor.gui.textField.TextFieldRectBackground" name="txtNumCamiseta">
           <Properties>
             <Property name="descripcion" type="java.lang.String" value="Ej. PER"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="org.edisoncor.gui.textField.TextFieldRectBackground" name="txtValorMercado">
+          <Properties>
+            <Property name="descripcion" type="java.lang.String" value="Ej. PER"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel13">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Valor Mercado"/>
           </Properties>
         </Component>
       </SubComponents>
