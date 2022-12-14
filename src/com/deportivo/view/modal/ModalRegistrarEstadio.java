@@ -133,9 +133,9 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
         estadio.setCosto(Double.parseDouble(txtCosto.getText().toUpperCase()));
         estadio.setTribunas(Byte.parseByte(txtTribunas.getText()));
         estadio.setFechaFundacion(java.sql.Date.valueOf(formato.format(txtFechaFundacion.getDate())));
-        estadio.setEquipoPropietario();
-        estadio.setPais((Pais) paisC.obtenerdato(cbxCuidad.getSelectedItem().toString()));
-        estadio.setConfederacion((Confederacion) confederacionC.obtenerdatoAcronimo(cbxDemension.getSelectedItem().toString()));
+        estadio.setEquipoPropietario(txtPropietario.getText());
+        estadio.setCiudad((Ciudad) ciudadC.obtenerdato(cbxCuidad.getSelectedItem().toString()));
+        estadio.setDimensionCampo((DimensionCampo) dimensionC.obtenerdato(cbxDemension.getSelectedItem().toString()));
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 

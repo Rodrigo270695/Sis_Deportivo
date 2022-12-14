@@ -138,9 +138,8 @@ public class EstadioController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM estadio WHERE nombre_completo LIKE '%"+obj+"%'\n"
-                + "OR nombre_corto LIKE '%"+obj+"%'\n"
-                + "OR apodo LIKE '%"+obj+"%'";
+        sql = "SELECT * FROM estadio WHERE nombre_oficial LIKE '%"+obj+"%'\n"
+                + "OR nombre_conocido LIKE '%"+obj+"%'";
 
         try {
 

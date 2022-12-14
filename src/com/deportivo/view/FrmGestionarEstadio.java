@@ -4,6 +4,10 @@ package com.deportivo.view;
 import com.deportivo.controller.EstadioController;
 import com.deportivo.model.Estadio;
 import com.deportivo.properties.RenderTable;
+import com.deportivo.view.modal.ModalRegistrarEstadio;
+import com.deportivo.vista.modal.alerts.Alerta;
+import com.deportivo.vista.modal.alerts.AlertaBien;
+import com.deportivo.vista.modal.alerts.AlertaError;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
@@ -227,83 +231,83 @@ public class FrmGestionarEstadio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
-//
-//        int fila = tblListado.getSelectedRow();
-//        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
-//
-//        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
-//        int row = evt.getY() / tblListado.getRowHeight();
-//
-//        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
-//            Object value = tblListado.getValueAt(row, colum);
-//
-//            if (value instanceof JButton jButton) {
-//                jButton.doClick();
-//                JButton boton = jButton;
-//                int filas = tblListado.getSelectedRowCount();
-//
-//                switch (boton.getName()) {
-//                    case "btnEliminar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un estadio");
-//                        } else {
-//                            String valor = String.valueOf(tblListado.getValueAt(fila, 2));
-//
-//                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al estadio " + valor + "?", "Confirmar", 2);
-//                            if (opcion == 0) {
-//
-//                                try {
-//                                    estadioC.eliminar(id);
-//                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "estadio eliminado correctamente!");
+
+        int fila = tblListado.getSelectedRow();
+        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
+
+        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
+        int row = evt.getY() / tblListado.getRowHeight();
+
+        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
+            Object value = tblListado.getValueAt(row, colum);
+
+            if (value instanceof JButton jButton) {
+                jButton.doClick();
+                JButton boton = jButton;
+                int filas = tblListado.getSelectedRowCount();
+
+                switch (boton.getName()) {
+                    case "btnEliminar" -> {
+                        if (filas == 0) {//si no elije ninguna fila
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un estadio");
+                        } else {
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 2));
+
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al estadio " + valor + "?", "Confirmar", 2);
+                            if (opcion == 0) {
+
+                                try {
+                                    estadioC.eliminar(id);
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "estadio eliminado correctamente!");
 //                                    FrmMenuPrincipal.txtCantEstadio.setText(""+estadioC.listar().size());
-//                                    listar("");
-//                                } catch (Exception ex) {
-//                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
-//                                }
-//
-//                            } else {
-//                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
-//                            }
-//
-//                        }
-//                    }
-//                    case "btnModificar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un estadio");
-//                        } else {
-//
-//                            ModalRegistrarEstadio.idEstadio = id;
-//                            System.out.println(id);
-//                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEstadio());
-//                            ModalRegistrarEstadio.btnGrabar.setText("Modificar");
-//
-//                        }
-//                    }
-//                    case "btnVer" -> {
-//                        if (filas == 0) {
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un estadio");
-//                        } else {
-//                            ModalRegistrarEstadio.vista = true;
-//                            ModalRegistrarEstadio.idEstadio = id;
-//                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEstadio());
-//                        }
-//                    }
-//                }
-//            }
-//        }
+                                    listar("");
+                                } catch (Exception ex) {
+                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
+                                }
+
+                            } else {
+                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
+                            }
+
+                        }
+                    }
+                    case "btnModificar" -> {
+                        if (filas == 0) {//si no elije ninguna fila
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un estadio");
+                        } else {
+
+                            ModalRegistrarEstadio.idEstadio = id;
+                            System.out.println(id);
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEstadio());
+                            ModalRegistrarEstadio.btnGrabar.setText("Modificar");
+
+                        }
+                    }
+                    case "btnVer" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un estadio");
+                        } else {
+                            ModalRegistrarEstadio.vista = true;
+                            ModalRegistrarEstadio.idEstadio = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarEstadio());
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_tblListadoMouseClicked
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
 
-//        if (txtBuscar.getText().length() % 2 == 0) {
-//            listar(txtBuscar.getText().toUpperCase());
-//        }
+        if (txtBuscar.getText().length() % 2 == 0) {
+            listar(txtBuscar.getText().toUpperCase());
+        }
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-//        ModalRegistrarEstadio frm = new ModalRegistrarEstadio();
-//        FrmMenuPrincipal.centrarVentana(frm);
+        ModalRegistrarEstadio frm = new ModalRegistrarEstadio();
+        FrmMenuPrincipal.centrarVentana(frm);
     }//GEN-LAST:event_btnAddActionPerformed
 
 
