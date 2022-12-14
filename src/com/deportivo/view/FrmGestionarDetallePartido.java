@@ -1,89 +1,67 @@
 package com.deportivo.view;
 
+import com.deportivo.controller.DetallePartidoController;
+import com.deportivo.controller.EquipoController;
+import com.deportivo.controller.FormacionEquipoController;
 import com.deportivo.controller.PartidoController;
+import com.deportivo.model.DetallePartido;
+import com.deportivo.model.Equipo;
+import com.deportivo.model.FormacionEquipo;
 import com.deportivo.model.Partido;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarPartido;
+import com.deportivo.view.modal.ModalRegistrarDetallePartido;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarPartido extends javax.swing.JInternalFrame {
+public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
 
-    public static PartidoController partidoC = new PartidoController();
+    public static DetallePartidoController detalleC = new DetallePartidoController();
+    EquipoController equipoC = new EquipoController();
+    FormacionEquipoController formacionC = new FormacionEquipoController();
+    public static int idPartido;
 
-    public FrmGestionarPartido() {
+    public FrmGestionarDetallePartido() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "HORA", "JORNADA", "ESTADIO", "", "", "",""};
+        String columas[] = {"EQUIPO","TIPO","FORMACIÓN", ""};
         DefaultTableModel modelo = new DefaultTableModel();
+        List lista = null;
+        DetallePartido detalleP;
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        Partido partido;
-        List lista;
-
         if (txtBuscar.getText().length() == 0) {
-            lista = partidoC.listar();
+            lista = detalleC.listar(idPartido);
         } else {
-            lista = partidoC.buscar(texto);
+//            lista = detalleC.buscar(texto);
         }
-
-        Object obj[] = new Object[8];
+        Object obj[] = new Object[4];
 
         for (int i = 0; i < lista.size(); i++) {
-            partido = (Partido) lista.get(i);
+            detalleP = (DetallePartido) lista.get(i);
 
-            obj[0] = partido.getPartidoId();
-            obj[1] = partido.getHora();
-            obj[2] = partido.getJornada().getFecha_corta();
-            obj[3] = partido.getEstadio().getNombreOficial();
-
-            ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
-            Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-            JButton botonModificar = new JButton("", btnModificar);
-            botonModificar.setName("btnModificar");
-            botonModificar.setToolTipText("modificar");
-            botonModificar.setBorder(null);
-            botonModificar.setBackground(new Color(255, 198, 26));
-            obj[4] = botonModificar;
+            obj[0] = detalleP.getEquipo().getNombreCorto();
+            obj[1] = detalleP.getTipo();
+            obj[2] = detalleP.getFormacion().getDescripcion();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
-            Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             JButton botonEliminar = new JButton("", btnEliminar);
             botonEliminar.setName("btnEliminar");
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[5] = botonEliminar;
-            
+            obj[3] = botonEliminar;
 
-            ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
-            Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-            JButton botonVer = new JButton("", btnVer);
-            botonVer.setName("btnVer");
-            botonVer.setToolTipText("vista del registro");
-            botonVer.setBorder(null);
-            botonVer.setBackground(new Color(41, 143, 96));
-            obj[6] = botonVer;
-
-            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
-            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-            JButton botonAdd = new JButton("", btnAdd);
-            botonAdd.setName("btnAdd");
-            botonAdd.setToolTipText("AñadirTipo");
-            botonAdd.setBorder(null);
-            botonAdd.setBackground(new Color(25, 38, 49));
-            obj[7] = botonAdd;
-            
             modelo.addRow(obj);
 
         }
@@ -92,14 +70,10 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(225);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(320);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -120,7 +94,8 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR PROFESIONAL");
+        setResizable(true);
+        setTitle("GESTIONAR DETALLE PARTIDO");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -165,7 +140,6 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
 
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
-        btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setOpaque(true);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -180,14 +154,17 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal)
+                .addContainerGap(396, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal)
-                        .addGap(0, 718, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,12 +176,13 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -228,7 +206,8 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarPartido frm = new ModalRegistrarPartido();
+        ModalRegistrarDetallePartido.idPartido = idPartido;
+        ModalRegistrarDetallePartido frm = new ModalRegistrarDetallePartido();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -236,7 +215,6 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
 
         int fila = tblListado.getSelectedRow();
-        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
 
         int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / tblListado.getRowHeight();
@@ -252,16 +230,17 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String equi = String.valueOf(tblListado.getValueAt(fila, 0));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al partido " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Partido " + equi + "?", "Confirmar", 2);
                             if (opcion == 0) {
-
+                                
+                                Equipo equipo = (Equipo) equipoC.obtenerdato(equi);
                                 try {
-                                    partidoC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "partido eliminado correctamente!");
+                                    detalleC.eliminarDetalle(idPartido,equipo.getEquipoId());
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Partido eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -273,34 +252,6 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
 
                         }
                     }
-                    case "btnModificar" -> {
-                        if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-                        } else {
-
-                            ModalRegistrarPartido.idPartido = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPartido());
-                            ModalRegistrarPartido.btnGrabar.setText("Modificar");
-
-                        }
-                    }
-                    case "btnAdd" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-                        } else {
-                            FrmGestionarDetallePartido.idPartido = id;
-                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetallePartido());
-                        }
-                    }
-                    case "btnVer" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-                        } else {
-                            ModalRegistrarPartido.vista = true;
-                            ModalRegistrarPartido.idPartido = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPartido());
-                        }
-                    }
                 }
             }
         }
@@ -309,9 +260,9 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
 
-        if (txtBuscar.getText().length() % 2 == 0) {
-            listar(txtBuscar.getText().toUpperCase());
-        }
+//        if (txtBuscar.getText().length() % 2 == 0) {
+//            listar(txtBuscar.getText().toUpperCase());
+//        }
 
     }//GEN-LAST:event_txtBuscarKeyReleased
 

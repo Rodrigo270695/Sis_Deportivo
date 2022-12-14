@@ -4,10 +4,13 @@ import com.deportivo.controller.*;
 import com.deportivo.model.*;
 import com.deportivo.view.FrmGestionarPartido;
 import com.deportivo.vista.modal.alerts.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.List;
 
 public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
 
+    SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
     PartidoController partidoC = new PartidoController();
     JornadaController jornadaC = new JornadaController();
     EstadioController estadioC = new EstadioController();
@@ -105,7 +108,7 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
 
             Partido partido = (Partido) partidoC.obtenerdato(idPartido);
 
-            txtHora.setText(""+partido.getHora());
+            txtHora.setDate(partido.getHora());
             cbxCompetencia.setSelectedItem(partido.getCompetencia().getNombre());
             cbxEstadio.setSelectedItem(partido.getEstadio().getNombreOficial());
             cbxFixture.setSelectedItem(partido.getEtapaFixture().getDescripcion());
@@ -120,12 +123,12 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
 
         Partido partido = new Partido();
         
-        if (txtHora.getText().isEmpty() ) {
+        if (txtHora.getDate().toString().isEmpty() ) {
             Alerta alerta = new Alerta("Alerta", "El campo Hora es obligatorio");
             return;
         }
 
-        partido.setHora(java.sql.Time.valueOf(txtHora.getText()));
+        partido.setHora(java.sql.Time.valueOf(formato.format(txtHora.getDate())));
         partido.setCompetencia((Competencia) competenciaC.obtenerdato(cbxCompetencia.getSelectedItem().toString()));
         partido.setEstadio((Estadio) estadioC.obtenerdato(cbxEstadio.getSelectedItem().toString()));
         partido.setEtapaFixture((EtapaFixture) etapaC.obtenerdato(cbxFixture.getSelectedItem().toString()));
@@ -166,7 +169,6 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         btnGrabar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtHora = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         cbxEstadio = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -177,6 +179,7 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
         cbxFixture = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         cbxTernaArbitral = new javax.swing.JComboBox<>();
+        txtHora = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setIconifiable(true);
@@ -220,8 +223,6 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Hora");
 
-        txtHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Estadio");
@@ -251,6 +252,8 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
         jLabel8.setText("Terna Arbitral");
 
         cbxTernaArbitral.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtHora.setDateFormatString("HH:mm");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -283,10 +286,10 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
                             .addComponent(cbxFixture, 0, 206, Short.MAX_VALUE))
                         .addGap(24, 24, 24))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtHora)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                            .addComponent(txtHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -303,9 +306,9 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxEstadio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbxEstadio, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(txtHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addGap(7, 7, 7)
@@ -369,6 +372,6 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JFormattedTextField txtHora;
+    private com.toedter.calendar.JDateChooser txtHora;
     // End of variables declaration//GEN-END:variables
 }

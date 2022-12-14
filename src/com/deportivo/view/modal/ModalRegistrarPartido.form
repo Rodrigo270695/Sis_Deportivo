@@ -82,11 +82,11 @@
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel3" pref="107" max="32767" attributes="0"/>
                               <Component id="txtHora" max="32767" attributes="0"/>
-                              <Component id="jLabel3" min="-2" pref="101" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" pref="101" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -110,9 +110,9 @@
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtHora" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="cbxEstadio" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="cbxEstadio" pref="28" max="32767" attributes="0"/>
+                              <Component id="txtHora" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -181,13 +181,6 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Hora"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtHora">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="1" type="2"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -319,6 +312,11 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="txtHora">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="HH:mm"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

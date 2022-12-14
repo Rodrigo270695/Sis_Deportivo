@@ -246,7 +246,7 @@ public class EtapaFixtureController implements CRUD {
     public Object obtenerdato(String nombre) {
 
         EtapaFixture etapaFix = new EtapaFixture();
-        sql = "SELECT * FROM etapa_fixture_id WHERE descripcion = '" + nombre + "'";
+        sql = "SELECT * FROM etapa_fixture WHERE descripcion = '" + nombre + "'";
 
         try {
 

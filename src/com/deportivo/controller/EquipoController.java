@@ -141,6 +141,51 @@ public class EquipoController implements CRUD {
         return equipo;
 
     }
+    
+    public Object obtenerdato(String nombreCorto) {
+
+        Equipo equipo = new Equipo();
+        sql = "SELECT * FROM equipo WHERE nombre_corto = '" + nombreCorto+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                equipo.setEquipoId(rs.getInt(1));
+                equipo.setNombreOficial(rs.getString(2));
+                equipo.setNombreCorto(rs.getString(3));
+                equipo.setSeudonimo(rs.getString(4));
+                equipo.setCodigoFifa(rs.getString(5));
+                equipo.setFundacion(rs.getDate(6));
+                equipo.setUbicacion(rs.getString(7));
+                equipo.setNumSocios(rs.getInt(8));
+                equipo.setNumTitulosGandos(rs.getInt(9));
+                equipo.setParticipacionesCopas(rs.getInt(10));
+                equipo.setNumFinalesJugadas(rs.getInt(11));
+                equipo.setCuerpoTecnico((CuerpoTecnico) cuerpoC.obtenerdato(rs.getInt(12)));
+                equipo.setConfederacion((Confederacion) confederacionC.obtenerdato(rs.getInt(13)));
+                equipo.setPais((Pais) paisC.obtenerdato(rs.getInt(14)));
+                equipo.setFoto(rs.getBinaryStream(15));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return equipo;
+
+    }
 
     @Override
     public List buscar(Object obj) {
