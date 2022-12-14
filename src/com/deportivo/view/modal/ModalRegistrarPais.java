@@ -75,17 +75,17 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
             try {
                 paisC.registrar(pais);
                 AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el pais");
-                
-                if(activarPais==false){
+
+                if (activarPais == false) {
                     FrmGestionarPais.listar("");
-                }else{
+                } else {
                     ModalRegistrarProfesional.cargarPaises();
                 }
-                
-                
-                FrmGestionarPais.listar("");
+
+//                FrmGestionarPais.listar("");
                 dispose();
             } catch (Exception e) {
+                e.printStackTrace(System.err);
                 AlertaError err = new AlertaError("Error", e.getMessage());
             }
 
@@ -262,6 +262,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
+        activarPais = false;
         idPais = 0;
         vista = false;
 

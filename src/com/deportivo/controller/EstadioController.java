@@ -133,6 +133,48 @@ public class EstadioController implements CRUD {
         return estadio;
 
     }
+    
+    public Object obtenerdato(String nombre) {
+
+        Estadio estadio = new Estadio();
+        sql = "SELECT * FROM estadio WHERE nombre_oficial = '" + nombre+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                estadio.setEstadioId(rs.getInt(1));
+                estadio.setNombreOficial(rs.getString(2));
+                estadio.setNombreConocido(rs.getString(3));
+                estadio.setCapacidad(rs.getInt(4));
+                estadio.setDireccion(rs.getString(5));
+                estadio.setFechaFundacion(rs.getDate(6));
+                estadio.setTribunas(rs.getByte(7));
+                estadio.setFoto(rs.getBinaryStream(8));
+                estadio.setCosto(rs.getDouble(9));
+                estadio.setEquipoPropietario(rs.getString(10));
+                estadio.setDimensionCampo((DimensionCampo) dimensionC.obtenerdato(rs.getInt(11)));
+                estadio.setCiudad((Ciudad) ciudadC.obtenerdato(rs.getInt(12)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return estadio;
+
+    }
 
     @Override
     public List buscar(Object obj) {
