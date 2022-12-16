@@ -9,6 +9,7 @@ import com.deportivo.view.FrmGestionarEvento;
 import com.deportivo.view.FrmGestionarPais;
 import com.deportivo.view.FrmMenuPrincipal;
 import com.deportivo.vista.modal.alerts.*;
+import java.awt.Toolkit;
 import java.util.List;
 
 public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
@@ -253,7 +254,14 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
 
+         char caracter = evt.getKeyChar();
+
         
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
         
 
 

@@ -20,7 +20,7 @@ public class AlineacionController implements CRUD{
     public List listar(){
         
          List lista = new ArrayList();
-        sql = "SELECT * FROM alineacion ORDER BY alineacion_id DESC";
+        sql = "SELECT * FROM alineacion ORDER BY equipo_id DESC";
 
         try {
 

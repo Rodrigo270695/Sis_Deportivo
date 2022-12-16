@@ -152,6 +152,11 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
         txtNombre.setDescripcion("Ej. Perú");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -270,11 +275,15 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
     private void txtAbreviaturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbreviaturaKeyTyped
 
-        if (txtAbreviatura.getText().length() >= 3) {
+  char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAbreviatura.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
         }
+
+
 
     }//GEN-LAST:event_txtAbreviaturaKeyTyped
 
@@ -292,6 +301,17 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_btnRegistrarContinenteActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+         char caracter = evt.getKeyChar();
+
+        
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

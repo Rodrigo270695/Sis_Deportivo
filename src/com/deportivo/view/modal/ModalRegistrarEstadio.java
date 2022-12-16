@@ -10,6 +10,7 @@ import com.deportivo.model.Pais;
 import com.deportivo.view.*;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -62,7 +63,6 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
 
     }
 
-
     void acciones() {
 
         if (vista) {
@@ -93,8 +93,8 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
             txtNombreConocido.setText(estadio.getNombreConocido());
             txtFechaFundacion.setDate(estadio.getFechaFundacion());
             txtNombreCompleto.setText(estadio.getNombreOficial());
-            txtCapacidad.setText(""+estadio.getCapacidad());
-            txtCosto.setText(""+estadio.getCosto());
+            txtCapacidad.setText("" + estadio.getCapacidad());
+            txtCosto.setText("" + estadio.getCosto());
             cbxDemension.setSelectedItem(estadio.getDimensionCampo().getDescripcion());
             cbxCuidad.setSelectedItem(estadio.getCiudad().getNombre_completo());
 
@@ -281,6 +281,11 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
 
         txtNombreConocido.setDescripcion("Ej. LOS MONOS");
         txtNombreConocido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombreConocido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreConocidoKeyTyped(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
@@ -288,6 +293,11 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
 
         txtCapacidad.setDescripcion("Ej. BRC");
         txtCapacidad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCapacidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCapacidadKeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
@@ -306,6 +316,11 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
 
         txtTribunas.setDescripcion("Ej. 3");
         txtTribunas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtTribunas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTribunasKeyTyped(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(102, 102, 102));
@@ -313,6 +328,11 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
 
         txtCosto.setDescripcion("Ej. 3");
         txtCosto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCostoKeyTyped(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(102, 102, 102));
@@ -332,6 +352,11 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
 
         txtPropietario.setDescripcion("Ej. LOS MONOS");
         txtPropietario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtPropietario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPropietarioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -514,6 +539,58 @@ public final class ModalRegistrarEstadio extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnFotoActionPerformed
+
+    private void txtTribunasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTribunasKeyTyped
+        char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtTribunasKeyTyped
+
+    private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
+        char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtCostoKeyTyped
+
+    private void txtCapacidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapacidadKeyTyped
+        char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtCapacidadKeyTyped
+
+    private void txtNombreConocidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreConocidoKeyTyped
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+
+    }//GEN-LAST:event_txtNombreConocidoKeyTyped
+
+    private void txtPropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPropietarioKeyTyped
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+
+    }//GEN-LAST:event_txtPropietarioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

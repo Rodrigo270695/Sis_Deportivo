@@ -6,6 +6,7 @@ import com.deportivo.model.CategoriaArbitro;
 import com.deportivo.model.TipoTernaArbitral;
 import com.deportivo.view.FrmGestionarCategoriaArbitro;
 import com.deportivo.vista.modal.alerts.*;
+import java.awt.Toolkit;
 import java.util.List;
 
 public final class ModalRegistrarCategoriaArbitro extends javax.swing.JInternalFrame {
@@ -138,6 +139,11 @@ public final class ModalRegistrarCategoriaArbitro extends javax.swing.JInternalF
 
         txtNombre.setDescripcion("");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -164,6 +170,12 @@ public final class ModalRegistrarCategoriaArbitro extends javax.swing.JInternalF
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Tipo de Terna Arbitral");
+
+        txtSigla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSiglaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -238,6 +250,28 @@ public final class ModalRegistrarCategoriaArbitro extends javax.swing.JInternalF
         vista = false;
 
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtSiglaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyTyped
+        
+ char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtSigla.getText().length() >= 10) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+        }
+
+    }//GEN-LAST:event_txtSiglaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

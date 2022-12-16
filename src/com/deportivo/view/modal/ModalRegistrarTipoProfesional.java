@@ -6,6 +6,7 @@ import com.deportivo.view.FrmGestionarTipoProfesional;
 import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
+import java.awt.Toolkit;
 
 public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFrame {
 
@@ -131,6 +132,11 @@ public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFr
 
         txtDescripcion.setDescripcion("Ej. Nutricionista");
         txtDescripcion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -153,6 +159,11 @@ public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFr
 
         txtAbreviatura.setDescripcion("Ej. NU");
         txtAbreviatura.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtAbreviatura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAbreviaturaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,6 +226,27 @@ public final class ModalRegistrarTipoProfesional extends javax.swing.JInternalFr
         vista = false;
 
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void txtAbreviaturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbreviaturaKeyTyped
+         char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAbreviatura.getText().length() >= 3) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+        }
+    }//GEN-LAST:event_txtAbreviaturaKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+         char caracter = evt.getKeyChar();
+
+        
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

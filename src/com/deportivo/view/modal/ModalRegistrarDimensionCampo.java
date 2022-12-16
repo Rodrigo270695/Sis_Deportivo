@@ -6,6 +6,7 @@ import com.deportivo.view.FrmGestionarDimensionCampo;
 import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
+import java.awt.Toolkit;
 
 
 public final class ModalRegistrarDimensionCampo extends javax.swing.JInternalFrame {
@@ -122,6 +123,11 @@ public final class ModalRegistrarDimensionCampo extends javax.swing.JInternalFra
 
         txtNombre.setDescripcion("Ej. Europa");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -192,6 +198,11 @@ public final class ModalRegistrarDimensionCampo extends javax.swing.JInternalFra
         vista = false;
 
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+
+
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

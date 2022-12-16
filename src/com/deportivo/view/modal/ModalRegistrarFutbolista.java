@@ -224,6 +224,11 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         txtNombre.setDescripcion("Ej. Perú");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -266,6 +271,11 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         txtDocIdentidad.setDescripcion("Ej. PER");
         txtDocIdentidad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDocIdentidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocIdentidadKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
@@ -273,6 +283,11 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         txtPeso.setDescripcion("Ej. PER");
         txtPeso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesoKeyTyped(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
@@ -280,6 +295,11 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         txtNombreCorto.setDescripcion("Ej. PER");
         txtNombreCorto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombreCorto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreCortoKeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
@@ -298,6 +318,11 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         txtAltura.setDescripcion("Ej. PER");
         txtAltura.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtAltura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAlturaKeyTyped(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
@@ -305,9 +330,19 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         txtNumCamiseta.setDescripcion("Ej. PER");
         txtNumCamiseta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNumCamiseta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumCamisetaKeyTyped(evt);
+            }
+        });
 
         txtValorMercado.setDescripcion("Ej. PER");
         txtValorMercado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtValorMercado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorMercadoKeyTyped(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(102, 102, 102));
@@ -489,6 +524,79 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnFotoActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+         char caracter = evt.getKeyChar();
+
+        
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
+         char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 3) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+        }
+    }//GEN-LAST:event_txtNombreCortoKeyTyped
+
+    private void txtDocIdentidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocIdentidadKeyTyped
+         char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtDocIdentidad.getText().length() >= 8) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 8 caracteres y numeros");
+        }
+
+    }//GEN-LAST:event_txtDocIdentidadKeyTyped
+
+    private void txtNumCamisetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCamisetaKeyTyped
+            char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtNumCamisetaKeyTyped
+
+    private void txtValorMercadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorMercadoKeyTyped
+            char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtValorMercadoKeyTyped
+
+    private void txtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoKeyTyped
+            char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Ingresar el peso en kg");
+        }
+    }//GEN-LAST:event_txtPesoKeyTyped
+
+    private void txtAlturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlturaKeyTyped
+            char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Ingresar la talla en cm");
+        }
+    }//GEN-LAST:event_txtAlturaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -60,12 +60,11 @@ public final class ModalRegistrarConfederacion extends javax.swing.JInternalFram
         a = cal.get(Calendar.YEAR);
         fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
 
-        if (txtNombre.getText().length() == 0 &&  txtAcronimo.getText().length() == 0 ) {
+        if (txtNombre.getText().length() == 0 && txtAcronimo.getText().length() == 0) {
             Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y ACRÓNIMO debe ser obligatorios");
             return;
         }
 
-      
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
             Confederacion confederacion = new Confederacion();
@@ -156,6 +155,11 @@ public final class ModalRegistrarConfederacion extends javax.swing.JInternalFram
 
         txtNombre.setDescripcion("Ej. CONFEDERACIÓN ASIÁTICA DE FÚTBOL");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -190,6 +194,11 @@ public final class ModalRegistrarConfederacion extends javax.swing.JInternalFram
 
         txtUbicacion.setDescripcion("");
         txtUbicacion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtUbicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUbicacionKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
@@ -209,6 +218,11 @@ public final class ModalRegistrarConfederacion extends javax.swing.JInternalFram
 
         txtFederaciones.setDescripcion("");
         txtFederaciones.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtFederaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFederacionesKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -311,17 +325,55 @@ public final class ModalRegistrarConfederacion extends javax.swing.JInternalFram
 
     private void txtAcronimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAcronimoKeyTyped
 
-        if (txtAcronimo.getText().length() >= 10) {
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAcronimo.getText().length() >= 10) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 10 caracteres");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 10 caracteres y letras");
         }
+
 
     }//GEN-LAST:event_txtAcronimoKeyTyped
 
     private void txtSedeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSedeKeyTyped
-        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
     }//GEN-LAST:event_txtSedeKeyTyped
+
+    private void txtFederacionesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFederacionesKeyTyped
+
+        char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+
+
+    }//GEN-LAST:event_txtFederacionesKeyTyped
+
+    private void txtUbicacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUbicacionKeyTyped
+
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+
+    }//GEN-LAST:event_txtUbicacionKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -8,6 +8,7 @@ import com.deportivo.model.Pais;
 import com.deportivo.view.*;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
@@ -298,6 +299,11 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
 
         txtSeudonimo.setDescripcion("Ej. LOS MONOS");
         txtSeudonimo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSeudonimo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSeudonimoKeyTyped(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
@@ -305,6 +311,11 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
 
         txtNombreCorto.setDescripcion("Ej. BRC");
         txtNombreCorto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombreCorto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreCortoKeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
@@ -323,6 +334,11 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
 
         txtNumeroSocios.setDescripcion("Ej. 3");
         txtNumeroSocios.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNumeroSocios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroSociosKeyTyped(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(102, 102, 102));
@@ -330,6 +346,11 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
 
         txtCodFifa.setDescripcion("Ej. 3");
         txtCodFifa.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCodFifa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodFifaKeyTyped(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(102, 102, 102));
@@ -528,6 +549,48 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnFotoActionPerformed
+
+    private void txtSeudonimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSeudonimoKeyTyped
+         char caracter = evt.getKeyChar();
+
+        
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+
+    }//GEN-LAST:event_txtSeudonimoKeyTyped
+
+    private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
+         char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 3) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+        }
+    }//GEN-LAST:event_txtNombreCortoKeyTyped
+
+    private void txtNumeroSociosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroSociosKeyTyped
+            char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtNumeroSociosKeyTyped
+
+    private void txtCodFifaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFifaKeyTyped
+            char caracter = evt.getKeyChar();
+
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
+        }
+    }//GEN-LAST:event_txtCodFifaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

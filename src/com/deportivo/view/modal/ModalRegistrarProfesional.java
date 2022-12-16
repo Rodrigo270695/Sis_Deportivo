@@ -6,6 +6,7 @@ import com.deportivo.view.FrmGestionarProfesional;
 import com.deportivo.view.FrmMenuPrincipal;
 import static com.deportivo.view.modal.ModalRegistrarPais.idPais;
 import com.deportivo.vista.modal.alerts.*;
+import java.awt.Toolkit;
 import java.util.*;
 
 public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame {
@@ -176,6 +177,11 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
         txtNombre.setDescripcion("");
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -204,6 +210,11 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
         txtSeudonimo.setDescripcion("");
         txtSeudonimo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSeudonimo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSeudonimoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
@@ -370,6 +381,28 @@ public final class ModalRegistrarProfesional extends javax.swing.JInternalFrame 
 
 
     }//GEN-LAST:event_btnAddPaisActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+         char caracter = evt.getKeyChar();
+
+        
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtSeudonimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSeudonimoKeyTyped
+         char caracter = evt.getKeyChar();
+
+        
+        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
+            evt.consume();  
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
+        }
+    }//GEN-LAST:event_txtSeudonimoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
