@@ -226,7 +226,7 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
 
       char caracter = evt.getKeyChar();
 
-        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAbreviatura.getText().length() >= 10) {
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAbreviatura.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
