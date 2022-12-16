@@ -229,6 +229,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemCategoriaArbitro = new javax.swing.JMenuItem();
         itemEstadio = new javax.swing.JMenuItem();
         itemPartido = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
@@ -556,6 +557,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemPartido);
 
+        jMenuItem2.setText("Gestionar Incidencias");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnuGestion.add(jMenuItem2);
+
         jMenuBar1.add(mnuGestion);
 
         mnuReportes.setText("REPORTES");
@@ -783,6 +792,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itemPartidoActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        centrarVentana(new FrmGestionarIncidencias());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane escritorio;
@@ -821,6 +834,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuAdministracion;
     private javax.swing.JMenu mnuGestion;

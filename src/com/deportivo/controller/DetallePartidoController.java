@@ -124,4 +124,45 @@ public class DetallePartidoController {
         }
 
     }
+    
+    public List listar() {
+
+        List lista = new ArrayList<>();
+        sql = "select partido_id,equipo_id,tipo,formacion_id from detalle_partido" ;
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                DetallePartido detalleP = new DetallePartido();
+                detalleP.setPartido((Partido) partidoC.obtenerdato(rs.getInt(1)));
+                detalleP.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(2)));
+                detalleP.setTipo(rs.getString(3));
+                detalleP.setFormacion((FormacionEquipo) formacionC.obtenerdato(rs.getInt(4)));
+                lista.add(detalleP);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return lista;
+    }
 }

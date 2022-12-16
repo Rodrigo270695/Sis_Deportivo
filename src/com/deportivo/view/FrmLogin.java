@@ -6,6 +6,7 @@ import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -106,6 +107,11 @@ public class FrmLogin extends javax.swing.JFrame {
         txtContrasena.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         txtContrasena.setForeground(new java.awt.Color(255, 255, 255));
         txtContrasena.setBorder(null);
+        txtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContrasenaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelControlLayout = new javax.swing.GroupLayout(panelControl);
         panelControl.setLayout(panelControlLayout);
@@ -171,6 +177,14 @@ public class FrmLogin extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
        rol = 0;
     }//GEN-LAST:event_formWindowClosed
+
+    private void txtContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyTyped
+        char enter = evt.getKeyChar();
+
+        if (enter == KeyEvent.VK_ENTER) {
+            ingresar();
+        }
+    }//GEN-LAST:event_txtContrasenaKeyTyped
 
 
 
