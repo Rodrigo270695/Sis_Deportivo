@@ -1,9 +1,17 @@
 package com.deportivo.view.modal;
 
 import com.deportivo.controller.DetallePartidoController;
+import com.deportivo.controller.EquipoController;
+import com.deportivo.controller.EventoController;
+import com.deportivo.controller.FutbolistaController;
 import com.deportivo.controller.IncidenciaPartidoController;
+import com.deportivo.controller.InstanciaPartidoController;
+import com.deportivo.controller.PartidoController;
 import com.deportivo.model.DetallePartido;
+import com.deportivo.model.Equipo;
+import com.deportivo.model.Evento;
 import com.deportivo.model.IncidenciaPartido;
+import com.deportivo.model.InstanciaPartido;
 import com.deportivo.properties.RenderTable;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -11,12 +19,56 @@ import javax.swing.table.DefaultTableModel;
 public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternalFrame {
 
     DetallePartidoController detallePC = new DetallePartidoController();
+    PartidoController partidoC = new PartidoController();
+    FutbolistaController futbolistaC = new FutbolistaController();
+    EquipoController equipoC = new EquipoController();
+    EventoController eventoC = new EventoController();
     IncidenciaPartidoController incidenciaC = new IncidenciaPartidoController();
+    InstanciaPartidoController instanciaC = new InstanciaPartidoController();
     public static int idPartido;
 
     public ModalRegistrarIncidenciaPartido() {
         initComponents();
+        cargarEventos();
+        cargarEquipos();
+        cargarInstancias();
         listar();
+    }
+    
+    void cargarEventos(){
+        
+        cbxEvento.removeAllItems();
+        
+        List<Evento> lista = eventoC.listar();
+        
+        for (Evento evento : lista) {
+            cbxEvento.addItem(evento.getNombre());
+        }
+        
+    }
+    
+    void cargarEquipos(){
+        
+        cbxEquipo.removeAllItems();
+        
+        List<DetallePartido> equipos = detallePC.listar(idPartido);
+        
+        for (DetallePartido equipo : equipos) {
+            cbxEquipo.addItem(equipo.getEquipo().getNombreCorto());
+        }
+        
+    }
+    
+    void cargarInstancias(){
+        
+        cbxInstancia.removeAllItems();
+        
+        List<InstanciaPartido> lista = instanciaC.listar();
+        
+        for (InstanciaPartido instancia : lista) {
+            cbxInstancia.addItem(instancia.getDescripcion());
+        }
+        
     }
 
     void grabar() {
@@ -128,6 +180,11 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         cbxEquipo.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxEquipoMouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
@@ -138,7 +195,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setText("Continente");
+        jLabel8.setText("Detalle");
 
         cbxContinente.setDescripcion("Ej. De cabeza");
         cbxContinente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -341,6 +398,12 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         grabar();
     }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void cbxEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxEquipoMouseClicked
+        
+        
+        
+    }//GEN-LAST:event_cbxEquipoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

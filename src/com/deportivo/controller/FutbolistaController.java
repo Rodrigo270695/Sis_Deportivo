@@ -1,4 +1,4 @@
-package com.deportivo.controller;
+    package com.deportivo.controller;
 
 import com.deportivo.interfac.CRUD;
 import com.deportivo.model.Futbolista;

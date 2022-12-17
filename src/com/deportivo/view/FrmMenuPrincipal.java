@@ -580,6 +580,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(mnuReportes);
 
         mnuTv.setText("TELEVISION");
+        mnuTv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuTvMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mnuTv);
 
         mnuAdministracion.setText("ADMINISTRACIÓN");
@@ -795,6 +800,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void itemIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIncidenciasActionPerformed
         centrarVentana(new FrmGestionarIncidencias());
     }//GEN-LAST:event_itemIncidenciasActionPerformed
+
+    private void mnuTvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuTvMouseClicked
+        centrarVentana(new ModuloTV());
+    }//GEN-LAST:event_mnuTvMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
