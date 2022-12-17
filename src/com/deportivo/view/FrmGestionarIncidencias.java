@@ -5,6 +5,7 @@ import com.deportivo.controller.PartidoController;
 import com.deportivo.model.DetallePartido;
 import com.deportivo.model.Partido;
 import com.deportivo.properties.RenderTable;
+import com.deportivo.view.modal.ModalRegistrarIncidenciaPartido;
 import com.deportivo.view.modal.ModalRegistrarPartido;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
@@ -201,76 +202,34 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
-//
-//        int fila = tblListado.getSelectedRow();
-//        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
-//
-//        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
-//        int row = evt.getY() / tblListado.getRowHeight();
-//
-//        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
-//            Object value = tblListado.getValueAt(row, colum);
-//
-//            if (value instanceof JButton jButton) {
-//                jButton.doClick();
-//                JButton boton = jButton;
-//                int filas = tblListado.getSelectedRowCount();
-//
-//                switch (boton.getName()) {
-//                    case "btnEliminar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-//                        } else {
-//                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
-//
-//                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al partido " + valor + "?", "Confirmar", 2);
-//                            if (opcion == 0) {
-//
-//                                try {
-//                                    detallePC.eliminar(id);
-//                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "partido eliminado correctamente!");
-//                                    listar("");
-//                                } catch (Exception ex) {
-//                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
-//                                }
-//
-//                            } else {
-//                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
-//                            }
-//
-//                        }
-//                    }
-//                    case "btnModificar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-//                        } else {
-//
-//                            ModalRegistrarPartido.idPartido = id;
-//                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPartido());
-//                            ModalRegistrarPartido.btnGrabar.setText("Modificar");
-//
-//                        }
-//                    }
-//                    case "btnAdd" -> {
-//                        if (filas == 0) {
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-//                        } else {
-//                            FrmGestionarDetallePartido.idPartido = id;
-//                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetallePartido());
-//                        }
-//                    }
-//                    case "btnVer" -> {
-//                        if (filas == 0) {
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-//                        } else {
-//                            ModalRegistrarPartido.vista = true;
-//                            ModalRegistrarPartido.idPartido = id;
-//                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPartido());
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
+        int fila = tblListado.getSelectedRow();
+        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
+
+        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
+        int row = evt.getY() / tblListado.getRowHeight();
+
+        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
+            Object value = tblListado.getValueAt(row, colum);
+
+            if (value instanceof JButton jButton) {
+                jButton.doClick();
+                JButton boton = jButton;
+                int filas = tblListado.getSelectedRowCount();
+
+                switch (boton.getName()) {
+
+                    case "btnAdd" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
+                        } else {
+                            ModalRegistrarIncidenciaPartido.idPartido = id;
+                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarIncidenciaPartido());
+                        }
+                    }
+                }
+            }
+        }
 
     }//GEN-LAST:event_tblListadoMouseClicked
 
