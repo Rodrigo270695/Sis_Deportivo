@@ -229,7 +229,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemCategoriaArbitro = new javax.swing.JMenuItem();
         itemEstadio = new javax.swing.JMenuItem();
         itemPartido = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        itemIncidencias = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
@@ -557,13 +557,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemPartido);
 
-        jMenuItem2.setText("Gestionar Incidencias");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        itemIncidencias.setText("Gestionar Incidencias");
+        itemIncidencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                itemIncidenciasActionPerformed(evt);
             }
         });
-        mnuGestion.add(jMenuItem2);
+        mnuGestion.add(itemIncidencias);
 
         jMenuBar1.add(mnuGestion);
 
@@ -792,9 +792,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itemPartidoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void itemIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIncidenciasActionPerformed
         centrarVentana(new FrmGestionarIncidencias());
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_itemIncidenciasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -817,6 +817,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemFormacion;
     private javax.swing.JMenuItem itemFutbolista;
     private javax.swing.JMenuItem itemGrupo;
+    private javax.swing.JMenuItem itemIncidencias;
     private javax.swing.JMenuItem itemInstanciaPartido;
     private javax.swing.JMenuItem itemJornada;
     private javax.swing.JMenuItem itemPais;
@@ -834,7 +835,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuAdministracion;
     private javax.swing.JMenu mnuGestion;
