@@ -25,7 +25,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "FOTO", "NOMBRE COMPLETO", "NOMBRE CORTO", "FUNDACIÓN", "CODIGO FIFA", "", "", ""};
+        String columas[] = {"#", "FOTO", "NOMBRE COMPLETO", "NOMBRE CORTO", "FUNDACIÓN", "CODIGO FIFA", "", "", "",""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -39,7 +39,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
         } else {
             lista = equipoC.buscar(texto);
         }
-        Object obj[] = new Object[9];
+        Object obj[] = new Object[10];
 //        ImageIcon foto;
 //        Image img = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
@@ -87,6 +87,15 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
             botonVer.setBorder(null);
             botonVer.setBackground(new Color(41, 143, 96));
             obj[8] = botonVer;
+            
+            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd = new JButton("", btnAdd);
+            botonAdd.setName("btnAdd");
+            botonAdd.setToolTipText("AñadirTipo");
+            botonAdd.setBorder(null);
+            botonAdd.setBackground(new Color(25, 38, 49));
+            obj[9] = botonAdd;
 
             modelo.addRow(obj);
 
@@ -105,6 +114,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(8).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(9).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -289,6 +299,14 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarEquipo());
                             ModalRegistrarEquipo.btnGrabar.setText("Modificar");
 
+                        }
+                    }
+                    case "btnAdd" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Arbitro");
+                        } else {
+                            FrmGestionarDetalleEquipo.idEquipo = id;
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleCategoriaArbitro());
                         }
                     }
                     case "btnVer" -> {
