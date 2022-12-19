@@ -196,12 +196,12 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 848, Short.MAX_VALUE))
+                        .addGap(0, 875, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -306,7 +306,7 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Arbitro");
                         } else {
                             FrmGestionarDetalleEquipo.idEquipo = id;
-                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleCategoriaArbitro());
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleEquipo());
                         }
                     }
                     case "btnVer" -> {

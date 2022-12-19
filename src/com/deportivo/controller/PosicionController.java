@@ -171,6 +171,39 @@ public class PosicionController implements CRUD{
         return posicion;
         
     }
+    
+    public Object obtenerdato(String descripcion)  {
+        
+        Posicion posicion = new Posicion();
+        sql = "SELECT * FROM posicion WHERE descripcion = '"+descripcion+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                posicion.setPosicionId(rs.getInt(1));
+                posicion.setDescripcion(rs.getString(2));
+                posicion.setAbreviatura(rs.getString(3));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return posicion;
+        
+    }
 
     @Override
     public List buscar(Object obj){

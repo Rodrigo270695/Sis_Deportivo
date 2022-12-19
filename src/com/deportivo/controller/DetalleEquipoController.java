@@ -79,6 +79,7 @@ public class DetalleEquipoController {
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
+            pe.printStackTrace(System.err);
             throw new Exception("Ya existe el Tipo para el equipo");
         } catch (SQLException e) {
             e.printStackTrace(System.err);

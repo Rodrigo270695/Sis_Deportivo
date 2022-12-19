@@ -2,9 +2,12 @@ package com.deportivo.view;
 
 import com.deportivo.controller.DetalleEquipoController;
 import com.deportivo.controller.EquipoController;
+import com.deportivo.controller.FutbolistaController;
 import com.deportivo.model.DetalleEquipo;
 import com.deportivo.model.Equipo;
+import com.deportivo.model.Futbolista;
 import com.deportivo.properties.RenderTable;
+import com.deportivo.view.modal.ModalRegistrarDetalleEquipo;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.Color;
 import java.awt.Image;
@@ -16,6 +19,7 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
 
     public static DetalleEquipoController detalleC = new DetalleEquipoController();
     EquipoController tipoC = new EquipoController();
+    FutbolistaController futbolistaC = new FutbolistaController();
     public static int idEquipo;
 
     public FrmGestionarDetalleEquipo() {
@@ -45,7 +49,7 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
         for (int i = 0; i < detalle.size(); i++) {
             detalleE = (DetalleEquipo) detalle.get(i);
 
-            obj[0] = detalleE.getFutbolista().getNombreCorto();
+            obj[0] = detalleE.getFutbolista().getNombreCompleto();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -86,7 +90,7 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR EDTALLE EQUIPO");
+        setTitle("GESTIONAR DETALLE EQUIPO");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -197,56 +201,56 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-//        ModalRegistrarDetalleEquipo.idEquipo = idEquipo;
-//        ModalRegistrarDetalleEquipo frm = new ModalRegistrarDetalleEquipo();
-//        FrmMenuPrincipal.centrarVentana(frm);
+        ModalRegistrarDetalleEquipo.idEquipo = idEquipo;
+        ModalRegistrarDetalleEquipo frm = new ModalRegistrarDetalleEquipo();
+        FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
-//
-//        int fila = tblListado.getSelectedRow();
-//
-//        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
-//        int row = evt.getY() / tblListado.getRowHeight();
-//
-//        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
-//            Object value = tblListado.getValueAt(row, colum);
-//
-//            if (value instanceof JButton jButton) {
-//                jButton.doClick();
-//                JButton boton = jButton;
-//                int filas = tblListado.getSelectedRowCount();
-//
-//                switch (boton.getName()) {
-//                    case "btnEliminar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
-//                        } else {
-//                            String valor = String.valueOf(tblListado.getValueAt(fila, 0));
-//
-//                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Equipo " + valor + "?", "Confirmar", 2);
-//                            if (opcion == 0) {
-//                                
-//                                Equipo tipoP = (Equipo) tipoC.obtenerdato(valor);
-//                                
-//                                try {
-//                                    detalleC.eliminarDetalle(idEquipo,tipoP.getCategoria_arbitro_id());
-//                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Equipo eliminado correctamente!");
-//                                    listar("");
-//                                } catch (Exception ex) {
-//                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
-//                                }
-//
-//                            } else {
-//                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
-//                            }
-//
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
+        int fila = tblListado.getSelectedRow();
+
+        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
+        int row = evt.getY() / tblListado.getRowHeight();
+
+        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
+            Object value = tblListado.getValueAt(row, colum);
+
+            if (value instanceof JButton jButton) {
+                jButton.doClick();
+                JButton boton = jButton;
+                int filas = tblListado.getSelectedRowCount();
+
+                switch (boton.getName()) {
+                    case "btnEliminar" -> {
+                        if (filas == 0) {//si no elije ninguna fila
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
+                        } else {
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 0));
+
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Equipo " + valor + "?", "Confirmar", 2);
+                            if (opcion == 0) {
+                                
+                                Futbolista futbolista = (Futbolista) futbolistaC.obtenerdato(valor);
+                                
+                                try {
+                                    detalleC.eliminarDetalle(idEquipo,futbolista.getFutbolistaId());
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Equipo eliminado correctamente!");
+                                    listar("");
+                                } catch (Exception ex) {
+                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
+                                }
+
+                            } else {
+                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
 
     }//GEN-LAST:event_tblListadoMouseClicked
 
