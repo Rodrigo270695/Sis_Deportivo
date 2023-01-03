@@ -12,9 +12,14 @@ import com.deportivo.model.DetalleEquipo;
 import com.deportivo.model.DetallePartido;
 import com.deportivo.model.Equipo;
 import com.deportivo.model.Evento;
+import com.deportivo.model.Futbolista;
 import com.deportivo.model.IncidenciaPartido;
 import com.deportivo.model.InstanciaPartido;
+import com.deportivo.model.Partido;
 import com.deportivo.properties.RenderTable;
+import com.deportivo.view.FrmGestionarIncidencias;
+import com.deportivo.vista.modal.alerts.AlertaBien;
+import com.deportivo.vista.modal.alerts.AlertaError;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,44 +42,66 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         cargarInstancias();
         listar();
     }
-    
-    void cargarEventos(){
-        
+
+    void cargarEventos() {
+
         cbxEvento.removeAllItems();
-        
+
         List<Evento> lista = eventoC.listar();
-        
+
         for (Evento evento : lista) {
             cbxEvento.addItem(evento.getNombre());
         }
-        
+
     }
-    
-    void cargarEquipos(){
-        
+
+    void cargarEquipos() {
+
         cbxEquipo.removeAllItems();
-        
+
         List<DetallePartido> equipos = detallePC.listar(idPartido);
-        
+
         for (DetallePartido equipo : equipos) {
             cbxEquipo.addItem(equipo.getEquipo().getNombreCorto());
         }
-        
+
     }
-    
-    void cargarInstancias(){
-        
+
+    void cargarInstancias() {
+
         cbxInstancia.removeAllItems();
-        
+
         List<InstanciaPartido> lista = instanciaC.listar();
-        
+
         for (InstanciaPartido instancia : lista) {
             cbxInstancia.addItem(instancia.getDescripcion());
         }
-        
+
     }
 
     void grabar() {
+
+        if (Integer.parseInt(txtMinuto.getValue().toString()) >= 0) {
+            IncidenciaPartido ip = new IncidenciaPartido();
+            ip.setEvento((Evento) eventoC.obtenerdato(cbxEvento.getSelectedItem().toString()));
+            ip.setPartido((Partido) partidoC.obtenerdato(idPartido));
+            ip.setFutbolista((Futbolista) futbolistaC.obtenerdato(cbxFutbolista.getSelectedItem().toString()));
+            ip.setInstanciaPartido((InstanciaPartido) instanciaC.obtenerdato(cbxInstancia.getSelectedItem().toString()));
+            ip.setMinuto((byte) Integer.parseInt(txtMinuto.getValue().toString()));
+            ip.setEquipo((Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString()));
+            ip.setDetalle(txtDetalle.getText());
+            try {
+                incidenciaC.registrar(ip);
+                listar();
+                txtDetalle.setText("");
+                AlertaBien bien = new AlertaBien("MENSAJE", "Se agregó la incidencia correctamente");
+
+            } catch (Exception e) {
+                AlertaError error = new AlertaError("ERROR", "Ocurrió un error vuelva a intentarlo");
+            }
+        } else {
+            AlertaError error = new AlertaError("ERROR", "El mínuto es negativo");
+        }
 
     }
 
@@ -85,7 +112,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         List incidencias = incidenciaC.listar(idPartido);
         DetallePartido dp;
         IncidenciaPartido ip;
-        String local = "", visita="";
+        String local = "", visita = "";
         Object obj[] = new Object[2];
 
         for (int i = 0; i < equipos.size(); i++) {
@@ -103,15 +130,15 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             ip = (IncidenciaPartido) incidencias.get(i);
 
             if (ip.getEquipo().getNombreCorto().equals(visita)) {
-                obj[0] = "'"+ip.getMinuto()+"'"+ip.getFutbolista().getNombreCorto()+" "+ip.getEvento().getNombre();
+                obj[0] = "'" + ip.getMinuto() + "'" + ip.getFutbolista().getNombreCompleto() + " " + ip.getEvento().getNombre();
                 obj[1] = "";
                 modelo.addRow(obj);
-            }else if (ip.getEquipo().getNombreCorto().equals(local)){
+            } else if (ip.getEquipo().getNombreCorto().equals(local)) {
                 obj[0] = "";
-                obj[1] = "'"+ip.getMinuto()+"'"+ip.getFutbolista().getNombreCorto()+" "+ip.getEvento().getNombre();
+                obj[1] = "'" + ip.getMinuto() + "'" + ip.getFutbolista().getNombreCompleto() + " " + ip.getEvento().getNombre();
                 modelo.addRow(obj);
             }
-            
+
         }
 
         tblListado.setModel(modelo);
@@ -133,11 +160,12 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         jLabel7 = new javax.swing.JLabel();
         cbxFutbolista = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        cbxContinente = new org.edisoncor.gui.textField.TextFieldRectBackground();
+        txtDetalle = new org.edisoncor.gui.textField.TextFieldRectBackground();
         jLabel9 = new javax.swing.JLabel();
         txtMinuto = new javax.swing.JSpinner();
         btnGrabar = new javax.swing.JButton();
         btnMostrarEquipos = new javax.swing.JButton();
+        btnGrabar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -201,8 +229,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
         jLabel8.setText("Detalle");
 
-        cbxContinente.setDescripcion("Ej. De cabeza");
-        cbxContinente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDetalle.setDescripcion("Ej. De cabeza");
+        txtDetalle.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
@@ -227,6 +255,20 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         btnMostrarEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarEquiposActionPerformed(evt);
+            }
+        });
+
+        btnGrabar1.setBackground(new java.awt.Color(255, 102, 102));
+        btnGrabar1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnGrabar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnGrabar1.setMnemonic('N');
+        btnGrabar1.setText("Terminar Partido");
+        btnGrabar1.setToolTipText("Realizar Nuevo Registro");
+        btnGrabar1.setBorder(null);
+        btnGrabar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGrabar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabar1ActionPerformed(evt);
             }
         });
 
@@ -264,7 +306,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbxContinente, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))))
+                                    .addComponent(txtDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))))
                         .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,6 +317,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGrabar1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -294,7 +338,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxContinente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,7 +359,9 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGrabar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -418,22 +464,38 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void cbxEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxEquipoMouseClicked
-        
-        
-        
+
+
     }//GEN-LAST:event_cbxEquipoMouseClicked
 
     private void btnMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEquiposActionPerformed
-        
-        List<DetalleEquipo> lista = detalleEC.listar(WIDTH);
-        
+
+        Equipo equipo = (Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString());
+
+        List<DetalleEquipo> lista = detalleEC.listar(equipo.getEquipoId());
+
+        cbxFutbolista.removeAllItems();
+
+        for (DetalleEquipo detalle : lista) {
+            cbxFutbolista.addItem(detalle.getFutbolista().getNombreCompleto());
+        }
+
     }//GEN-LAST:event_btnMostrarEquiposActionPerformed
+
+    private void btnGrabar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabar1ActionPerformed
+        
+        partidoC.acabarpartido(idPartido);
+        AlertaBien bien = new AlertaBien("MENSAJE", "El partido a culminado");
+        FrmGestionarIncidencias.listar("");
+        this.dispose();
+        
+    }//GEN-LAST:event_btnGrabar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
+    public static javax.swing.JButton btnGrabar1;
     private javax.swing.JButton btnMostrarEquipos;
-    private org.edisoncor.gui.textField.TextFieldRectBackground cbxContinente;
     public static javax.swing.JComboBox<String> cbxEquipo;
     public static javax.swing.JComboBox<String> cbxEvento;
     public static javax.swing.JComboBox<String> cbxFutbolista;
@@ -447,6 +509,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblListado;
+    private org.edisoncor.gui.textField.TextFieldRectBackground txtDetalle;
     private javax.swing.JSpinner txtMinuto;
     // End of variables declaration//GEN-END:variables
 }

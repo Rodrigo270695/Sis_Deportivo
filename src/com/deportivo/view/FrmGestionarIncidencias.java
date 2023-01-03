@@ -72,8 +72,10 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
             botonAdd.setBackground(new Color(25, 38, 49));
             obj[5] = botonAdd;
 
-            if (i % 2 == 0) {
-                modelo.addRow(obj);
+            if (detalleP.getPartido().isEstado() == true) {
+                if (i % 2 == 0) {
+                    modelo.addRow(obj);
+                }
             }
 
         }

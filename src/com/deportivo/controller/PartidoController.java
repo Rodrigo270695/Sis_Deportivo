@@ -47,6 +47,7 @@ public class PartidoController implements CRUD{
                 partido.setEtapaFixture((EtapaFixture) estapaC.obtenerdato(rs.getInt(5)));
                 partido.setCompetencia((Competencia) competenciaC.obtenerdato(rs.getInt(6)));
                 partido.setTernaArbitral((TernaArbitral) ternaC.obtenerdato(rs.getInt(7)));
+                partido.setEstado(rs.getBoolean(8));
                 lista.add(partido);
             }
 
@@ -182,6 +183,7 @@ public class PartidoController implements CRUD{
                 partido.setEtapaFixture((EtapaFixture) estapaC.obtenerdato(rs.getInt(5)));
                 partido.setCompetencia((Competencia) competenciaC.obtenerdato(rs.getInt(6)));
                 partido.setTernaArbitral((TernaArbitral) ternaC.obtenerdato(rs.getInt(7)));
+                partido.setEstado(rs.getBoolean(8));
             }
 
         } catch (SQLException e) {
@@ -221,6 +223,7 @@ public class PartidoController implements CRUD{
                 partido.setEtapaFixture((EtapaFixture) estapaC.obtenerdato(rs.getInt(5)));
                 partido.setCompetencia((Competencia) competenciaC.obtenerdato(rs.getInt(6)));
                 partido.setTernaArbitral((TernaArbitral) ternaC.obtenerdato(rs.getInt(7)));
+                partido.setEstado(rs.getBoolean(8));
                 lista.add(partido);
             }
 
@@ -237,6 +240,29 @@ public class PartidoController implements CRUD{
         }
 
         return lista;
+        
+    }
+    
+    public void acabarpartido(int idPartido){
+        
+        sql = "UPDATE partido SET estado = false WHERE partido_id = "+idPartido;
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
         
     }
     

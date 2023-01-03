@@ -12,6 +12,7 @@ public class Partido {
     private EtapaFixture etapaFixture;
     private Competencia competencia;
     private TernaArbitral ternaArbitral;
+    private boolean estado;
 
     public int getPartidoId() {
         return partidoId;
@@ -67,6 +68,14 @@ public class Partido {
 
     public void setTernaArbitral(TernaArbitral ternaArbitral) {
         this.ternaArbitral = ternaArbitral;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
 }

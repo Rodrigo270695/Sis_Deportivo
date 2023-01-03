@@ -63,7 +63,7 @@ public class IncidenciaPartidoController implements CRUD {
         return lista;
 
     }
-    
+
     public List listar(int idPartido) {
 
         List lista = new ArrayList();
@@ -109,13 +109,20 @@ public class IncidenciaPartidoController implements CRUD {
     public void registrar(Object obj) throws Exception {
 
         IncidenciaPartido incidenciaPartido = (IncidenciaPartido) obj;
-        sql = "INSERT INTO incidencia_partido(descripcion) VALUES(?)";
+        sql = "insert into incidencia_partido(evento_id,partido_id,futbolista_id,instancia_partido_id,minuto,equipo_id,detalle_incidencia)\n"
+                + "values(?,?,?,?,?,?,?)";
 
         try {
 
             con = estado.conectar();
             ps = con.prepareStatement(sql);
-//            ps.setString(1, incidenciaPartido.getDescripcion());
+            ps.setInt(1, incidenciaPartido.getEvento().getEventoId());
+            ps.setInt(2, incidenciaPartido.getPartido().getPartidoId());
+            ps.setInt(3, incidenciaPartido.getFutbolista().getFutbolistaId());
+            ps.setInt(4, incidenciaPartido.getInstanciaPartido().getInstancia_partido_id());
+            ps.setInt(5, incidenciaPartido.getMinuto());
+            ps.setInt(6, incidenciaPartido.getEquipo().getEquipoId());
+            ps.setString(7, incidenciaPartido.getDetalle());
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
