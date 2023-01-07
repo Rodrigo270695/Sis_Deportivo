@@ -29,7 +29,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
             mnuUsuario.setText(usuario.getNombre());
         }
-        desactivarControles();
+//        desactivarControles();
         cargarPermisos();
     }
 
