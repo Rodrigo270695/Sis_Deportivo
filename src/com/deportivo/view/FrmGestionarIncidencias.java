@@ -1,12 +1,9 @@
 package com.deportivo.view;
 
 import com.deportivo.controller.DetallePartidoController;
-import com.deportivo.controller.PartidoController;
 import com.deportivo.model.DetallePartido;
-import com.deportivo.model.Partido;
 import com.deportivo.properties.RenderTable;
 import com.deportivo.view.modal.ModalRegistrarIncidenciaPartido;
-import com.deportivo.view.modal.ModalRegistrarPartido;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
@@ -16,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
 
     public static DetallePartidoController detallePC = new DetallePartidoController();
+    public static boolean verPartido = false;
 
     public FrmGestionarIncidencias() {
         initComponents();
@@ -24,24 +22,19 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "EQUIPOS", "FECHA", "HORA", "ESTADIO", ""};
+        String columas[] = {"#", "EQUIPOS", "FECHA", "HORA", "ESTADIO", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
-        Object obj[] = new Object[6];
+        Object obj[] = new Object[7];
         DetallePartido detalleP;
         DetallePartido detalleP2;
-        List lista = null;
+        List lista;
         List listaId;
-        int idPartido = 0;
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        if (txtBuscar.getText().length() == 0) {
-            lista = detallePC.listar();
-        } else {
-//            lista = detallePC.buscar(texto);
-        }
+        lista = detallePC.listar();
 
         for (int i = 0; i < lista.size(); i++) {
             detalleP = (DetallePartido) lista.get(i);
@@ -72,6 +65,15 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
             botonAdd.setBackground(new Color(25, 38, 49));
             obj[5] = botonAdd;
 
+            ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
+            Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+            JButton botonVer = new JButton("", btnVer);
+            botonVer.setName("btnVer");
+            botonVer.setToolTipText("vista del registro");
+            botonVer.setBorder(null);
+            botonVer.setBackground(new Color(41, 143, 96));
+            obj[6] = botonVer;
+
             if (detalleP.getPartido().isEstado() == true) {
                 if (i % 2 == 0) {
                     modelo.addRow(obj);
@@ -90,6 +92,14 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(100);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(200);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
+
+        if (verPartido == true) {
+            tblListado.getColumnModel().getColumn(5).setMaxWidth(0);
+            tblListado.getColumnModel().getColumn(5).setMinWidth(0);
+            tblListado.getColumnModel().getColumn(5).setPreferredWidth(0);
+        }
+
+        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -110,6 +120,24 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("GESTIONAR INCIDENCIAS");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -159,7 +187,7 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -229,6 +257,13 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarIncidenciaPartido());
                         }
                     }
+                    case "btnVer" ->{
+                        
+                        ModuloTV.idPartido = id;
+                        FrmMenuPrincipal.centrarVentana(new ModuloTV());
+                        this.dispose();
+                        
+                    }
                 }
             }
         }
@@ -242,6 +277,14 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
 //        }
 
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        verPartido = false;
+    }//GEN-LAST:event_formInternalFrameClosed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        verPartido = false;
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

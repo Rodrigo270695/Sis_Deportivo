@@ -19,7 +19,7 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
     EventoController eventoC = new EventoController();
     IncidenciaPartidoController incidenciaC = new IncidenciaPartidoController();
     InstanciaPartidoController instanciaC = new InstanciaPartidoController();
-    public int idPartido = 0;
+    public static int idPartido = 0;
 
     public ModuloTV() {
         initComponents();
@@ -33,8 +33,9 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
         List incidencias = incidenciaC.listar(idPartido);
         DetallePartido dp;
         IncidenciaPartido ip;
-        String local = "", visita="";
+        String local = "", visita = "";
         Object obj[] = new Object[2];
+        int equiVisita = 0, equiLocal = 0;
 
         for (int i = 0; i < equipos.size(); i++) {
             dp = (DetallePartido) equipos.get(i);
@@ -51,15 +52,23 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
             ip = (IncidenciaPartido) incidencias.get(i);
 
             if (ip.getEquipo().getNombreCorto().equals(visita)) {
-                obj[0] = "'"+ip.getMinuto()+"'"+ip.getFutbolista().getNombreCorto()+" "+ip.getEvento().getNombre();
+                obj[0] = "'" + ip.getMinuto() + "'" + ip.getFutbolista().getNombreCompleto() + " " + ip.getEvento().getNombre();
                 obj[1] = "";
                 modelo.addRow(obj);
-            }else if (ip.getEquipo().getNombreCorto().equals(local)){
+                if (ip.getEvento().getEventoId() == 1) {
+                    equiLocal++;
+                }
+            } else if (ip.getEquipo().getNombreCorto().equals(local)) {
                 obj[0] = "";
-                obj[1] = "'"+ip.getMinuto()+"'"+ip.getFutbolista().getNombreCorto()+" "+ip.getEvento().getNombre();
+                obj[1] = "'" + ip.getMinuto() + "'" + ip.getFutbolista().getNombreCompleto() + " " + ip.getEvento().getNombre();
                 modelo.addRow(obj);
+                if (ip.getEvento().getEventoId() == 1) {
+                    equiVisita++;
+                }
             }
-            
+
+            lblLocal.setText(""+equiLocal);
+            lblVisita.setText(""+equiVisita);
         }
 
         tblListado.setModel(modelo);
@@ -77,6 +86,8 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
                 g.drawImage(image,0,0,getWidth(),getHeight(),this);
             }
         };
+        lblVisita = new javax.swing.JLabel();
+        lblLocal = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
@@ -95,15 +106,34 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
 
         pantalla.setBackground(new java.awt.Color(255, 255, 255));
 
+        lblVisita.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        lblLocal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        pantalla.setLayer(lblVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(lblLocal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 856, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
+                .addContainerGap(257, Short.MAX_VALUE)
+                .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130)
+                .addComponent(lblVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
+            .addGroup(pantallaLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         jPanel1.add(pantalla);
@@ -217,7 +247,7 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3);
@@ -230,7 +260,7 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
         );
 
         pack();
@@ -262,6 +292,8 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblLocal;
+    private javax.swing.JLabel lblVisita;
     private javax.swing.JDesktopPane pantalla;
     public static javax.swing.JTable tblListado;
     // End of variables declaration//GEN-END:variables

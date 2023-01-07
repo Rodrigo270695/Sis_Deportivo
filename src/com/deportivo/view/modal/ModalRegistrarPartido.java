@@ -183,7 +183,7 @@ public final class ModalRegistrarPartido extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("REGISTRAR JORNADA");
+        setTitle("REGISTRAR PARTIDO");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }

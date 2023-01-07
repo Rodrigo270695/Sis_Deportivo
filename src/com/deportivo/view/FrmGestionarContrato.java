@@ -40,6 +40,7 @@ public class FrmGestionarContrato extends javax.swing.JInternalFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
+            
             contrato = (Contrato) lista.get(i);
             obj[0] = contrato.getContratoId();
             obj[1] = formato.format(contrato.getFechaInicio());

@@ -120,7 +120,7 @@ public class FrmGestionarPartido extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR PROFESIONAL");
+        setTitle("GESTIONAR PARTIDO");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

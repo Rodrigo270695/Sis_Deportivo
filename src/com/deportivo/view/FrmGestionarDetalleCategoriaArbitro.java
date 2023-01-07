@@ -33,11 +33,8 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
 
         DetalleCategoriaArbitro detallePro = null;
         CategoriaArbitro tipoP;
-        if (txtBuscar.getText().length() == 0) {
-            detallePro = detalleC.listar(idArbitro);
-        } else {
-//            lista = detalleC.buscar(texto);
-        }
+        detallePro = detalleC.listar(idArbitro);
+
         Object obj[] = new Object[2];
 
         for (int i = 0; i < detallePro.getTipoCategoriaArbitro().size(); i++) {
@@ -77,8 +74,6 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
         tblListado = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtBuscar = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnAdd = new javax.swing.JButton();
 
         setClosable(true);
@@ -111,22 +106,6 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
 
         lblTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
 
-        jLabel2.setBackground(new java.awt.Color(27, 118, 253));
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/buscar20.png"))); // NOI18N
-        jLabel2.setOpaque(true);
-
-        txtBuscar.setBackground(new java.awt.Color(223, 235, 254));
-        txtBuscar.setDescripcion("Ingrese el nombre");
-        txtBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyReleased(evt);
-            }
-        });
-
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -153,11 +132,7 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(22, 344, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -165,11 +140,7 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -248,23 +219,13 @@ public class FrmGestionarDetalleCategoriaArbitro extends javax.swing.JInternalFr
 
     }//GEN-LAST:event_tblListadoMouseClicked
 
-    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-
-//        if (txtBuscar.getText().length() % 2 == 0) {
-//            listar(txtBuscar.getText().toUpperCase());
-//        }
-
-    }//GEN-LAST:event_txtBuscarKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblTotal;
     public static javax.swing.JTable tblListado;
-    public static org.edisoncor.gui.textField.TextFieldRectBackground txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

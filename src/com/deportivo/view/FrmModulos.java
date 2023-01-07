@@ -95,6 +95,11 @@ public class FrmModulos extends javax.swing.JFrame {
         btnTV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTV.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnTV.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTVActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnTV);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,6 +137,12 @@ public class FrmModulos extends javax.swing.JFrame {
         FrmLogin.rol = 3;
         this.dispose();
     }//GEN-LAST:event_btnEstadisticoActionPerformed
+
+    private void btnTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTVActionPerformed
+        FrmMenuPrincipal frm = new FrmMenuPrincipal();
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnTVActionPerformed
 
     /**
      * @param args the command line arguments

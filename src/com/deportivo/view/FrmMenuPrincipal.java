@@ -22,122 +22,132 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("..:: SISTEMA DEPORTIVO - GRUPO GO ::..");
         txtCantEquipo.setText("" + equipoC.listar().size());
-        mnuUsuario.setText(usuario.getNombre());
-//        desactivarControles();
+
+        if (usuario == null) {
+            mnuUsuario.setText("Visitante");
+        } else {
+
+            mnuUsuario.setText(usuario.getNombre());
+        }
+        desactivarControles();
         cargarPermisos();
     }
-    
-     private void cargarPermisos(){
-        
-         RolPermiso detalleP = rolPC.listar(usuario.getDocumento());
-        
-        for (Permiso permiso : detalleP.getPermisos()) {
 
-            switch (permiso.getDescripcion()) {
-                case "mnuMantenimiento" -> {
-                    mnuMantenimiento.setVisible(true);
+    private void cargarPermisos() {
+
+        if (usuario == null) {
+            mnuTv.setVisible(true);
+        } else {
+            RolPermiso detalleP = rolPC.listar(usuario.getDocumento());
+
+            for (Permiso permiso : detalleP.getPermisos()) {
+
+                switch (permiso.getDescripcion()) {
+                    case "mnuMantenimiento" -> {
+                        mnuMantenimiento.setVisible(true);
+                    }
+                    case "mnuAdministracion" -> {
+                        mnuAdministracion.setVisible(true);
+                    }
+                    case "mnuGestion" -> {
+                        mnuGestion.setVisible(true);
+                    }
+                    case "mnuReportes" -> {
+                        mnuReportes.setVisible(true);
+                    }
+                    case "mnuTv" -> {
+                        mnuTv.setVisible(true);
+                    }
+                    case "itemAlineacion" -> {
+                        itemAlineacion.setVisible(true);
+                    }
+                    case "itemArbitro" -> {
+                        itemArbitro.setVisible(true);
+                    }
+                    case "itemCategoriaArbitro" -> {
+                        itemCategoriaArbitro.setVisible(true);
+                    }
+                    case "itemCompetencia" -> {
+                        itemCompetencia.setVisible(true);
+                    }
+                    case "itemConfedacion" -> {
+                        itemConfedacion.setVisible(true);
+                    }
+                    case "itemContinente" -> {
+                        itemContinente.setVisible(true);
+                    }
+                    case "itemContrato" -> {
+                        itemContrato.setVisible(true);
+                    }
+                    case "itemCuerpoTecnico" -> {
+                        itemCuerpoTecnico.setVisible(true);
+                    }
+                    case "itemCuidad" -> {
+                        itemCuidad.setVisible(true);
+                    }
+                    case "itemEquipo" -> {
+                        itemEquipo.setVisible(true);
+                    }
+                    case "itemEtapaFixture" -> {
+                        itemEtapaFixture.setVisible(true);
+                    }
+                    case "itemEvento" -> {
+                        itemEvento.setVisible(true);
+                    }
+                    case "itemFixture" -> {
+                        itemFixture.setVisible(true);
+                    }
+                    case "itemFormacion" -> {
+                        itemFormacion.setVisible(true);
+                    }
+                    case "itemFutbolista" -> {
+                        itemFutbolista.setVisible(true);
+                    }
+                    case "itemGrupo" -> {
+                        itemGrupo.setVisible(true);
+                    }
+                    case "itemInstanciaPartido" -> {
+                        itemInstanciaPartido.setVisible(true);
+                    }
+                    case "itemJornada" -> {
+                        itemJornada.setVisible(true);
+                    }
+                    case "itemPais" -> {
+                        itemPais.setVisible(true);
+                    }
+                    case "itemPosicion" -> {
+                        itemPosicion.setVisible(true);
+                    }
+                    case "itemProfesional" -> {
+                        itemProfesional.setVisible(true);
+                    }
+                    case "itemRol" -> {
+                        itemRol.setVisible(true);
+                    }
+                    case "itemTernaArbitral" -> {
+                        itemTernaArbitral.setVisible(true);
+                    }
+                    case "itemTipoJugador" -> {
+                        itemTipoJugador.setVisible(true);
+                    }
+                    case "itemTipoProfesional" -> {
+                        itemTipoProfesional.setVisible(true);
+                    }
+                    case "itemTipoTernaArbitral" -> {
+                        itemTipoTernaArbitral.setVisible(true);
+                    }
+                    case "itemUsuario" -> {
+                        itemUsuario.setVisible(true);
+                    }
                 }
-                case "mnuAdministracion" -> {
-                    mnuAdministracion.setVisible(true);
-                }
-                case "mnuGestion" -> {
-                    mnuGestion.setVisible(true);
-                }
-                case "mnuReportes" -> {
-                    mnuReportes.setVisible(true);
-                }
-                case "mnuTv" -> {
-                    mnuTv.setVisible(true);
-                }
-                case "itemAlineacion" -> {
-                    itemAlineacion.setVisible(true);
-                }
-                case "itemArbitro" -> {
-                    itemArbitro.setVisible(true);
-                }
-                case "itemCategoriaArbitro" -> {
-                    itemCategoriaArbitro.setVisible(true);
-                }
-                case "itemCompetencia" -> {
-                    itemCompetencia.setVisible(true);
-                }
-                case "itemConfedacion" -> {
-                    itemConfedacion.setVisible(true);
-                }
-                case "itemContinente" -> {
-                    itemContinente.setVisible(true);
-                }
-                case "itemContrato" -> {
-                    itemContrato.setVisible(true);
-                }
-                case "itemCuerpoTecnico" -> {
-                    itemCuerpoTecnico.setVisible(true);
-                }
-                case "itemCuidad" -> {
-                    itemCuidad.setVisible(true);
-                }
-                case "itemEquipo" -> {
-                    itemEquipo.setVisible(true);
-                }
-                case "itemEtapaFixture" -> {
-                    itemEtapaFixture.setVisible(true);
-                }
-                case "itemEvento" -> {
-                    itemEvento.setVisible(true);
-                }
-                case "itemFixture" -> {
-                    itemFixture.setVisible(true);
-                }
-                case "itemFormacion" -> {
-                    itemFormacion.setVisible(true);
-                }
-                case "itemFutbolista" -> {
-                    itemFutbolista.setVisible(true);
-                }
-                case "itemGrupo" -> {
-                    itemGrupo.setVisible(true);
-                }
-                case "itemInstanciaPartido" -> {
-                    itemInstanciaPartido.setVisible(true);
-                }
-                case "itemJornada" -> {
-                    itemJornada.setVisible(true);
-                }
-                case "itemPais" -> {
-                    itemPais.setVisible(true);
-                }
-                case "itemPosicion" -> {
-                    itemPosicion.setVisible(true);
-                }
-                case "itemProfesional" -> {
-                    itemProfesional.setVisible(true);
-                }
-                case "itemRol" -> {
-                    itemRol.setVisible(true);
-                }
-                case "itemTernaArbitral" -> {
-                    itemTernaArbitral.setVisible(true);
-                }
-                case "itemTipoJugador" -> {
-                    itemTipoJugador.setVisible(true);
-                }
-                case "itemTipoProfesional" -> {
-                    itemTipoProfesional.setVisible(true);
-                }
-                case "itemTipoTernaArbitral" -> {
-                    itemTipoTernaArbitral.setVisible(true);
-                }
-                case "itemUsuario" -> {
-                    itemUsuario.setVisible(true);
-                }
+
             }
-            
         }
-        
+
     }
-    
-    private void desactivarControles(){
-        
+
+    private void desactivarControles() {
+
         mnuAdministracion.setVisible(false);
         mnuGestion.setVisible(false);
         mnuMantenimiento.setVisible(false);
@@ -171,7 +181,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemTipoProfesional.setVisible(false);
         itemTipoTernaArbitral.setVisible(false);
         itemUsuario.setVisible(false);
-        
+
     }
 
     public static void centrarVentana(JInternalFrame frame) {
@@ -233,6 +243,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuReportes = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
+        itemPartidosEnVivo = new javax.swing.JMenuItem();
+        ItemPartidosAnteriores = new javax.swing.JMenuItem();
         mnuAdministracion = new javax.swing.JMenu();
         itemRol = new javax.swing.JMenuItem();
         itemUsuario = new javax.swing.JMenuItem();
@@ -580,11 +592,18 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(mnuReportes);
 
         mnuTv.setText("TELEVISION");
-        mnuTv.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnuTvMouseClicked(evt);
+
+        itemPartidosEnVivo.setText("Partidos en vivo");
+        itemPartidosEnVivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPartidosEnVivoActionPerformed(evt);
             }
         });
+        mnuTv.add(itemPartidosEnVivo);
+
+        ItemPartidosAnteriores.setText("Partido Anteriores");
+        mnuTv.add(ItemPartidosAnteriores);
+
         jMenuBar1.add(mnuTv);
 
         mnuAdministracion.setText("ADMINISTRACIÓN");
@@ -753,13 +772,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCategoriaArbitroActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        
+
         jdReportes objCli = new jdReportes(this, true);
         objCli.setLocationRelativeTo(this);
         objCli.setNombreArchivo("reporte1.jasper");
         objCli.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void itemRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRolActionPerformed
@@ -767,46 +786,48 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemRolActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
         FrmLogin frm = new FrmLogin();
         frm.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void itemTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTipoDocActionPerformed
 
-       centrarVentana(new FrmGestionarTipoDocumentoIdentidad());
+        centrarVentana(new FrmGestionarTipoDocumentoIdentidad());
     }//GEN-LAST:event_itemTipoDocActionPerformed
 
     private void itemDimensionEstadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDimensionEstadioActionPerformed
 
-         centrarVentana(new FrmGestionarDimensionCampo());
-       
+        centrarVentana(new FrmGestionarDimensionCampo());
+
     }//GEN-LAST:event_itemDimensionEstadioActionPerformed
 
     private void itemEstadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEstadioActionPerformed
-        
+
         centrarVentana(new FrmGestionarEstadio());
-        
+
     }//GEN-LAST:event_itemEstadioActionPerformed
 
     private void itemPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPartidoActionPerformed
-        
+
         centrarVentana(new FrmGestionarPartido());
-        
+
     }//GEN-LAST:event_itemPartidoActionPerformed
 
     private void itemIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIncidenciasActionPerformed
         centrarVentana(new FrmGestionarIncidencias());
     }//GEN-LAST:event_itemIncidenciasActionPerformed
 
-    private void mnuTvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuTvMouseClicked
-        centrarVentana(new ModuloTV());
-    }//GEN-LAST:event_mnuTvMouseClicked
+    private void itemPartidosEnVivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPartidosEnVivoActionPerformed
+        FrmGestionarIncidencias.verPartido = true;
+        centrarVentana(new FrmGestionarIncidencias());
+    }//GEN-LAST:event_itemPartidosEnVivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemPartidosAnteriores;
     public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem itemAlineacion;
     private javax.swing.JMenuItem itemArbitro;
@@ -831,6 +852,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemJornada;
     private javax.swing.JMenuItem itemPais;
     private javax.swing.JMenuItem itemPartido;
+    private javax.swing.JMenuItem itemPartidosEnVivo;
     private javax.swing.JMenuItem itemPosicion;
     private javax.swing.JMenuItem itemProfesional;
     private javax.swing.JMenuItem itemRol;
