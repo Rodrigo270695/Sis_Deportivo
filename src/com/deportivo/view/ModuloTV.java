@@ -1,4 +1,3 @@
-
 package com.deportivo.view;
 
 import com.deportivo.controller.*;
@@ -6,12 +5,15 @@ import com.deportivo.model.*;
 import com.deportivo.properties.RenderTable;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 public final class ModuloTV extends javax.swing.JInternalFrame {
-    
+
+    public Timer tiempo;
     DetallePartidoController detallePC = new DetallePartidoController();
     PartidoController partidoC = new PartidoController();
     FutbolistaController futbolistaC = new FutbolistaController();
@@ -23,9 +25,17 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
 
     public ModuloTV() {
         initComponents();
+        tiempo = new Timer(60000, null);
+        tiempo.start();
         listar();
+        tiempo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listar();
+            }
+        });
     }
-    
+
     public void listar() {
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -42,9 +52,11 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
             if (dp.getTipo().equalsIgnoreCase("V")) {
                 modelo.addColumn(dp.getEquipo().getNombreCorto());
                 local = dp.getEquipo().getNombreCorto();
+                lblEVisita.setText(dp.getEquipo().getNombreCorto());
             } else {
                 modelo.addColumn(dp.getEquipo().getNombreCorto());
                 visita = dp.getEquipo().getNombreCorto();
+                lblELocal.setText(dp.getEquipo().getNombreCorto());
             }
         }
 
@@ -67,8 +79,8 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
                 }
             }
 
-            lblLocal.setText(""+equiLocal);
-            lblVisita.setText(""+equiVisita);
+            lblLocal.setText("" + equiLocal);
+            lblVisita.setText("" + equiVisita);
         }
 
         tblListado.setModel(modelo);
@@ -88,6 +100,9 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
         };
         lblVisita = new javax.swing.JLabel();
         lblLocal = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblELocal = new javax.swing.JLabel();
+        lblEVisita = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
@@ -106,34 +121,69 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
 
         pantalla.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblVisita.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblVisita.setFont(new java.awt.Font("Segoe UI", 1, 52)); // NOI18N
+        lblVisita.setForeground(new java.awt.Color(255, 255, 255));
         lblVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        lblLocal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblLocal.setFont(new java.awt.Font("Segoe UI", 1, 52)); // NOI18N
+        lblLocal.setForeground(new java.awt.Color(255, 255, 255));
         lblLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel1.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("■ En Vivo");
+        jLabel1.setOpaque(true);
+
+        lblELocal.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblELocal.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblEVisita.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblEVisita.setForeground(new java.awt.Color(255, 255, 255));
 
         pantalla.setLayer(lblVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(lblLocal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(lblELocal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(lblEVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
-                .addContainerGap(257, Short.MAX_VALUE)
-                .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
-                .addComponent(lblVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281))
+            .addGroup(pantallaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pantallaLayout.createSequentialGroup()
+                .addGap(194, 194, 194)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pantallaLayout.createSequentialGroup()
+                        .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(179, 179, 179))
+                    .addGroup(pantallaLayout.createSequentialGroup()
+                        .addComponent(lblELocal, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137)
+                        .addComponent(lblEVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(187, Short.MAX_VALUE))))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblELocal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEVisita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(93, 93, 93))
         );
 
         jPanel1.add(pantalla);
@@ -288,10 +338,13 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAdd2;
     private javax.swing.JButton btnAdd3;
     private javax.swing.JButton btnAdd4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblELocal;
+    private javax.swing.JLabel lblEVisita;
     private javax.swing.JLabel lblLocal;
     private javax.swing.JLabel lblVisita;
     private javax.swing.JDesktopPane pantalla;
