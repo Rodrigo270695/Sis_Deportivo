@@ -165,4 +165,43 @@ public class DetallePartidoController {
 
         return lista;
     }
+    
+    public void actualizarDetalle(DetallePartido detallePartido){
+        
+        sql = "update detalle_partido set goles=?,numero_faltas=?,tarjetas_amarillas=?,tarjetas_rojas=?,"
+                + "tiros=?,fuera_de_lugar=?,tiros_esquina=?,cambios=? "
+                + "where partido_id =? and equipo_id = ?";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, detallePartido.getGoles());
+            ps.setInt(2, detallePartido.getFaltas());
+            ps.setInt(3, detallePartido.getTarjetasAmarillas());
+            ps.setInt(4, detallePartido.getTarjtetasRojas());
+            ps.setInt(5, detallePartido.getTiros());
+            ps.setInt(6, detallePartido.getFueraLugar());
+            ps.setInt(7, detallePartido.getTirosEquina());
+            ps.setString(8, detallePartido.getCambios());
+            ps.setInt(9, detallePartido.getPartido().getPartidoId());
+            ps.setInt(10, detallePartido.getEquipo().getEquipoId());
+            ps.executeUpdate();
+
+        }  catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        
+    }
 }

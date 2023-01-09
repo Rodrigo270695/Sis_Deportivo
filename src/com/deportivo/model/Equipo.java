@@ -22,6 +22,13 @@ public class Equipo {
     private Pais pais;
     private InputStream foto;
 
+    public Equipo() {
+    }
+
+    public Equipo(int equipoId) {
+        this.equipoId = equipoId;
+    }
+    
     public int getEquipoId() {
         return equipoId;
     }

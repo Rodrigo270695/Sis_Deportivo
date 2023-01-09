@@ -33,6 +33,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     IncidenciaPartidoController incidenciaC = new IncidenciaPartidoController();
     InstanciaPartidoController instanciaC = new InstanciaPartidoController();
     DetalleEquipoController detalleEC = new DetalleEquipoController();
+    String local, visita;
+    int idLocal, idvisita;
     public static int idPartido;
 
     public ModalRegistrarIncidenciaPartido() {
@@ -114,7 +116,6 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         List incidencias = incidenciaC.listar(idPartido);
         DetallePartido dp;
         IncidenciaPartido ip;
-        String local = "", visita = "";
         Object obj[] = new Object[2];
         int equiVisita = 0, equiLocal = 0;
 
@@ -123,9 +124,11 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             if (dp.getTipo().equalsIgnoreCase("V")) {
                 modelo.addColumn(dp.getEquipo().getNombreCorto());
                 local = dp.getEquipo().getNombreCorto();
+                idLocal = dp.getEquipo().getEquipoId();
             } else {
                 modelo.addColumn(dp.getEquipo().getNombreCorto());
                 visita = dp.getEquipo().getNombreCorto();
+                idvisita = dp.getEquipo().getEquipoId();
             }
         }
 
@@ -153,6 +156,101 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         }
 
         tblListado.setModel(modelo);
+    }
+    
+    private void agregarDetallePartido(){
+        DetallePartido detalleP1 = new DetallePartido();
+        DetallePartido detalleP2 = new DetallePartido();
+        int golesV=0, golesL=0;
+        int faltasL=0, faltasV=0;
+        int taL=0, taV=0;
+        int trL=0, trV=0;
+        int tL=0, tV=0;
+        int fueraL=0, fueraV=0;
+        int teL=0, teV=0;
+        String cL,cV;
+        List incidencias = incidenciaC.listar(idPartido);
+        IncidenciaPartido incidencia;
+        
+        for (int i = 0; i < incidencias.size(); i++) {
+            
+            incidencia = (IncidenciaPartido) incidencias.get(i);
+            
+            if (incidencia.getEquipo().getNombreCorto().equals(visita)) {
+                
+                switch (incidencia.getEvento().getNombre()) {
+                    case "GOAL" -> {
+                        golesV++;
+                    }
+                    case "FALTA" -> {
+                        faltasV++;
+                    }
+                    case "TARJETA AMARILLA" -> {
+                        taV++;
+                    }
+                    case "TARJETA ROJA" -> {
+                        trV++;
+                    }
+                    case "TIRO DE ESQUINA" -> {
+                        teV++;
+                    }
+                    case "TIRO" -> {
+                        tV++;
+                    }
+                    case "FUERA DE LUGAR" -> {
+                        fueraV++;
+                    }
+                }
+                
+            }else{
+                switch (incidencia.getEvento().getNombre()) {
+                    case "GOAL" -> {
+                        golesL++;
+                    }
+                    case "FALTA" -> {
+                        faltasL++;
+                    }
+                    case "TARJETA AMARILLA" -> {
+                        taL++;
+                    }
+                    case "TARJETA ROJA" -> {
+                        trL++;
+                    }
+                    case "TIRO DE ESQUINA" -> {
+                        teL++;
+                    }
+                    case "TIRO" -> {
+                        tL++;
+                    }
+                    case "FUERA DE LUGAR" -> {
+                        fueraL++;
+                    }
+                }
+            }
+            
+        }
+        detalleP1.setGoles((byte)golesL);
+        detalleP1.setFaltas((short)faltasL);
+        detalleP1.setTarjetasAmarillas((byte)taL);
+        detalleP1.setTarjtetasRojas((byte)trL);
+        detalleP1.setTirosEquina((byte)teL);
+        detalleP1.setTiros((byte)tL);
+        detalleP1.setFueraLugar((byte)fueraL);
+        detalleP1.setPartido(new Partido(idPartido));
+        detalleP1.setEquipo(new Equipo(idLocal));
+        
+        detalleP2.setGoles((byte)golesV);
+        detalleP2.setFaltas((short)faltasV);
+        detalleP2.setTarjetasAmarillas((byte)taV);
+        detalleP2.setTarjtetasRojas((byte)trV);
+        detalleP2.setTirosEquina((byte)teV);
+        detalleP2.setTiros((byte)tV);
+        detalleP2.setFueraLugar((byte)fueraV);
+        detalleP2.setPartido(new Partido(idPartido));
+        detalleP2.setEquipo(new Equipo(idvisita));
+        
+        detallePC.actualizarDetalle(detalleP1);
+        detallePC.actualizarDetalle(detalleP2);
     }
 
     @SuppressWarnings("unchecked")
@@ -508,7 +606,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     }//GEN-LAST:event_btnMostrarEquiposActionPerformed
 
     private void btnGrabar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabar1ActionPerformed
-        
+
+        agregarDetallePartido();
         partidoC.acabarpartido(idPartido);
         AlertaBien bien = new AlertaBien("MENSAJE", "El partido a culminado");
         FrmGestionarIncidencias.listar("");

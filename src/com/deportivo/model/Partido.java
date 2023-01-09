@@ -14,6 +14,13 @@ public class Partido {
     private TernaArbitral ternaArbitral;
     private boolean estado;
 
+    public Partido() {
+    }
+
+    public Partido(int partidoId) {
+        this.partidoId = partidoId;
+    }
+
     public int getPartidoId() {
         return partidoId;
     }

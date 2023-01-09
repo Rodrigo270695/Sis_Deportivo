@@ -1,56 +1,52 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.GrupoController;
-import com.deportivo.model.Grupo;
+import com.deportivo.controller.DetalleGrupoController;
+import com.deportivo.controller.EquipoController;
+import com.deportivo.controller.FormacionEquipoController;
+import com.deportivo.controller.PartidoController;
+import com.deportivo.model.DetalleGrupo;
+import com.deportivo.model.Equipo;
+import com.deportivo.model.FormacionEquipo;
+import com.deportivo.model.Partido;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarGrupo;
+import com.deportivo.view.modal.ModalRegistrarDetalleGrupo;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
+public class FrmGestionarDetalleGrupo extends javax.swing.JInternalFrame {
 
-    public static GrupoController grupoC = new GrupoController();
-    
-    public FrmGestionarGrupo() {
+    public static DetalleGrupoController detalleG = new DetalleGrupoController();
+    EquipoController equipoC = new EquipoController();
+    FormacionEquipoController formacionC = new FormacionEquipoController();
+    public static int idGrupo;
+
+    public FrmGestionarDetalleGrupo() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "ABREVIATURA", "", "", "",""};
+        String columas[] = {"EQUIPO", ""};
         DefaultTableModel modelo = new DefaultTableModel();
+        List lista;
+        DetalleGrupo detalleP;
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        Grupo grupo;
-        List lista;
-        if (txtBuscar.getText().length() == 0) {
-            lista = grupoC.listar();
-        } else {
-            lista = grupoC.buscar(texto);
-        }
-        Object obj[] = new Object[7];
+        lista = detalleG.listar(idGrupo);
+
+        Object obj[] = new Object[2];
 
         for (int i = 0; i < lista.size(); i++) {
-            grupo = (Grupo) lista.get(i);
-            obj[0] = grupo.getGrupoId();
-            obj[1] = grupo.getNombre();
-            obj[2] = grupo.getAbreviatura();
+            detalleP = (DetalleGrupo) lista.get(i);
 
-            ImageIcon iconoModi = new ImageIcon("src/com/deportivo/iconos/editar.png");
-            Icon btnModificar = new ImageIcon(iconoModi.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonModificar = new JButton("", btnModificar);
-            botonModificar.setName("btnModificar");
-            botonModificar.setToolTipText("modificar");
-            botonModificar.setBorder(null);
-            botonModificar.setBackground(new Color(255, 198, 26));
-            obj[3] = botonModificar;
+            obj[0] = detalleP.getEquipo().getNombreCorto();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -59,25 +55,7 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
             botonEliminar.setToolTipText("eliminar");
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
-            obj[4] = botonEliminar;
-
-            ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
-            Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonVer = new JButton("", btnVer);
-            botonVer.setName("btnVer");
-            botonVer.setToolTipText("vista del registro");
-            botonVer.setBorder(null);
-            botonVer.setBackground(new Color(41, 143, 96));
-            obj[5] = botonVer;
-            
-            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
-            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-            JButton botonAdd = new JButton("", btnAdd);
-            botonAdd.setName("btnAdd");
-            botonAdd.setToolTipText("Añadir Equipo");
-            botonAdd.setBorder(null);
-            botonAdd.setBackground(new Color(25, 38, 49));
-            obj[6] = botonAdd;
+            obj[1] = botonEliminar;
 
             modelo.addRow(obj);
 
@@ -87,13 +65,8 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(378);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(250);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
-        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(340);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -107,14 +80,13 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
         tblListado = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtBuscar = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnAdd = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR GRUPO");
+        setResizable(true);
+        setTitle("GESTIONAR DETALLE GRUPO");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -141,25 +113,8 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
 
         lblTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
 
-        jLabel2.setBackground(new java.awt.Color(27, 118, 253));
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/buscar20.png"))); // NOI18N
-        jLabel2.setOpaque(true);
-
-        txtBuscar.setBackground(new java.awt.Color(223, 235, 254));
-        txtBuscar.setDescripcion("Ingrese el nombre");
-        txtBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyReleased(evt);
-            }
-        });
-
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
-        btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setOpaque(true);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -175,17 +130,14 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
-                        .addGap(0, 783, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 347, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -193,12 +145,9 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -222,7 +171,8 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarGrupo frm = new ModalRegistrarGrupo();
+        ModalRegistrarDetalleGrupo.idGrupo = idGrupo;
+        ModalRegistrarDetalleGrupo frm = new ModalRegistrarDetalleGrupo();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -230,7 +180,6 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
 
         int fila = tblListado.getSelectedRow();
-        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
 
         int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / tblListado.getRowHeight();
@@ -246,16 +195,17 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un grupo");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
-                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+                            String equi = String.valueOf(tblListado.getValueAt(fila, 0));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al grupo " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Partido " + equi + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
+                                Equipo equipo = (Equipo) equipoC.obtenerdato(equi);
                                 try {
-                                    grupoC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Grupo eliminado correctamente!");
+                                    detalleG.eliminarDetalle(idGrupo, equipo.getEquipoId());
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Partido eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -267,57 +217,19 @@ public class FrmGestionarGrupo extends javax.swing.JInternalFrame {
 
                         }
                     }
-                    case "btnModificar" -> {
-                        if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un grupo");
-                        } else {
-
-                            ModalRegistrarGrupo.idGrupo = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarGrupo());
-                            ModalRegistrarGrupo.btnGrabar.setText("Modificar");
-
-                        }
-                    }
-                    case "btnVer" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un grupo");
-                        } else {
-                            ModalRegistrarGrupo.vista = true;
-                            ModalRegistrarGrupo.idGrupo = id;
-                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarGrupo());
-                        }
-                    }
-                    case "btnAdd" -> {
-                        if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un Grupo");
-                        } else {
-                            FrmGestionarDetalleGrupo.idGrupo = id;
-                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleGrupo());
-                        }
-                    }
                 }
             }
         }
 
     }//GEN-LAST:event_tblListadoMouseClicked
 
-    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-
-        if (txtBuscar.getText().length() % 2 == 0) {
-            listar(txtBuscar.getText().toUpperCase());
-        }
-
-    }//GEN-LAST:event_txtBuscarKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblTotal;
     public static javax.swing.JTable tblListado;
-    public static org.edisoncor.gui.textField.TextFieldRectBackground txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
