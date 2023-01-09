@@ -15,6 +15,7 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
 
     public Timer tiempo;
     DetallePartidoController detallePC = new DetallePartidoController();
+    DetalleEquipoController detalleEC = new DetalleEquipoController();
     PartidoController partidoC = new PartidoController();
     FutbolistaController futbolistaC = new FutbolistaController();
     EquipoController equipoC = new EquipoController();
@@ -85,6 +86,58 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
 
         tblListado.setModel(modelo);
     }
+    
+    public void listarJugadores() {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        List equipos = detallePC.listar(idPartido);
+        List incidencias = incidenciaC.listar(idPartido);
+        DetallePartido dp;
+        DetalleEquipo de;
+        IncidenciaPartido ip;
+        String local = "", visita = "";
+        Object obj[] = new Object[2];
+        int equiVisita = 0, equiLocal = 0;
+        List fLocal = null;
+        List fVisita = null;
+        String aLocal[] = new String[11];
+        String aVisita[] = new String[11];
+
+        for (int i = 0; i < equipos.size(); i++) {
+            dp = (DetallePartido) equipos.get(i);
+            if (dp.getTipo().equalsIgnoreCase("V")) {
+                modelo.addColumn(dp.getEquipo().getNombreCorto());
+                local = dp.getEquipo().getNombreCorto();
+                lblEVisita.setText(dp.getEquipo().getNombreCorto());
+                fVisita = detalleEC.listar(dp.getEquipo().getEquipoId());
+            } else {
+                modelo.addColumn(dp.getEquipo().getNombreCorto());
+                visita = dp.getEquipo().getNombreCorto();
+                lblELocal.setText(dp.getEquipo().getNombreCorto());
+                fLocal = detalleEC.listar(dp.getEquipo().getEquipoId());
+            }
+        }
+
+        for (int i = 0; i < 11; i++) {
+            de =  (DetalleEquipo) fLocal.get(i);
+            aLocal[i] = de.getFutbolista().getNombreCompleto();
+        }
+        
+        for (int i = 0; i < 11; i++) {
+            de =  (DetalleEquipo) fLocal.get(i);
+            aVisita[i] = de.getFutbolista().getNombreCompleto();
+        }
+        
+        for (int i = 0; i < 11; i++) {
+            obj[0] = aLocal[i];
+            obj[1] = aVisita[i];
+            modelo.addRow(obj);
+        }
+        
+        tblListado.setModel(modelo);
+    }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -321,7 +374,9 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
-        // TODO add your handling code here:
+        
+        listar();
+        
     }//GEN-LAST:event_btnAdd2ActionPerformed
 
     private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
@@ -329,7 +384,9 @@ public final class ModuloTV extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdd3ActionPerformed
 
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
-        // TODO add your handling code here:
+       
+        listarJugadores();
+        
     }//GEN-LAST:event_btnAdd4ActionPerformed
 
 
