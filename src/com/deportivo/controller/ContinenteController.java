@@ -175,7 +175,7 @@ public class ContinenteController implements CRUD {
     public List buscar(Object obj) {
 
         List lista = new ArrayList();
-        sql = "select * from continente where nombre like '%" + obj + "%'";
+        sql = "select * from continente where nombre like '%" + obj + "%' and abreviatura like '%"+obj+"%'";
 
         try {
 
