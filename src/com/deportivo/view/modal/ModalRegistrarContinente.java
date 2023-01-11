@@ -46,6 +46,10 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
             Alerta alerta = new Alerta("Alerta", "El campo NOMBRE es obligatorio");
             return;
         }
+        if (txtNombre.getText().length() > 30) {
+            Alerta alerta = new Alerta("Alerta", "El valor máximo es de 30 caracteres");
+            return;
+        }
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 
@@ -229,7 +233,7 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
         if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAbreviatura.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan un máximo de 3 letras");
         }
 
 
