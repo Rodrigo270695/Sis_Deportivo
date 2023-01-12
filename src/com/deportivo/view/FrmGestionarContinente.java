@@ -241,7 +241,7 @@ public class FrmGestionarContinente extends javax.swing.JInternalFrame {
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al continente " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el continente " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {

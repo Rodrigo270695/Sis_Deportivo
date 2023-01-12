@@ -43,6 +43,7 @@ public final class ModalRegistrarCiudad extends javax.swing.JInternalFrame {
             txtNombre.setEnabled(false);
             cbxPaises.setEnabled(false);
             btnGrabar.setEnabled(false);
+            btnRegistrarPais.setEnabled(false);
         }
 
         if (idCiudad > 0) {

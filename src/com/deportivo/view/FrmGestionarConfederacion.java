@@ -237,7 +237,7 @@ public class FrmGestionarConfederacion extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un confederacion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una confederación");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
@@ -260,7 +260,7 @@ public class FrmGestionarConfederacion extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un confederacion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una confederacion");
                         } else {
 
                             ModalRegistrarConfederacion.idConfederacion = id;

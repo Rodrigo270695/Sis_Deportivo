@@ -106,7 +106,7 @@ public class FrmGestionarPais extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR PAIS");
+        setTitle("GESTIONAR PAÍS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -17,6 +17,7 @@ public final class ModalRegistrarPais extends javax.swing.JInternalFrame {
     public static int idPais = 0;
     public static boolean activarPais = false;
     public static boolean vista = false;
+    public static boolean activarPais2= false;
 
     public ModalRegistrarPais() {
         initComponents();

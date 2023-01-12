@@ -4,6 +4,8 @@ public class CuerpoTecnico {
 
     private int cuerpoTecnicoId;
     private String nombre;
+    private Profesional profesional;
+    private TipoProfesional tipoProfesional;
 
     public int getCuerpoTecnicoId() {
         return cuerpoTecnicoId;
@@ -19,6 +21,22 @@ public class CuerpoTecnico {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Profesional getProfesional() {
+        return profesional;
+    }
+
+    public void setProfesional(Profesional profesional) {
+        this.profesional = profesional;
+    }
+
+    public TipoProfesional getTipoProfesional() {
+        return tipoProfesional;
+    }
+
+    public void setTipoProfesional(TipoProfesional tipoProfesional) {
+        this.tipoProfesional = tipoProfesional;
     }
 
 }

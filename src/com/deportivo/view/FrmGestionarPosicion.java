@@ -236,16 +236,16 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una posición");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al posicion " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar la posición " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
                                     posicionC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Posición eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Posición eliminada correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -259,7 +259,7 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posición");
                         } else {
 
                             ModalRegistrarPosicion.idPosicion = id;
@@ -270,7 +270,7 @@ public class FrmGestionarPosicion extends javax.swing.JInternalFrame {
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un posicion");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una posición");
                         } else {
                             ModalRegistrarPosicion.vista = true;
                             ModalRegistrarPosicion.idPosicion = id;

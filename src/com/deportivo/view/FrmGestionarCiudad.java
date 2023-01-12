@@ -235,16 +235,16 @@ public class FrmGestionarCiudad extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ciudad");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una ciudad");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al ciudad " + valor + "?", "Confirmar", 2);
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar la ciudad " + valor + "?", "Confirmar", 2);
                             if (opcion == 0) {
 
                                 try {
                                     ciudadC.eliminar(id);
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Ciudad eliminado correctamente!");
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Ciudad eliminada correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());
@@ -258,7 +258,7 @@ public class FrmGestionarCiudad extends javax.swing.JInternalFrame {
                     }
                     case "btnModificar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ciudad");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una ciudad");
                         } else {
 
                             ModalRegistrarCiudad.idCiudad = id;
@@ -269,7 +269,7 @@ public class FrmGestionarCiudad extends javax.swing.JInternalFrame {
                     }
                     case "btnVer" -> {
                         if (filas == 0) {
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un ciudad");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una ciudad");
                         } else {
                             ModalRegistrarCiudad.vista = true;
                             ModalRegistrarCiudad.idCiudad = id;

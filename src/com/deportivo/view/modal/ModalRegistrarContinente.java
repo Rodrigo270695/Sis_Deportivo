@@ -42,8 +42,8 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
 
     void grabar() {
 
-        if (txtNombre.getText().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE es obligatorio");
+        if ((txtNombre.getText().length() == 0) || (txtAbreviatura.getText().length()==0)){
+            Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y ABREVIATURA son obligatorios");
             return;
         }
 
@@ -77,7 +77,7 @@ public final class ModalRegistrarContinente extends javax.swing.JInternalFrame {
 
             try {
                 continenteC.modificar(continente);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el continente");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el continente");
                 FrmGestionarContinente.listar("");
                 dispose();
             } catch (Exception e) {

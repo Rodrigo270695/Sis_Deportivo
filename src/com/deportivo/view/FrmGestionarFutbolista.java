@@ -25,7 +25,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "FOTO", "NOMBRE", "DOC. IDENTIDAD", "EDAD", "N° Camiseta", "", "", ""};
+        String columas[] = {"#", "FOTO", "NOMBRE", "DOC. IDENTIDAD", "EDAD", "N° Camiseta", "", "", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -39,7 +39,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
         } else {
             lista = futbolistaC.buscar(texto);
         }
-        Object obj[] = new Object[9];
+        Object obj[] = new Object[11];
 //        ImageIcon foto;
 //        Image img = null;
         LocalDate hoy = LocalDate.now();
@@ -53,7 +53,6 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
 //                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 //            } catch (IOException e) {
 //            }
-
             obj[0] = futbolista.getFutbolistaId();
             obj[1] = new JLabel(new ImageIcon(""));
             obj[2] = futbolista.getNombreCompleto();
@@ -88,6 +87,24 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
             botonVer.setBackground(new Color(41, 143, 96));
             obj[8] = botonVer;
 
+            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd = new JButton("", btnAdd);
+            botonAdd.setName("btnAdd");
+            botonAdd.setToolTipText("AñadirTipo");
+            botonAdd.setBorder(null);
+            botonAdd.setBackground(new Color(25, 38, 49));
+            obj[9] = botonAdd;
+
+            ImageIcon iconoAdd2 = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd2 = new ImageIcon(iconoAdd2.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd2 = new JButton("", btnAdd2);
+            botonAdd2.setName("btnAdd2");
+            botonAdd2.setToolTipText("AñadirTipo");
+            botonAdd2.setBorder(null);
+            botonAdd2.setBackground(new Color(25, 38, 49));
+            obj[10] = botonAdd2;
+
             modelo.addRow(obj);
 
         }
@@ -105,6 +122,8 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(8).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(9).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(10).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -289,6 +308,25 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
 
                         }
                     }
+
+                    case "btnAdd" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
+                        } else {
+                            FrmGestionarDetallePosicionFutbolista.idFubolista = id;
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetallePosicionFutbolista());
+                        }
+                    }
+                    
+                      case "btnAdd2" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
+                        } else {
+                            FrmGestionarDetallePaisFutbolista.idFutbolista2 = id;
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetallePaisFutbolista());
+                        }
+                    }
+
                     case "btnVer" -> {
                         if (filas == 0) {
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar un futbolista");
