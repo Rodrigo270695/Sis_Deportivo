@@ -22,7 +22,7 @@ public class InstanciaPartidoController implements CRUD {
     public List listar() {
 
         List lista = new ArrayList();
-        sql = "SELECT * FROM instancia_partido ORDER BY instancia_partido_id DESC";
+        sql = "SELECT * FROM instancia_partido ORDER BY instancia_partido_id ";
 
         try {
 

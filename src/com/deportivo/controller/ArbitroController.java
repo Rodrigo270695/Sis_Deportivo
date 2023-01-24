@@ -9,7 +9,7 @@ import org.postgresql.util.PSQLException;
 
 public class ArbitroController implements CRUD {
 
-    PaisController paisC =new  PaisController();
+    PaisController paisC = new PaisController();
     Conexion estado = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -64,7 +64,7 @@ public class ArbitroController implements CRUD {
             con = estado.conectar();
             ps = con.prepareStatement(sql);
             ps.setString(1, arbitro.getArbitro_nombre());
-            ps.setString(2, ""+arbitro.getEstado_arbitro());
+            ps.setString(2, "" + arbitro.getEstado_arbitro());
             ps.setInt(3, arbitro.getPais().getPaisId());
             ps.executeUpdate();
 
@@ -94,7 +94,7 @@ public class ArbitroController implements CRUD {
             con = estado.conectar();
             ps = con.prepareStatement(sql);
             ps.setString(1, arbitro.getArbitro_nombre());
-            ps.setString(2, ""+arbitro.getEstado_arbitro());
+            ps.setString(2, "" + arbitro.getEstado_arbitro());
             ps.setInt(3, arbitro.getPais().getPaisId());
             ps.setInt(4, arbitro.getArbitro_id());
             ps.executeUpdate();
@@ -181,9 +181,11 @@ public class ArbitroController implements CRUD {
     @Override
     public List buscar(Object obj) {
 
-         List lista = new ArrayList();
-        sql = "SELECT * FROM arbitro WHERE arbitro_nombre LIKE '%"+obj+"%' "
-                + "OR estado_arbitro LIKE '%"+obj+"%'";
+        List lista = new ArrayList();
+        sql = "SELECT ar.arbitro_id,ar.arbitro_nombre,ar.estado_arbitro, ar.pais_id FROM arbitro ar\n"
+                + "inner join pais pa on pa.pais_id = ar.pais_id\n"
+                + "WHERE arbitro_nombre LIKE '%"+obj+"%' OR estado_arbitro LIKE '%"+obj+"%' or \n"
+                + "pa.nombre LIKE '%"+obj+"%'";
 
         try {
 

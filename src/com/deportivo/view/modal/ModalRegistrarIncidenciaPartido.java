@@ -43,8 +43,6 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         cargarEquipos();
         cargarInstancias();
         listar();
-        lblLocal.setText("0");
-        lblVisita.setText("0");
     }
 
     void cargarEventos() {
@@ -62,11 +60,13 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     void cargarEquipos() {
 
         cbxEquipo.removeAllItems();
+        cbxEquipo2.removeAllItems();
 
         List<DetallePartido> equipos = detallePC.listar(idPartido);
 
         for (DetallePartido equipo : equipos) {
             cbxEquipo.addItem(equipo.getEquipo().getNombreCorto());
+            cbxEquipo2.addItem(equipo.getEquipo().getNombreCorto());
         }
 
     }
@@ -85,7 +85,16 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
     void grabar() {
 
-        if (Integer.parseInt(txtMinuto.getValue().toString()) >= 0) {
+        int valorMax = 0;
+        
+        if (cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
+            valorMax = -20;
+        }else{
+            valorMax = incidenciaC.minutoMaximo(idPartido); 
+        }
+
+        if (Integer.parseInt(txtMinuto.getValue().toString()) >= 0 & Integer.parseInt(txtMinuto.getValue().toString()) > valorMax) {
+
             IncidenciaPartido ip = new IncidenciaPartido();
             ip.setEvento((Evento) eventoC.obtenerdato(cbxEvento.getSelectedItem().toString()));
             ip.setPartido((Partido) partidoC.obtenerdato(idPartido));
@@ -93,9 +102,32 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             ip.setInstanciaPartido((InstanciaPartido) instanciaC.obtenerdato(cbxInstancia.getSelectedItem().toString()));
             ip.setMinuto((byte) Integer.parseInt(txtMinuto.getValue().toString()));
             ip.setEquipo((Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString()));
+            if (!cbxFutbolista2.getSelectedItem().toString().equals("Seleccionar") &
+                    !cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
+                ip.setFutbolista2((Futbolista) futbolistaC.obtenerdato(cbxFutbolista2.getSelectedItem().toString()));
+            } else {
+                ip.setFutbolista2(new Futbolista());
+            }
             ip.setDetalle(txtDetalle.getText());
             try {
-                incidenciaC.registrar(ip);
+                if (ip.getInstanciaPartido().getInstancia_partido_id() == 1 & Integer.parseInt(txtMinuto.getValue().toString()) <= 45) {
+                    incidenciaC.registrar(ip);
+                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 2 
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 45 & Integer.parseInt(txtMinuto.getValue().toString()) <= 90 )){
+                    incidenciaC.registrar(ip);
+                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 3 
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 90 & Integer.parseInt(txtMinuto.getValue().toString()) <= 105 )){
+                    incidenciaC.registrar(ip);
+                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 4 
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 105 & Integer.parseInt(txtMinuto.getValue().toString()) <= 120 )){
+                    incidenciaC.registrar(ip);
+                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 5 ){
+                    ip.setMinuto((byte) 127);
+                    incidenciaC.registrar(ip);
+                } else{
+                    AlertaError error = new AlertaError("ERROR", "Minuto inválido");
+                    return;
+                }
                 listar();
                 txtDetalle.setText("");
                 AlertaBien bien = new AlertaBien("MENSAJE", "Se agregó la incidencia correctamente");
@@ -104,7 +136,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                 AlertaError error = new AlertaError("ERROR", "Ocurrió un error vuelva a intentarlo");
             }
         } else {
-            AlertaError error = new AlertaError("ERROR", "El mínuto es negativo");
+            AlertaError error = new AlertaError("ERROR", "Minuto inválido");
         }
 
     }
@@ -118,6 +150,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         IncidenciaPartido ip;
         Object obj[] = new Object[2];
         int equiVisita = 0, equiLocal = 0;
+        String minuto;
+        String jugador2;
 
         for (int i = 0; i < equipos.size(); i++) {
             dp = (DetallePartido) equipos.get(i);
@@ -134,9 +168,21 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         for (int i = 0; i < incidencias.size(); i++) {
             ip = (IncidenciaPartido) incidencias.get(i);
+            
+            if (ip.getMinuto() == 127) {
+                minuto = "";
+            }else{
+                minuto = ""+ip.getMinuto();
+            }
+            
+            if (ip.getFutbolista2().getNombreCompleto() == null){
+                jugador2 = "";
+            }else{
+                jugador2 = " ("+ip.getFutbolista2().getNombreCompleto()+")";
+            }
 
             if (ip.getEquipo().getNombreCorto().equals(visita)) {
-                obj[0] = "'" + ip.getMinuto() + "'" + ip.getFutbolista().getNombreCompleto() + " " + ip.getEvento().getNombre();
+                obj[0] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() +  jugador2 ;
                 obj[1] = "";
                 modelo.addRow(obj);
                 if (ip.getEvento().getEventoId() == 1) {
@@ -144,40 +190,41 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                 }
             } else if (ip.getEquipo().getNombreCorto().equals(local)) {
                 obj[0] = "";
-                obj[1] = "'" + ip.getMinuto() + "'" + ip.getFutbolista().getNombreCompleto() + " " + ip.getEvento().getNombre();
+                obj[1] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2 ;
                 modelo.addRow(obj);
                 if (ip.getEvento().getEventoId() == 1) {
                     equiVisita++;
                 }
             }
 
-            lblLocal.setText(""+equiLocal);
-            lblVisita.setText(""+equiVisita);
+            lblLocal.setText("" + equiLocal);
+            lblVisita.setText("" + equiVisita);
         }
 
         tblListado.setModel(modelo);
     }
-    
-    private void agregarDetallePartido(){
+
+    private void agregarDetallePartido() {
+
         DetallePartido detalleP1 = new DetallePartido();
         DetallePartido detalleP2 = new DetallePartido();
-        int golesV=0, golesL=0;
-        int faltasL=0, faltasV=0;
-        int taL=0, taV=0;
-        int trL=0, trV=0;
-        int tL=0, tV=0;
-        int fueraL=0, fueraV=0;
-        int teL=0, teV=0;
-        String cL,cV;
+        int golesV = 0, golesL = 0;
+        int faltasL = 0, faltasV = 0;
+        int taL = 0, taV = 0;
+        int trL = 0, trV = 0;
+        int tL = 0, tV = 0;
+        int fueraL = 0, fueraV = 0;
+        int teL = 0, teV = 0;
+        String cL, cV;
         List incidencias = incidenciaC.listar(idPartido);
         IncidenciaPartido incidencia;
-        
+
         for (int i = 0; i < incidencias.size(); i++) {
-            
+
             incidencia = (IncidenciaPartido) incidencias.get(i);
-            
+
             if (incidencia.getEquipo().getNombreCorto().equals(visita)) {
-                
+
                 switch (incidencia.getEvento().getNombre()) {
                     case "GOAL" -> {
                         golesV++;
@@ -201,8 +248,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                         fueraV++;
                     }
                 }
-                
-            }else{
+
+            } else {
                 switch (incidencia.getEvento().getNombre()) {
                     case "GOAL" -> {
                         golesL++;
@@ -227,28 +274,28 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                     }
                 }
             }
-            
+
         }
-        detalleP1.setGoles((byte)golesL);
-        detalleP1.setFaltas((short)faltasL);
-        detalleP1.setTarjetasAmarillas((byte)taL);
-        detalleP1.setTarjtetasRojas((byte)trL);
-        detalleP1.setTirosEquina((byte)teL);
-        detalleP1.setTiros((byte)tL);
-        detalleP1.setFueraLugar((byte)fueraL);
+        detalleP1.setGoles((byte) golesL);
+        detalleP1.setFaltas((short) faltasL);
+        detalleP1.setTarjetasAmarillas((byte) taL);
+        detalleP1.setTarjtetasRojas((byte) trL);
+        detalleP1.setTirosEquina((byte) teL);
+        detalleP1.setTiros((byte) tL);
+        detalleP1.setFueraLugar((byte) fueraL);
         detalleP1.setPartido(new Partido(idPartido));
         detalleP1.setEquipo(new Equipo(idLocal));
-        
-        detalleP2.setGoles((byte)golesV);
-        detalleP2.setFaltas((short)faltasV);
-        detalleP2.setTarjetasAmarillas((byte)taV);
-        detalleP2.setTarjtetasRojas((byte)trV);
-        detalleP2.setTirosEquina((byte)teV);
-        detalleP2.setTiros((byte)tV);
-        detalleP2.setFueraLugar((byte)fueraV);
+
+        detalleP2.setGoles((byte) golesV);
+        detalleP2.setFaltas((short) faltasV);
+        detalleP2.setTarjetasAmarillas((byte) taV);
+        detalleP2.setTarjtetasRojas((byte) trV);
+        detalleP2.setTirosEquina((byte) teV);
+        detalleP2.setTiros((byte) tV);
+        detalleP2.setFueraLugar((byte) fueraV);
         detalleP2.setPartido(new Partido(idPartido));
         detalleP2.setEquipo(new Equipo(idvisita));
-        
+
         detallePC.actualizarDetalle(detalleP1);
         detallePC.actualizarDetalle(detalleP2);
     }
@@ -277,6 +324,11 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         btnGrabar1 = new javax.swing.JButton();
         lblLocal = new javax.swing.JLabel();
         lblVisita = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cbxEquipo2 = new javax.swing.JComboBox<>();
+        btnMostrarEquipos1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        cbxFutbolista2 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -316,6 +368,11 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         cbxInstancia.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxInstancia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxInstancia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxInstanciaMouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -323,18 +380,13 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         cbxEquipo.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbxEquipoMouseClicked(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("Futbolista");
 
         cbxFutbolista.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxFutbolista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFutbolista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
@@ -388,6 +440,27 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         lblVisita.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblVisita.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Equipo");
+
+        cbxEquipo2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cbxEquipo2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnMostrarEquipos1.setText("...");
+        btnMostrarEquipos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarEquipos1ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel11.setText("Futbolista 2");
+
+        cbxFutbolista2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cbxFutbolista2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -399,20 +472,6 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(cbxEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnMostrarEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(cbxFutbolista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cbxEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -421,14 +480,47 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                                     .addComponent(cbxInstancia, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                                        .addGap(154, 154, 154))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnGrabar1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(cbxEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnMostrarEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                                            .addComponent(cbxFutbolista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(cbxEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnMostrarEquipos1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbxFutbolista2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnGrabar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
@@ -456,31 +548,45 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                        .addComponent(cbxEquipo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbxFutbolista)
+                            .addComponent(cbxFutbolista, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
-                                .addComponent(btnMostrarEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(btnMostrarEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGrabar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnMostrarEquipos1)
+                            .addComponent(cbxEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(8, 8, 8)
+                        .addComponent(cbxFutbolista2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGrabar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -584,12 +690,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
 
         grabar();
+
     }//GEN-LAST:event_btnGrabarActionPerformed
-
-    private void cbxEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxEquipoMouseClicked
-
-
-    }//GEN-LAST:event_cbxEquipoMouseClicked
 
     private void btnMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEquiposActionPerformed
 
@@ -598,6 +700,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         List<DetalleEquipo> lista = detalleEC.listar(equipo.getEquipoId());
 
         cbxFutbolista.removeAllItems();
+        cbxFutbolista.addItem("Seleccionar");
 
         for (DetalleEquipo detalle : lista) {
             cbxFutbolista.addItem(detalle.getFutbolista().getNombreCompleto());
@@ -612,18 +715,46 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         AlertaBien bien = new AlertaBien("MENSAJE", "El partido a culminado");
         FrmGestionarIncidencias.listar("");
         this.dispose();
-        
+
     }//GEN-LAST:event_btnGrabar1ActionPerformed
+
+    private void btnMostrarEquipos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEquipos1ActionPerformed
+
+        Equipo equipo = (Equipo) equipoC.obtenerdato(cbxEquipo2.getSelectedItem().toString());
+
+        List<DetalleEquipo> lista = detalleEC.listar(equipo.getEquipoId());
+
+        cbxFutbolista2.removeAllItems();
+        cbxFutbolista2.addItem("Seleccionar");
+
+        for (DetalleEquipo detalle : lista) {
+            cbxFutbolista2.addItem(detalle.getFutbolista().getNombreCompleto());
+        }
+
+    }//GEN-LAST:event_btnMostrarEquipos1ActionPerformed
+
+    private void cbxInstanciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxInstanciaMouseClicked
+        if (cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
+            txtMinuto.setEnabled(false);
+        }else{
+            txtMinuto.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbxInstanciaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
     public static javax.swing.JButton btnGrabar1;
     private javax.swing.JButton btnMostrarEquipos;
+    private javax.swing.JButton btnMostrarEquipos1;
     public static javax.swing.JComboBox<String> cbxEquipo;
+    public static javax.swing.JComboBox<String> cbxEquipo2;
     public static javax.swing.JComboBox<String> cbxEvento;
     public static javax.swing.JComboBox<String> cbxFutbolista;
+    public static javax.swing.JComboBox<String> cbxFutbolista2;
     public static javax.swing.JComboBox<String> cbxInstancia;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

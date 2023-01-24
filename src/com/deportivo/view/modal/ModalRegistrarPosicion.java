@@ -12,6 +12,7 @@ public final class ModalRegistrarPosicion extends javax.swing.JInternalFrame {
 
     PosicionController posicionC = new PosicionController();
     public static int idPosicion = 0;
+    public static boolean activarPosicion = false;
     public static boolean vista = false;
 
     public ModalRegistrarPosicion() {

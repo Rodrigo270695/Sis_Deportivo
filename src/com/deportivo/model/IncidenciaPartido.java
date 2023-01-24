@@ -6,6 +6,7 @@ public class IncidenciaPartido {
     private Evento evento;
     private Partido partido;
     private Futbolista futbolista;
+    private Futbolista futbolista2;
     private InstanciaPartido instanciaPartido;
     private byte minuto;
     private Equipo equipo;
@@ -65,6 +66,14 @@ public class IncidenciaPartido {
 
     public void setMinuto(byte minuto) {
         this.minuto = minuto;
+    }
+
+    public Futbolista getFutbolista2() {
+        return futbolista2;
+    }
+
+    public void setFutbolista2(Futbolista futbolista2) {
+        this.futbolista2 = futbolista2;
     }
     
     

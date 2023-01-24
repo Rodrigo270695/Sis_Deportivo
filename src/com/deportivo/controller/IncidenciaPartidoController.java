@@ -27,6 +27,7 @@ public class IncidenciaPartidoController implements CRUD {
     PreparedStatement ps;
     ResultSet rs;
     String sql = "";
+    String sql2 = "";
 
     @Override
     public List listar() {
@@ -85,6 +86,7 @@ public class IncidenciaPartidoController implements CRUD {
                 incidenciaPartido.setMinuto(rs.getByte(5));
                 incidenciaPartido.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(6)));
                 incidenciaPartido.setDetalle(rs.getString(7));
+                incidenciaPartido.setFutbolista2((Futbolista) futbolistaC.obtenerdato(rs.getInt(8)));
 
                 lista.add(incidenciaPartido);
             }
@@ -109,13 +111,20 @@ public class IncidenciaPartidoController implements CRUD {
     public void registrar(Object obj) throws Exception {
 
         IncidenciaPartido incidenciaPartido = (IncidenciaPartido) obj;
-        sql = "insert into incidencia_partido(evento_id,partido_id,futbolista_id,instancia_partido_id,minuto,equipo_id,detalle_incidencia)\n"
+        sql = "insert into incidencia_partido(evento_id,partido_id,futbolista_id,instancia_partido_id,minuto,equipo_id,detalle_incidencia,futbolista_id2)\n"
+                + "values(?,?,?,?,?,?,?,?)";
+        sql2 = "insert into incidencia_partido(evento_id,partido_id,futbolista_id,instancia_partido_id,minuto,equipo_id,detalle_incidencia)\n"
                 + "values(?,?,?,?,?,?,?)";
 
         try {
 
             con = estado.conectar();
-            ps = con.prepareStatement(sql);
+            if (incidenciaPartido.getFutbolista2().getFutbolistaId() != 0) {
+                ps = con.prepareStatement(sql);
+                ps.setInt(8, incidenciaPartido.getFutbolista2().getFutbolistaId());               
+            }else{
+                ps = con.prepareStatement(sql2);
+            }
             ps.setInt(1, incidenciaPartido.getEvento().getEventoId());
             ps.setInt(2, incidenciaPartido.getPartido().getPartidoId());
             ps.setInt(3, incidenciaPartido.getFutbolista().getFutbolistaId());
@@ -126,6 +135,7 @@ public class IncidenciaPartidoController implements CRUD {
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
+            pe.printStackTrace(System.err);
             throw new Exception("Ya existe la  Incidencia de Partido");
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -297,6 +307,36 @@ public class IncidenciaPartidoController implements CRUD {
         }
 
         return incidenciaPartido;
+    }
+
+    public int minutoMaximo(int idPartido) {
+
+        int valor = 0;
+        sql = "select max(minuto) from incidencia_partido where partido_id = " + idPartido;
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                valor = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return valor;
     }
 
 }

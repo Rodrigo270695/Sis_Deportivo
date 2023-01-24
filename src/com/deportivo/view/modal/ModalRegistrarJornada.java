@@ -47,52 +47,59 @@ public final class ModalRegistrarJornada extends javax.swing.JInternalFrame {
     void grabar() {
 
         Calendar cal;
-        int d, m, a;
+        Integer d, m, a;
         String fecha1;
 
         Jornada jornada = new Jornada();
 
         cal = txtFechaCorta.getCalendar();
 
-        d = cal.get(Calendar.DAY_OF_MONTH);
-        m = cal.get(Calendar.MONTH) + 1;
-        a = cal.get(Calendar.YEAR);
-        fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
-
-        if (txtNombreJornada.getText().isEmpty() || txtFechaCorta.getDate().toString().isEmpty()) {
+        if (cal == null || txtNombreJornada.getText().isEmpty()) {
             Alerta alerta = new Alerta("Alerta", "El campo NOMBRE, FECHA CORTA son obligatorios");
-            return;
-        }
-
-        jornada.setNombre_jornada(txtNombreJornada.getText().toUpperCase());
-        jornada.setFecha_larga(formato.format(txtFechaCorta.getDate()));
-        jornada.setFecha_corta((java.sql.Date.valueOf(fecha1)));
-
-        if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
-
-            try {
-                jornadaC.registrar(jornada);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Jornada");
-                FrmGestionarJornada.listar("");
-                dispose();
-            } catch (Exception e) {
-                AlertaError err = new AlertaError("Error", e.getMessage());
-            }
-
         } else {
 
-            jornada.setJornada_id((int) idJornada);
+            d = cal.get(Calendar.DAY_OF_MONTH);
+            m = cal.get(Calendar.MONTH) + 1;
+            a = cal.get(Calendar.YEAR);
+            fecha1 = String.valueOf(a) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
 
-            try {
-                jornadaC.modificar(jornada);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el Jornada");
-                FrmGestionarJornada.listar("");
-                dispose();
-            } catch (Exception e) {
-                AlertaError err = new AlertaError("Error", e.getMessage());
+            if ((txtNombreJornada.getText().length() == 0 && txtFechaCorta.getDate().toString().length() == 0)) {
+                Alerta alerta = new Alerta("Alerta", "El campo NOMBRE, FECHA CORTA son obligatorios");
+                return;
+            }
+
+            jornada.setNombre_jornada(txtNombreJornada.getText().toUpperCase());
+            jornada.setFecha_larga(formato.format(txtFechaCorta.getDate()));
+            jornada.setFecha_corta((java.sql.Date.valueOf(fecha1)));
+
+            if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
+
+                try {
+                    jornadaC.registrar(jornada);
+                    AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Jornada");
+                    FrmGestionarJornada.listar("");
+                    dispose();
+                } catch (Exception e) {
+                    AlertaError err = new AlertaError("Error", e.getMessage());
+                }
+
+            } else {
+
+                jornada.setJornada_id((int) idJornada);
+
+                try {
+                    jornadaC.modificar(jornada);
+                    AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente la Jornada");
+                    FrmGestionarJornada.listar("");
+                    dispose();
+                } catch (Exception e) {
+                    AlertaError err = new AlertaError("Error", e.getMessage());
+                }
+
             }
 
         }
+
     }
 
     @SuppressWarnings("unchecked")

@@ -65,6 +65,10 @@ public final class ModalRegistrarArbitro extends javax.swing.JInternalFrame {
             Alerta alerta = new Alerta("Alerta", "El campo NOMBRE y ESTADO es obligatorio");
             return;
         }
+        if (txtNombre.getText().length() > 50 ) {
+            Alerta alerta = new Alerta("Alerta", "Solo se aceptan un valor máximo de 50 caracteres");
+            return;
+        }
 
         if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
 

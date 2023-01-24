@@ -6,6 +6,8 @@ import com.deportivo.properties.RenderTable;
 import com.deportivo.view.modal.ModalRegistrarIncidenciaPartido;
 import com.deportivo.vista.modal.alerts.*;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -29,78 +31,87 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
         DetallePartido detalleP2;
         List lista;
         List listaId;
+        ResultSet rs = detallePC.countListado();
+        StringBuilder equipos = new StringBuilder();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        lista = detallePC.listar();
+        try {
 
-        for (int i = 0; i < lista.size(); i++) {
-            detalleP = (DetallePartido) lista.get(i);
-            StringBuilder equipos = new StringBuilder();
+            while (rs.next()) {
 
-            listaId = detallePC.listar(detalleP.getPartido().getPartidoId());
-            obj[0] = detalleP.getPartido().getPartidoId();
+                listaId = detallePC.listar(rs.getInt(1));
+                obj[0] = rs.getInt(1);
 
-            for (int j = 0; j < listaId.size(); j++) {
-                detalleP2 = (DetallePartido) listaId.get(j);
-                equipos.append(detalleP2.getEquipo().getNombreCorto());
-                if (j != (listaId.size() - 1)) {
-                    equipos.append(" VS ");
+                for (int i = 0; i < listaId.size(); i++) {
+
+                    detalleP = (DetallePartido) listaId.get(i);
+
+                    equipos.append(detalleP.getEquipo().getNombreCorto());
+                    if (i != (listaId.size() - 1)) {
+                        equipos.append(" VS ");
+                    }
+
                 }
-            }
-            obj[1] = equipos.toString();
+                
 
-            obj[2] = detalleP.getPartido().getJornada().getFecha_corta();
-            obj[3] = detalleP.getPartido().getHora();
-            obj[4] = detalleP.getPartido().getEstadio().getNombreConocido();
+                detalleP2 = (DetallePartido) listaId.get(0);
+                obj[1] = equipos.toString();
 
-            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/incidencia28.png");
-            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-            JButton botonAdd = new JButton("", btnAdd);
-            botonAdd.setName("btnAdd");
-            botonAdd.setToolTipText("AñadirTipo");
-            botonAdd.setBorder(null);
-            botonAdd.setBackground(new Color(25, 38, 49));
-            obj[5] = botonAdd;
+                obj[2] = detalleP2.getPartido().getJornada().getFecha_corta();
+                obj[3] = detalleP2.getPartido().getHora();
+                obj[4] = detalleP2.getPartido().getEstadio().getNombreConocido();
 
-            ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
-            Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JButton botonVer = new JButton("", btnVer);
-            botonVer.setName("btnVer");
-            botonVer.setToolTipText("vista del registro");
-            botonVer.setBorder(null);
-            botonVer.setBackground(new Color(41, 143, 96));
-            obj[6] = botonVer;
+                ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/incidencia28.png");
+                Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                JButton botonAdd = new JButton("", btnAdd);
+                botonAdd.setName("btnAdd");
+                botonAdd.setToolTipText("AñadirTipo");
+                botonAdd.setBorder(null);
+                botonAdd.setBackground(new Color(25, 38, 49));
+                obj[5] = botonAdd;
 
-            if (detalleP.getPartido().isEstado() == true) {
-                if (i % 2 == 0) {
+                ImageIcon iconoVer = new ImageIcon("src/com/deportivo/iconos/ver.png");
+                Icon btnVer = new ImageIcon(iconoVer.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+                JButton botonVer = new JButton("", btnVer);
+                botonVer.setName("btnVer");
+                botonVer.setToolTipText("vista del registro");
+                botonVer.setBorder(null);
+                botonVer.setBackground(new Color(41, 143, 96));
+                obj[6] = botonVer;
+
+                if (detalleP2.getPartido().isEstado() == true) {
                     modelo.addRow(obj);
                 }
+                
+                equipos = new StringBuilder();
+
+            }
+            tblListado.setRowHeight(30);
+            tblListado.setModel(modelo);
+            tblListado.setBackground(Color.WHITE);
+            tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblListado.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblListado.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblListado.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
+
+            if (verPartido == true) {
+                tblListado.getColumnModel().getColumn(5).setMaxWidth(0);
+                tblListado.getColumnModel().getColumn(5).setMinWidth(0);
+                tblListado.getColumnModel().getColumn(5).setPreferredWidth(0);
             }
 
+            tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
+            lblTotal.setText(String.valueOf(tblListado.getRowCount()));
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
         }
-
-        tblListado.setRowHeight(30);
-        tblListado.setModel(modelo);
-        tblListado.setBackground(Color.WHITE);
-        tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tblListado.getColumnModel().getColumn(4).setPreferredWidth(200);
-        tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
-
-        if (verPartido == true) {
-            tblListado.getColumnModel().getColumn(5).setMaxWidth(0);
-            tblListado.getColumnModel().getColumn(5).setMinWidth(0);
-            tblListado.getColumnModel().getColumn(5).setPreferredWidth(0);
-        }
-
-        tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
-        lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
 
@@ -257,12 +268,12 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarIncidenciaPartido());
                         }
                     }
-                    case "btnVer" ->{
-                        
+                    case "btnVer" -> {
+
                         ModuloTV.idPartido = id;
                         FrmMenuPrincipal.centrarVentana(new ModuloTV());
                         this.dispose();
-                        
+
                     }
                 }
             }

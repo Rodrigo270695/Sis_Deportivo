@@ -22,11 +22,30 @@ public class DetallePartidoController {
     PreparedStatement ps;
     ResultSet rs;
     String sql = "";
+    
+    public ResultSet countListado() {
+
+        sql = "select partido_id, count(*) as equipos from detalle_partido \n"
+                + "group by partido_id";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } 
+
+        return rs;
+    }
 
     public List listar(int id) {
 
         List lista = new ArrayList<>();
-        sql = "select partido_id,equipo_id,tipo,formacion_id from detalle_partido where partido_id= " + id;
+        sql = "select partido_id,equipo_id,tipo,formacion_id from detalle_partido where partido_id= " + id
+                +" order by tipo";
 
         try {
 
