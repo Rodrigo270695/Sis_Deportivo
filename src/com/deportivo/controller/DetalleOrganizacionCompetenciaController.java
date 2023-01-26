@@ -75,6 +75,7 @@ public class DetalleOrganizacionCompetenciaController {
             ps.executeUpdate();
 
         } catch (PSQLException pe) {
+            pe.printStackTrace(System.err);
             throw new Exception("Ya existe el País para la organizacion competencia");
         } catch (SQLException e) {
             e.printStackTrace(System.err);

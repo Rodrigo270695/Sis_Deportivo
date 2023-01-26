@@ -58,9 +58,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                     case "mnuTv" -> {
                         mnuTv.setVisible(true);
                     }
-                    case "itemAlineacion" -> {
-                        itemAlineacion.setVisible(true);
-                    }
                     case "itemArbitro" -> {
                         itemArbitro.setVisible(true);
                     }
@@ -154,7 +151,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuMantenimiento.setVisible(false);
         mnuReportes.setVisible(false);
         mnuTv.setVisible(false);
-        itemAlineacion.setVisible(false);
         itemArbitro.setVisible(false);
         itemCategoriaArbitro.setVisible(false);
         itemCompetencia.setVisible(false);
@@ -218,7 +214,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemEvento = new javax.swing.JMenuItem();
         itemGrupo = new javax.swing.JMenuItem();
         itemEquipo = new javax.swing.JMenuItem();
-        itemAlineacion = new javax.swing.JMenuItem();
         itemCompetencia = new javax.swing.JMenuItem();
         itemConfedacion = new javax.swing.JMenuItem();
         itemProfesional = new javax.swing.JMenuItem();
@@ -399,14 +394,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
         mnuMantenimiento.add(itemEquipo);
-
-        itemAlineacion.setText("Gestionar Alineación");
-        itemAlineacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemAlineacionActionPerformed(evt);
-            }
-        });
-        mnuMantenimiento.add(itemAlineacion);
 
         itemCompetencia.setText("Gestionar Competencia");
         itemCompetencia.addActionListener(new java.awt.event.ActionListener() {
@@ -667,12 +654,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_itemCompetenciaActionPerformed
 
-    private void itemAlineacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAlineacionActionPerformed
-
-        centrarVentana(new FrmGestionarAlineacion());
-
-    }//GEN-LAST:event_itemAlineacionActionPerformed
-
     private void itemEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEquipoActionPerformed
 
         centrarVentana(new FrmGestionarEquipo());
@@ -829,7 +810,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ItemPartidosAnteriores;
     public static javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenuItem itemAlineacion;
     private javax.swing.JMenuItem itemArbitro;
     private javax.swing.JMenuItem itemCategoriaArbitro;
     private javax.swing.JMenuItem itemCompetencia;

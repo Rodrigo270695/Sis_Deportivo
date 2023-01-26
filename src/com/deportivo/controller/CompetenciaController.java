@@ -223,7 +223,6 @@ public class CompetenciaController implements CRUD{
     
     public Object obtenerdato(String nombre) {
         
-  
         Competencia competencia = new Competencia();
         sql = "SELECT * FROM competencia WHERE nombre = '" + nombre + "'";
 

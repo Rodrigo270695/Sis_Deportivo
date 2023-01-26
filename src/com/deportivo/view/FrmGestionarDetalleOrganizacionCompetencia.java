@@ -169,7 +169,7 @@ public class FrmGestionarDetalleOrganizacionCompetencia extends javax.swing.JInt
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarDetalleOrganizacionCompetencia.idPais = idCompetencia;
+        ModalRegistrarDetalleOrganizacionCompetencia.idCompetencia = idCompetencia;
         ModalRegistrarDetalleOrganizacionCompetencia frm = new ModalRegistrarDetalleOrganizacionCompetencia();
         FrmMenuPrincipal.centrarVentana(frm);
 

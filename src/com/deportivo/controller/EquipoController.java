@@ -319,5 +319,35 @@ public class EquipoController implements CRUD {
         }
 
     }
+    
+    public int obtenerIdEquipo(String nombreCorto){
+        
+        sql = "SELECT equipo_id FROM equipo WHERE nombre_corto = '" + nombreCorto+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return 0;
+        
+    }
 
 }

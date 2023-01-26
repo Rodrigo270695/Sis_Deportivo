@@ -3,11 +3,8 @@ package com.deportivo.view;
 import com.deportivo.controller.DetallePartidoController;
 import com.deportivo.controller.EquipoController;
 import com.deportivo.controller.FormacionEquipoController;
-import com.deportivo.controller.PartidoController;
 import com.deportivo.model.DetallePartido;
 import com.deportivo.model.Equipo;
-import com.deportivo.model.FormacionEquipo;
-import com.deportivo.model.Partido;
 import com.deportivo.properties.RenderTable;
 import com.deportivo.view.modal.ModalRegistrarDetallePartido;
 import com.deportivo.vista.modal.alerts.*;
@@ -30,9 +27,9 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"EQUIPO", "TIPO", "FORMACIÓN", ""};
+        String columas[] = {"EQUIPO", "TIPO", "FORMACIÓN", "",""};
         DefaultTableModel modelo = new DefaultTableModel();
-        List lista = null;
+        List lista;
         DetallePartido detalleP;
 
         for (String columa : columas) {
@@ -41,7 +38,7 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
 
         lista = detalleC.listar(idPartido);
 
-        Object obj[] = new Object[4];
+        Object obj[] = new Object[5];
 
         for (int i = 0; i < lista.size(); i++) {
             detalleP = (DetallePartido) lista.get(i);
@@ -58,6 +55,15 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
             botonEliminar.setBorder(null);
             botonEliminar.setBackground(new Color(223, 68, 83));
             obj[3] = botonEliminar;
+            
+            ImageIcon iconoAdd = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd = new ImageIcon(iconoAdd.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd = new JButton("", btnAdd);
+            botonAdd.setName("btnAdd");
+            botonAdd.setToolTipText("Alineación");
+            botonAdd.setBorder(null);
+            botonAdd.setBackground(new Color(25, 38, 49));
+            obj[4] = botonAdd;
 
             modelo.addRow(obj);
 
@@ -67,10 +73,11 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(225);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(200);
         tblListado.getColumnModel().getColumn(1).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(2).setPreferredWidth(100);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(4).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -186,6 +193,8 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
 
         int fila = tblListado.getSelectedRow();
+        String equi = String.valueOf(tblListado.getValueAt(fila, 0));
+        Equipo equipo = (Equipo) equipoC.obtenerdato(equi);
 
         int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / tblListado.getRowHeight();
@@ -203,12 +212,10 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
                         if (filas == 0) {//si no elije ninguna fila
                             Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
                         } else {
-                            String equi = String.valueOf(tblListado.getValueAt(fila, 0));
 
                             int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Partido " + equi + "?", "Confirmar", 2);
                             if (opcion == 0) {
-
-                                Equipo equipo = (Equipo) equipoC.obtenerdato(equi);
+                                
                                 try {
                                     detalleC.eliminarDetalle(idPartido, equipo.getEquipoId());
                                     AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Partido eliminado correctamente!");
@@ -222,6 +229,13 @@ public class FrmGestionarDetallePartido extends javax.swing.JInternalFrame {
                             }
 
                         }
+                    }
+                    case "btnAdd" -> {
+                        FrmGestionarAlineacion.idPartido = this.idPartido;
+                        FrmGestionarAlineacion.idEquipo = equipo.getEquipoId();
+                        
+                        FrmMenuPrincipal.centrarVentana(new FrmGestionarAlineacion());
+                        
                     }
                 }
             }

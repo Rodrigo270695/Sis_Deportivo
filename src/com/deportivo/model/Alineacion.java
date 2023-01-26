@@ -3,23 +3,50 @@ package com.deportivo.model;
 
 public class Alineacion {
     
-    private int alineacionId;
-    private String descripcion;
+    private Partido partido;
+    private Equipo equipo;
+    private Futbolista futbolista;
+    private TipoJugador tipoJugador;
+    private Posicion posicion;
 
-    public int getAlineacionId() {
-        return alineacionId;
+    public Partido getPartido() {
+        return partido;
     }
 
-    public void setAlineacionId(int alineacionId) {
-        this.alineacionId = alineacionId;
+    public void setPartido(Partido partido) {
+        this.partido = partido;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public Equipo getEquipo() {
+        return equipo;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
+
+    public Futbolista getFutbolista() {
+        return futbolista;
+    }
+
+    public void setFutbolista(Futbolista futbolista) {
+        this.futbolista = futbolista;
+    }
+
+    public TipoJugador getTipoJugador() {
+        return tipoJugador;
+    }
+
+    public void setTipoJugador(TipoJugador tipoJugador) {
+        this.tipoJugador = tipoJugador;
+    }
+
+    public Posicion getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Posicion posicion) {
+        this.posicion = posicion;
     }
     
 }

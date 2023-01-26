@@ -3,9 +3,8 @@ package com.deportivo.view.modal;
 import com.deportivo.controller.DetalleOrganizacionCompetenciaController;
 import com.deportivo.controller.PaisController;
 import com.deportivo.controller.CompetenciaController;
-import com.deportivo.model.Competencia;
 import com.deportivo.model.Pais;
-import com.deportivo.view.FrmGestionarDetalleProfesional;
+import com.deportivo.view.FrmGestionarDetalleOrganizacionCompetencia;
 import com.deportivo.vista.modal.alerts.*;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.sw
     PaisController paisC = new PaisController();
     CompetenciaController competenciaC = new CompetenciaController();
 
-    public static int idPais;
+    public static int idCompetencia;
 
     public ModalRegistrarDetalleOrganizacionCompetencia() {
         initComponents();
@@ -35,14 +34,15 @@ public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.sw
 
     void grabar() {
 
-        Competencia tipoP = (Competencia) competenciaC.obtenerdato(cbxTipo.getSelectedItem().toString());
+        Pais pais = (Pais) paisC.obtenerdato(cbxTipo.getSelectedItem().toString());
 
         try {
-            detalleC.registrarDetalle(idPais, tipoP.getCompetenciaId());
+            detalleC.registrarDetalle(pais.getPaisId(),idCompetencia);
             AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el detalle de Competenecia");
-            FrmGestionarDetalleProfesional.listar("");
+            FrmGestionarDetalleOrganizacionCompetencia.listar("");
             dispose();
         } catch (Exception e) {
+            e.printStackTrace(System.err);
             AlertaError err = new AlertaError("Error", e.getMessage());
         }
 
@@ -149,7 +149,7 @@ public final class ModalRegistrarDetalleOrganizacionCompetencia extends javax.sw
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
-        idPais = 0;
+        idCompetencia = 0;
 
     }//GEN-LAST:event_formInternalFrameClosed
 

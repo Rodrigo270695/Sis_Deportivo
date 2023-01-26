@@ -1,79 +1,96 @@
 package com.deportivo.view.modal;
 
 import com.deportivo.controller.AlineacionController;
+import com.deportivo.controller.DetalleEquipoController;
+import com.deportivo.controller.EquipoController;
+import com.deportivo.controller.FutbolistaController;
+import com.deportivo.controller.PartidoController;
+import com.deportivo.controller.PosicionController;
+import com.deportivo.controller.TipoJugadorController;
 import com.deportivo.model.Alineacion;
+import com.deportivo.model.DetalleEquipo;
+import com.deportivo.model.Equipo;
+import com.deportivo.model.Futbolista;
+import com.deportivo.model.Partido;
+import com.deportivo.model.Posicion;
+import com.deportivo.model.TipoJugador;
 import com.deportivo.view.FrmGestionarAlineacion;
-import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
-import java.awt.Toolkit;
+import java.util.List;
 
-public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
+public class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
 
+    TipoJugadorController tipoJC = new TipoJugadorController();
+    DetalleEquipoController detalleEC = new DetalleEquipoController();
+    PosicionController posicionC = new PosicionController();
+    PartidoController partidoC = new PartidoController();
+    EquipoController equipoC = new EquipoController();
+    FutbolistaController futbolistaC = new FutbolistaController();
     AlineacionController alineacionC = new AlineacionController();
-    public static int idAlineacion = 0;
-    public static boolean vista = false;
+    public static int idEquipo;
+    public static int idPartido;
 
     public ModalRegistrarAlineacion() {
         initComponents();
-        acciones();
+        cargarJugadores();
+        cargarPosiciones();
+        cargarTipos();
     }
-    
-    //Para el boton de ver
-    void acciones() {
 
-        if (vista) {
+    private void cargarJugadores() {
 
-            txtDescripcion.setEnabled(false);
-            btnGrabar.setEnabled(false);
+        List<DetalleEquipo> lista = detalleEC.listar(idEquipo);
 
-        }
+        cbxJugador.removeAllItems();
 
-        if (idAlineacion > 0) {
-
-            Alineacion alineacion = (Alineacion) alineacionC.obtenerdato(idAlineacion);
-            txtDescripcion.setText(alineacion.getDescripcion());
-
+        for (DetalleEquipo detalle : lista) {
+            cbxJugador.addItem(detalle.getFutbolista().getNombreCompleto());
         }
 
     }
 
-    void grabar() {
+    private void cargarTipos() {
 
-        if (txtDescripcion.getText().length() == 0) {
-            Alerta alerta = new Alerta("Alerta", "El campo DESCRIPCIÓN es obligatorio");
-            return;
+        List<TipoJugador> lista = tipoJC.listar();
+
+        cbxTipo.removeAllItems();
+
+        for (TipoJugador tipo : lista) {
+            cbxTipo.addItem(tipo.getDescripcion());
         }
 
-        if (btnGrabar.getText().equalsIgnoreCase("Grabar")) {
+    }
 
-            Alineacion alineacion = new Alineacion();
-            alineacion.setDescripcion(txtDescripcion.getText().toUpperCase());
+    private void cargarPosiciones() {
 
-            try {
-                alineacionC.registrar(alineacion);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el alineacion");
-                FrmGestionarAlineacion.listar("");
-                dispose();
-            } catch (Exception e) {
-                AlertaError err = new AlertaError("Error", e.getMessage());
-            }
+        List<Posicion> lista = posicionC.listar();
 
-        }else{
-            
-            Alineacion alineacion = new Alineacion();
-            alineacion.setDescripcion(txtDescripcion.getText().toUpperCase());
-            alineacion.setAlineacionId(idAlineacion);
+        cbxPosicion.removeAllItems();
 
-            try {
-                alineacionC.modificar(alineacion);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente el Alineacion");
-                FrmGestionarAlineacion.listar("");
-                dispose();
-            } catch (Exception e) {
-                AlertaError err = new AlertaError("Error", e.getMessage());
-            }
-            
+        for (Posicion posicion : lista) {
+            cbxPosicion.addItem(posicion.getDescripcion());
+        }
+
+    }
+
+    private void grabar() {
+
+        Alineacion alineacion = new Alineacion();
+        alineacion.setPartido((Partido) partidoC.obtenerdato(idPartido));
+        alineacion.setEquipo((Equipo) equipoC.obtenerdato(idEquipo));
+        alineacion.setFutbolista((Futbolista) futbolistaC.obtenerdato(cbxJugador.getSelectedItem().toString()));
+        alineacion.setTipoJugador((TipoJugador) tipoJC.obtenerdato(cbxTipo.getSelectedItem().toString()));
+        alineacion.setPosicion((Posicion) posicionC.obtenerdato(cbxPosicion.getSelectedItem().toString()));
+
+        try {
+            alineacionC.registrar(alineacion);
+            AlertaBien bien = new AlertaBien("Mensaje", "Se registro correctamente al jugador en la alineación");
+            FrmGestionarAlineacion.listar();
+            this.dispose();
+
+        } catch (Exception e) {
+            AlertaError error = new AlertaError("ERROR", e.getMessage());
         }
     }
 
@@ -83,12 +100,16 @@ public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtDescripcion = new org.edisoncor.gui.textField.TextFieldRectBackground();
         btnGrabar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbxPosicion = new javax.swing.JComboBox<>();
+        cbxTipo = new javax.swing.JComboBox<>();
+        cbxJugador = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Registrar Alineación");
+        setTitle("REGISTRAR ALINEACIÓN");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -96,6 +117,7 @@ public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
                 formInternalFrameClosed(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -111,15 +133,11 @@ public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Descripción*");
-
-        txtDescripcion.setDescripcion("Ej. 4-4-3");
-        txtDescripcion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Jugador");
 
         btnGrabar.setBackground(new java.awt.Color(27, 118, 253));
         btnGrabar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnGrabar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/grabar25.png"))); // NOI18N
         btnGrabar.setMnemonic('N');
         btnGrabar.setText("Grabar");
         btnGrabar.setToolTipText("Realizar Nuevo Registro");
@@ -131,18 +149,40 @@ public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Tipo");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Posición");
+
+        cbxPosicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
+
+        cbxJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cbxJugador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,10 +190,18 @@ public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(cbxJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,17 +225,24 @@ public final class ModalRegistrarAlineacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        
-        idAlineacion = 0;
-        vista = false;
-        
+        idEquipo= 0;
+        idPartido= 0;
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        idEquipo= 0;
+        idPartido= 0;
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
+    private javax.swing.JComboBox<String> cbxJugador;
+    private javax.swing.JComboBox<String> cbxPosicion;
+    private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private org.edisoncor.gui.textField.TextFieldRectBackground txtDescripcion;
     // End of variables declaration//GEN-END:variables
 }
