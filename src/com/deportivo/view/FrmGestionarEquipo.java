@@ -40,22 +40,22 @@ public class FrmGestionarEquipo extends javax.swing.JInternalFrame {
             lista = equipoC.buscar(texto);
         }
         Object obj[] = new Object[10];
-//        ImageIcon foto;
-//        Image img = null;
+        ImageIcon foto;
+        Image img = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
             equipo = (Equipo) lista.get(i);
 
-//            try {
-//                BufferedImage bi = ImageIO.read(equipo.getFoto());
-//                foto = new ImageIcon(bi);
-//                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-//            } catch (IOException e) {
-//            }
+            try {
+                BufferedImage bi = ImageIO.read(equipo.getFoto());
+                foto = new ImageIcon(bi);
+                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+            } catch (IOException e) {
+            }
 
             obj[0] = equipo.getEquipoId();
-            obj[1] = new JLabel(new ImageIcon(""));
+            obj[1] = new JLabel(new ImageIcon(img));
             obj[2] = equipo.getNombreOficial();
             obj[3] = equipo.getNombreCorto();
             obj[4] = formato.format(equipo.getFundacion());

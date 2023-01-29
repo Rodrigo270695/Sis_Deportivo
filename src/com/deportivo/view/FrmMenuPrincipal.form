@@ -302,11 +302,41 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem19">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reporte 1"/>
+                <Property name="text" type="java.lang.String" value="Reporte detallado de grupo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem19ActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reporte de jornada"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reporte Terna Arbitral Partido"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reporte Alineaci&#xf3;n de partido"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listado de partidos por grupo"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tabla de Goleadores"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Primero puestos por mundial"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -347,6 +377,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Usuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemUsuarioActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

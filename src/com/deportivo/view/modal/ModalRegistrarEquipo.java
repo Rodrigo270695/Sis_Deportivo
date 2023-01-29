@@ -551,11 +551,10 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFotoActionPerformed
 
     private void txtSeudonimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSeudonimoKeyTyped
-         char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        
-        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
-            evt.consume();  
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
         }
@@ -563,7 +562,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSeudonimoKeyTyped
 
     private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
-         char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
         if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 3) {
             evt.consume();
@@ -573,7 +572,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreCortoKeyTyped
 
     private void txtNumeroSociosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroSociosKeyTyped
-            char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
         if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
             evt.consume();
@@ -583,7 +582,7 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNumeroSociosKeyTyped
 
     private void txtCodFifaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFifaKeyTyped
-            char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
         if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
             evt.consume();

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.postgresql.util.PSQLException;
 
-public class GrupoController  implements CRUD{
+public class GrupoController implements CRUD {
 
     Conexion estado = new Conexion();
     Connection con;
@@ -82,7 +82,7 @@ public class GrupoController  implements CRUD{
 
     @Override
     public void modificar(Object obj) throws Exception {
-        
+
         Grupo grupo = (Grupo) obj;
         sql = "UPDATE grupo SET nombre=?, abreviatura=? WHERE grupo_id = ?";
 
@@ -107,12 +107,12 @@ public class GrupoController  implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
-    public void eliminar(int id) throws Exception{
-        
+    public void eliminar(int id) throws Exception {
+
         sql = "DELETE FROM grupo WHERE grupo_id = ?";
 
         try {
@@ -135,14 +135,14 @@ public class GrupoController  implements CRUD{
                 ex.printStackTrace(System.err);
             }
         }
-        
+
     }
 
     @Override
     public Object obtenerdato(int id) {
-        
+
         Grupo grupo = new Grupo();
-        sql = "SELECT * FROM grupo WHERE grupo_id = "+id;
+        sql = "SELECT * FROM grupo WHERE grupo_id = " + id;
 
         try {
 
@@ -173,10 +173,10 @@ public class GrupoController  implements CRUD{
 
     @Override
     public List buscar(Object obj) {
-        
+
         List lista = new ArrayList();
-        sql = "SELECT * FROM grupo WHERE nombre LIKE '%"+obj+"%' "
-                + "OR abreviatura LIKE '%"+obj+"%'";
+        sql = "SELECT * FROM grupo WHERE nombre LIKE '%" + obj + "%' "
+                + "OR abreviatura LIKE '%" + obj + "%'";
 
         try {
 
@@ -205,13 +205,13 @@ public class GrupoController  implements CRUD{
         }
 
         return lista;
-        
+
     }
-    
+
     public Object obtenerdato(String nombre) {
-        
+
         Grupo grupo = new Grupo();
-        sql = "SELECT * FROM grupo WHERE nombre = '"+nombre+"'";
+        sql = "SELECT * FROM grupo WHERE nombre = '" + nombre + "'";
 
         try {
 
@@ -239,5 +239,7 @@ public class GrupoController  implements CRUD{
 
         return grupo;
     }
+
+    
 
 }

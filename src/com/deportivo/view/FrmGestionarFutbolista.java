@@ -40,21 +40,21 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
             lista = futbolistaC.buscar(texto);
         }
         Object obj[] = new Object[11];
-//        ImageIcon foto;
-//        Image img = null;
+        ImageIcon foto;
+        Image img = null;
         LocalDate hoy = LocalDate.now();
 
         for (int i = 0; i < lista.size(); i++) {
             futbolista = (Futbolista) lista.get(i);
 
-//            try {
-//                BufferedImage bi = ImageIO.read(futbolista.getFoto());
-//                foto = new ImageIcon(bi);
-//                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-//            } catch (IOException e) {
-//            }
+            try {
+                BufferedImage bi = ImageIO.read(futbolista.getFoto());
+                foto = new ImageIcon(bi);
+                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+            } catch (IOException e) {
+            }
             obj[0] = futbolista.getFutbolistaId();
-            obj[1] = new JLabel(new ImageIcon(""));
+            obj[1] = new JLabel(new ImageIcon(img));
             obj[2] = futbolista.getNombreCompleto();
             obj[3] = futbolista.getDocumentoIdentidad();
             obj[4] = hoy.getYear() - futbolista.getFechaNacimiento().getYear() - 1900;
@@ -115,7 +115,7 @@ public class FrmGestionarFutbolista extends javax.swing.JInternalFrame {
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblListado.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblListado.getColumnModel().getColumn(1).setPreferredWidth(70);
-        tblListado.getColumnModel().getColumn(2).setPreferredWidth(300);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(270);
         tblListado.getColumnModel().getColumn(3).setPreferredWidth(120);
         tblListado.getColumnModel().getColumn(4).setPreferredWidth(110);
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(170);

@@ -5,6 +5,7 @@ import com.deportivo.controller.RolPermisoController;
 import com.deportivo.model.Permiso;
 import com.deportivo.model.RolPermiso;
 import com.deportivo.model.Usuario;
+import com.deportivo.reporte.Reporte_1;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -237,6 +238,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         itemIncidencias = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
         itemPartidosEnVivo = new javax.swing.JMenuItem();
         ItemPartidosAnteriores = new javax.swing.JMenuItem();
@@ -568,13 +575,31 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         mnuReportes.setText("REPORTES");
 
-        jMenuItem19.setText("Reporte 1");
+        jMenuItem19.setText("Reporte detallado de grupo");
         jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem19ActionPerformed(evt);
             }
         });
         mnuReportes.add(jMenuItem19);
+
+        jMenuItem2.setText("Reporte de jornada");
+        mnuReportes.add(jMenuItem2);
+
+        jMenuItem3.setText("Reporte Terna Arbitral Partido");
+        mnuReportes.add(jMenuItem3);
+
+        jMenuItem4.setText("Reporte Alineación de partido");
+        mnuReportes.add(jMenuItem4);
+
+        jMenuItem5.setText("Listado de partidos por grupo");
+        mnuReportes.add(jMenuItem5);
+
+        jMenuItem6.setText("Tabla de Goleadores");
+        mnuReportes.add(jMenuItem6);
+
+        jMenuItem7.setText("Primero puestos por mundial");
+        mnuReportes.add(jMenuItem7);
 
         jMenuBar1.add(mnuReportes);
 
@@ -604,6 +629,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuAdministracion.add(itemRol);
 
         itemUsuario.setText("Gestionar Usuario");
+        itemUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemUsuarioActionPerformed(evt);
+            }
+        });
         mnuAdministracion.add(itemUsuario);
 
         jMenuBar1.add(mnuAdministracion);
@@ -754,11 +784,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
 
-        jdReportes objCli = new jdReportes(this, true);
-        objCli.setLocationRelativeTo(this);
-        objCli.setNombreArchivo("reporte1.jasper");
-        objCli.setVisible(true);
-
+        centrarVentana(new Reporte_1());
 
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
@@ -806,6 +832,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         centrarVentana(new FrmGestionarIncidencias());
     }//GEN-LAST:event_itemPartidosEnVivoActionPerformed
 
+    private void itemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ItemPartidosAnteriores;
@@ -846,6 +876,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuAdministracion;
     private javax.swing.JMenu mnuGestion;

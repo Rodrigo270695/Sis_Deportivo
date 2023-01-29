@@ -89,6 +89,7 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
     }
 
+
     void grabar() {
 
         Calendar cal;
@@ -291,7 +292,7 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setText("Nom Cor.");
+        jLabel8.setText("Nom Corto");
 
         txtNombreCorto.setDescripcion("Ej. PER");
         txtNombreCorto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -366,33 +367,31 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbxTipoDoc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtDocIdentidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtValorMercado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtDocIdentidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtValorMercado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtNumCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -526,11 +525,10 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFotoActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-         char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        
-        if (!((caracter < '0')|| (caracter > '9'))&& (caracter != '\b')) {
-            evt.consume();  
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo acepta letras");
         }
@@ -538,30 +536,30 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
-         char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 3) {
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 25) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 25 letras");
         }
     }//GEN-LAST:event_txtNombreCortoKeyTyped
 
     private void txtDocIdentidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocIdentidadKeyTyped
-         char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtDocIdentidad.getText().length() >= 8) {
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtDocIdentidad.getText().length() >= 15) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 8 caracteres y numeros");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 15 dígitos");
         }
 
     }//GEN-LAST:event_txtDocIdentidadKeyTyped
 
     private void txtNumCamisetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCamisetaKeyTyped
-            char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') ) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
             Alerta alerta = new Alerta("ALERTA", "Solo se aceptan números");
@@ -569,7 +567,7 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNumCamisetaKeyTyped
 
     private void txtValorMercadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorMercadoKeyTyped
-            char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
         if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
             evt.consume();
@@ -579,22 +577,22 @@ public final class ModalRegistrarFutbolista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtValorMercadoKeyTyped
 
     private void txtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoKeyTyped
-            char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtPeso.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Ingresar el peso en kg");
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptar numero posistivos y limite de 3 dígitos");
         }
     }//GEN-LAST:event_txtPesoKeyTyped
 
     private void txtAlturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlturaKeyTyped
-            char caracter = evt.getKeyChar();
+        char caracter = evt.getKeyChar();
 
-        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtAltura.getText().length() >= 3) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Ingresar la talla en cm");
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptar numero posistivos y limite de 3 dígitos" );
         }
     }//GEN-LAST:event_txtAlturaKeyTyped
 
