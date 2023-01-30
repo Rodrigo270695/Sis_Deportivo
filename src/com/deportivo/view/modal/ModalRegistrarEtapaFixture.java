@@ -71,7 +71,7 @@ public final class ModalRegistrarEtapaFixture extends javax.swing.JInternalFrame
 
             try {
                 etapaFixC.registrar(etapaFix);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente el pais");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se Registró correctamente la etapa fixture");
                 FrmGestionarEtapaFixture.listar("");
                 dispose();
             } catch (Exception e) {
@@ -87,7 +87,7 @@ public final class ModalRegistrarEtapaFixture extends javax.swing.JInternalFrame
 
             try {
                 etapaFixC.modificar(etapaFix);
-                AlertaBien bien = new AlertaBien("Mensaje", "Se registró correctamente la Etapa Fixture");
+                AlertaBien bien = new AlertaBien("Mensaje", "Se modificó correctamente la Etapa Fixture");
                 FrmGestionarEtapaFixture.listar("");
                 dispose();
             } catch (Exception e) {

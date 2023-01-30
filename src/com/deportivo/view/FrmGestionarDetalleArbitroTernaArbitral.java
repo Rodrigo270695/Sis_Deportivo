@@ -1,52 +1,54 @@
 package com.deportivo.view;
 
-import com.deportivo.controller.DetalleEquipoController;
-import com.deportivo.controller.EquipoController;
-import com.deportivo.controller.FutbolistaController;
-import com.deportivo.model.DetalleEquipo;
-import com.deportivo.model.Equipo;
-import com.deportivo.model.Futbolista;
+import com.deportivo.controller.ArbitroController;
+import com.deportivo.controller.CategoriaArbitroController;
+import com.deportivo.controller.DetalleArbitroTernaArbitralController;
+import com.deportivo.model.Arbitro;
+import com.deportivo.model.CategoriaArbitro;
+import com.deportivo.model.DetalleArbitroTernaArbitral;
 import com.deportivo.properties.RenderTable;
-import com.deportivo.view.modal.ModalRegistrarDetalleEquipo;
+import com.deportivo.view.modal.ModalRegistrarDetalleArbitroTernaArbitral;
+import com.deportivo.view.modal.ModalRegistrarDetalleProfesional;
 import com.deportivo.vista.modal.alerts.*;
-import java.awt.Color;
-import java.awt.Image;
-import java.util.List;
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
+public class FrmGestionarDetalleArbitroTernaArbitral extends javax.swing.JInternalFrame {
 
-    public static DetalleEquipoController detalleC = new DetalleEquipoController();
-    EquipoController tipoC = new EquipoController();
-    FutbolistaController futbolistaC = new FutbolistaController();
-    public static int idEquipo;
+    public static DetalleArbitroTernaArbitralController detalleC = new DetalleArbitroTernaArbitralController();
+    ArbitroController tipoC = new ArbitroController();
+    CategoriaArbitroController cate = new CategoriaArbitroController();
+    public static int idTerna;
 
-    public FrmGestionarDetalleEquipo() {
+    public FrmGestionarDetalleArbitroTernaArbitral() {
         initComponents();
         listar("");
     }
 
     public static void listar(String texto) {
 
-        String columas[] = {"FUTBOLISTA", "POSICIÓN",""};
+        String columas[] = {"ÁRBITRO", "CATEGORÍA", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
             modelo.addColumn(columa);
         }
 
-        List detalle = null;
-        DetalleEquipo detalleE;
-        detalle = detalleC.listar(idEquipo);
+        DetalleArbitroTernaArbitral detallePro = null;
+        CategoriaArbitro categoria = null;
+        Arbitro arbitro = null;
+
+        detallePro = detalleC.listar(idTerna);
 
         Object obj[] = new Object[3];
 
-        for (int i = 0; i < detalle.size(); i++) {
-            detalleE = (DetalleEquipo) detalle.get(i);
+        for (int i = 0; i < detallePro.getArbitro().size(); i++) {
+            arbitro = detallePro.getArbitro().get(i);
+            categoria = detallePro.getCategoriaArbitro().get(i);
 
-            obj[0] = detalleE.getFutbolista().getNombreCompleto();
-            obj[1] = detalleE.getPosicion().getAbreviatura();
+            obj[0] = arbitro.getArbitro_nombre();
+            obj[1] = categoria.getNombre();
 
             ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/eliminar.png");
             Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -65,8 +67,8 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
         tblListado.setModel(modelo);
         tblListado.setBackground(Color.WHITE);
         tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tblListado.getColumnModel().getColumn(0).setPreferredWidth(275);
-        tblListado.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblListado.getColumnModel().getColumn(2).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
@@ -86,7 +88,7 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR DETALLE EQUIPO");
+        setTitle("GESTIONAR DETALLE ARBITRO TERNA ARBITRAL");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -129,17 +131,15 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotal)
-                .addContainerGap(396, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotal)
+                        .addGap(0, 349, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -173,8 +173,8 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        ModalRegistrarDetalleEquipo.idEquipo = idEquipo;
-        ModalRegistrarDetalleEquipo frm = new ModalRegistrarDetalleEquipo();
+        ModalRegistrarDetalleArbitroTernaArbitral.idProfesional = idTerna;
+        ModalRegistrarDetalleArbitroTernaArbitral frm = new ModalRegistrarDetalleArbitroTernaArbitral();
         FrmMenuPrincipal.centrarVentana(frm);
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -197,18 +197,21 @@ public class FrmGestionarDetalleEquipo extends javax.swing.JInternalFrame {
                 switch (boton.getName()) {
                     case "btnEliminar" -> {
                         if (filas == 0) {//si no elije ninguna fila
-                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un pais");
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una terna");
                         } else {
                             String valor = String.valueOf(tblListado.getValueAt(fila, 0));
+                            System.out.println(valor);
+                            String valor2 = String.valueOf(tblListado.getValueAt(fila, 1));
 
-                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle Equipo " + valor + "?", "Confirmar", 2);
-                            if (opcion == 0) {
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el Detalle  " + valor + "?", "Confirmar", 2);
+                            if (opcion == 0) { 
 
-                                Futbolista futbolista = (Futbolista) futbolistaC.obtenerdato(valor);
+                                Arbitro arbitro = (Arbitro) tipoC.obtenerdato(valor);
+                                CategoriaArbitro categoria = (CategoriaArbitro) cate.obtenerdato(valor2);
 
                                 try {
-                                    detalleC.eliminarDetalle(idEquipo, futbolista.getFutbolistaId());
-                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Equipo eliminado correctamente!");
+                                    detalleC.eliminarDetalle(arbitro.getArbitro_id(), idTerna, categoria.getCategoria_arbitro_id());
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Detalle Arbitro eliminado correctamente!");
                                     listar("");
                                 } catch (Exception ex) {
                                     AlertaError err = new AlertaError("ERROR", ex.getMessage());

@@ -290,5 +290,33 @@ public class CategoriaArbitroController implements CRUD {
         return categoriaArbitro;
 
     }
+    
+    public List listarCategorias(String nombre) {
+
+        List lista = new ArrayList();
+        sql = "select cate.nombre from detalle_categoria_arbitro as deta inner join arbitro as arbi on arbi.arbitro_id = deta.arbitro_id\n"
+                + "inner join categoria_arbitro as cate on deta.categoria_arbitro_id = cate.categoria_arbitro_id\n"
+                + "where arbi.arbitro_nombre= '" + nombre+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                CategoriaArbitro cate = new CategoriaArbitro();
+                cate.setNombre(rs.getString(1));
+                lista.add(cate);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+     
+        return lista;
+    }
 
 }

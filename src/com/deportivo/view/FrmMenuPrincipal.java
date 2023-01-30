@@ -797,6 +797,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmLogin frm = new FrmLogin();
         frm.setVisible(true);
         this.dispose();
+        usuario = null;
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -833,7 +834,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemPartidosEnVivoActionPerformed
 
     private void itemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuarioActionPerformed
-        // TODO add your handling code here:
+        
+        centrarVentana(new FrmGestionarUsuario());
+        
     }//GEN-LAST:event_itemUsuarioActionPerformed
 
 

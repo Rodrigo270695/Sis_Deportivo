@@ -1,6 +1,7 @@
 package com.deportivo.view.modal;
 
 import com.deportivo.controller.DetalleEquipoController;
+import com.deportivo.controller.DetalleGrupoController;
 import com.deportivo.controller.DetallePartidoController;
 import com.deportivo.controller.EquipoController;
 import com.deportivo.controller.EventoController;
@@ -9,6 +10,7 @@ import com.deportivo.controller.IncidenciaPartidoController;
 import com.deportivo.controller.InstanciaPartidoController;
 import com.deportivo.controller.PartidoController;
 import com.deportivo.model.DetalleEquipo;
+import com.deportivo.model.DetalleGrupo;
 import com.deportivo.model.DetallePartido;
 import com.deportivo.model.Equipo;
 import com.deportivo.model.Evento;
@@ -33,6 +35,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     IncidenciaPartidoController incidenciaC = new IncidenciaPartidoController();
     InstanciaPartidoController instanciaC = new InstanciaPartidoController();
     DetalleEquipoController detalleEC = new DetalleEquipoController();
+    DetalleGrupoController detalleGC = new DetalleGrupoController();
     String local, visita;
     int idLocal, idvisita;
     public static int idPartido;
@@ -86,11 +89,11 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     void grabar() {
 
         int valorMax = 0;
-        
+
         if (cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
             valorMax = -20;
-        }else{
-            valorMax = incidenciaC.minutoMaximo(idPartido); 
+        } else {
+            valorMax = incidenciaC.minutoMaximo(idPartido);
         }
 
         if (Integer.parseInt(txtMinuto.getValue().toString()) >= 0 & Integer.parseInt(txtMinuto.getValue().toString()) > valorMax) {
@@ -102,8 +105,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             ip.setInstanciaPartido((InstanciaPartido) instanciaC.obtenerdato(cbxInstancia.getSelectedItem().toString()));
             ip.setMinuto((byte) Integer.parseInt(txtMinuto.getValue().toString()));
             ip.setEquipo((Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString()));
-            if (!cbxFutbolista2.getSelectedItem().toString().equals("Seleccionar") &
-                    !cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
+            if (!cbxFutbolista2.getSelectedItem().toString().equals("Seleccionar")
+                    & !cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
                 ip.setFutbolista2((Futbolista) futbolistaC.obtenerdato(cbxFutbolista2.getSelectedItem().toString()));
             } else {
                 ip.setFutbolista2(new Futbolista());
@@ -112,19 +115,19 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             try {
                 if (ip.getInstanciaPartido().getInstancia_partido_id() == 1 & Integer.parseInt(txtMinuto.getValue().toString()) <= 45) {
                     incidenciaC.registrar(ip);
-                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 2 
-                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 45 & Integer.parseInt(txtMinuto.getValue().toString()) <= 90 )){
+                } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 2
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 45 & Integer.parseInt(txtMinuto.getValue().toString()) <= 90)) {
                     incidenciaC.registrar(ip);
-                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 3 
-                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 90 & Integer.parseInt(txtMinuto.getValue().toString()) <= 105 )){
+                } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 3
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 90 & Integer.parseInt(txtMinuto.getValue().toString()) <= 105)) {
                     incidenciaC.registrar(ip);
-                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 4 
-                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 105 & Integer.parseInt(txtMinuto.getValue().toString()) <= 120 )){
+                } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 4
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 105 & Integer.parseInt(txtMinuto.getValue().toString()) <= 120)) {
                     incidenciaC.registrar(ip);
-                }else if(ip.getInstanciaPartido().getInstancia_partido_id() == 5 ){
+                } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 5) {
                     ip.setMinuto((byte) 127);
                     incidenciaC.registrar(ip);
-                } else{
+                } else {
                     AlertaError error = new AlertaError("ERROR", "Minuto inválido");
                     return;
                 }
@@ -168,21 +171,21 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         for (int i = 0; i < incidencias.size(); i++) {
             ip = (IncidenciaPartido) incidencias.get(i);
-            
+
             if (ip.getMinuto() == 127) {
                 minuto = "";
-            }else{
-                minuto = ""+ip.getMinuto();
+            } else {
+                minuto = "" + ip.getMinuto();
             }
-            
-            if (ip.getFutbolista2().getNombreCompleto() == null){
+
+            if (ip.getFutbolista2().getNombreCompleto() == null) {
                 jugador2 = "";
-            }else{
-                jugador2 = " ("+ip.getFutbolista2().getNombreCompleto()+")";
+            } else {
+                jugador2 = " (" + ip.getFutbolista2().getNombreCompleto() + ")";
             }
 
             if (ip.getEquipo().getNombreCorto().equals(visita)) {
-                obj[0] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() +  jugador2 ;
+                obj[0] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2;
                 obj[1] = "";
                 modelo.addRow(obj);
                 if (ip.getEvento().getEventoId() == 1) {
@@ -190,7 +193,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                 }
             } else if (ip.getEquipo().getNombreCorto().equals(local)) {
                 obj[0] = "";
-                obj[1] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2 ;
+                obj[1] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2;
                 modelo.addRow(obj);
                 if (ip.getEvento().getEventoId() == 1) {
                     equiVisita++;
@@ -208,6 +211,9 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         DetallePartido detalleP1 = new DetallePartido();
         DetallePartido detalleP2 = new DetallePartido();
+        DetalleGrupo equipo1 = detalleGC.listarEquipoGrupo(local);
+        DetalleGrupo equipo2 = detalleGC.listarEquipoGrupo(visita);
+        
         int golesV = 0, golesL = 0;
         int faltasL = 0, faltasV = 0;
         int taL = 0, taV = 0;
@@ -216,6 +222,27 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         int fueraL = 0, fueraV = 0;
         int teL = 0, teV = 0;
         String cL, cV;
+        
+        int pj1,g1,e1,p1,gf1,gc1,df1,pts1;
+        int pj2,g2,e2,p2,gf2,gc2,df2,pts2;
+        pj1 = equipo1.getPj();
+        g1 = equipo1.getG();
+        e1 = equipo1.getE();
+        p1 = equipo1.getP();
+        gf1 = equipo1.getGf();
+        gc1 = equipo1.getGc();
+        df1 = equipo1.getDf();
+        pts1 = equipo1.getPts();
+        
+        pj2 = equipo2.getPj();
+        g2 = equipo2.getG();
+        e2 = equipo2.getE();
+        p2 = equipo2.getP();
+        gf2 = equipo2.getGf();
+        gc2 = equipo2.getGc();
+        df2 = equipo2.getDf();
+        pts2 = equipo2.getPts();
+        
         List incidencias = incidenciaC.listar(idPartido);
         IncidenciaPartido incidencia;
 
@@ -298,7 +325,15 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         detallePC.actualizarDetalle(detalleP1);
         detallePC.actualizarDetalle(detalleP2);
+        
+        pj1++;
+        pj2++;
+        if (golesL > golesV) {
+            
+        }
     }
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -693,21 +728,6 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
     }//GEN-LAST:event_btnGrabarActionPerformed
 
-    private void btnMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEquiposActionPerformed
-
-        Equipo equipo = (Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString());
-
-        List<DetalleEquipo> lista = detalleEC.listar(equipo.getEquipoId());
-
-        cbxFutbolista.removeAllItems();
-        cbxFutbolista.addItem("Seleccionar");
-
-        for (DetalleEquipo detalle : lista) {
-            cbxFutbolista.addItem(detalle.getFutbolista().getNombreCompleto());
-        }
-
-    }//GEN-LAST:event_btnMostrarEquiposActionPerformed
-
     private void btnGrabar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabar1ActionPerformed
 
         agregarDetallePartido();
@@ -717,6 +737,14 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         this.dispose();
 
     }//GEN-LAST:event_btnGrabar1ActionPerformed
+
+    private void cbxInstanciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxInstanciaMouseClicked
+        if (cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
+            txtMinuto.setEnabled(false);
+        } else {
+            txtMinuto.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbxInstanciaMouseClicked
 
     private void btnMostrarEquipos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEquipos1ActionPerformed
 
@@ -730,16 +758,21 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         for (DetalleEquipo detalle : lista) {
             cbxFutbolista2.addItem(detalle.getFutbolista().getNombreCompleto());
         }
-
     }//GEN-LAST:event_btnMostrarEquipos1ActionPerformed
 
-    private void cbxInstanciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxInstanciaMouseClicked
-        if (cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
-            txtMinuto.setEnabled(false);
-        }else{
-            txtMinuto.setEnabled(true);
+    private void btnMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEquiposActionPerformed
+
+        Equipo equipo = (Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString());
+
+        List<DetalleEquipo> lista = detalleEC.listar(equipo.getEquipoId());
+
+        cbxFutbolista.removeAllItems();
+        cbxFutbolista.addItem("Seleccionar");
+
+        for (DetalleEquipo detalle : lista) {
+            cbxFutbolista.addItem(detalle.getFutbolista().getNombreCompleto());
         }
-    }//GEN-LAST:event_cbxInstanciaMouseClicked
+    }//GEN-LAST:event_btnMostrarEquiposActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

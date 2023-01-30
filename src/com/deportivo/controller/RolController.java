@@ -204,4 +204,32 @@ public class RolController implements CRUD{
         
     }
     
+    public Object obtenerdato(String nombre) {
+        
+        sql = "select * from rol where nombre = '"+nombre+"'";
+        
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+               return new Rol(rs.getInt(1), rs.getString(2));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        return new Rol();
+    }
+    
 }

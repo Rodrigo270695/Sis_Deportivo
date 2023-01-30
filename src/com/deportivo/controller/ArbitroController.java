@@ -216,5 +216,57 @@ public class ArbitroController implements CRUD {
 
         return lista;
     }
+    
+    public Object obtenerdato(String nombre) {
+
+        Arbitro arbitro = new Arbitro();
+        sql = "SELECT * FROM arbitro WHERE arbitro_nombre = '" + nombre+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                arbitro.setArbitro_id(rs.getInt(1));
+                arbitro.setArbitro_nombre(rs.getString(2));
+                arbitro.setEstado_arbitro(rs.getString(3).charAt(0));
+                arbitro.setPais((Pais) paisC.obtenerdato(rs.getInt(4)));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return arbitro;
+
+    }
+    
+    public ResultSet listarArbitros() throws Exception {
+
+        sql = "select arbitro_nombre from arbitro";
+
+        try {
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+        } catch (SQLException e) {
+            throw new Exception("Error al listar!");
+        }
+     
+        return rs;
+    }
+    
+    
 
 }

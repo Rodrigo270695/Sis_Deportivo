@@ -127,11 +127,11 @@ public class DetalleGrupoController {
         }
 
     }
-    
+
     public List listar() {
 
         List lista = new ArrayList<>();
-        sql = "select * from detalle_grupo" ;
+        sql = "select * from detalle_grupo";
 
         try {
 
@@ -174,43 +174,92 @@ public class DetalleGrupoController {
 
         return lista;
     }
-    
-//    public void actualizarDetalle(DetalleGrupo detalleGrupo){
-//        
-//        sql = "update detalle_grupo set goles=?,numero_faltas=?,tarjetas_amarillas=?,tarjetas_rojas=?,"
-//                + "tiros=?,fuera_de_lugar=?,tiros_esquina=?,cambios=? "
-//                + "where grupo_id =? and equipo_id = ?";
-//
-//        try {
-//
-//            con = estado.conectar();
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, detalleGrupo.getGoles());
-//            ps.setInt(2, detalleGrupo.getFaltas());
-//            ps.setInt(3, detalleGrupo.getTarjetasAmarillas());
-//            ps.setInt(4, detalleGrupo.getTarjtetasRojas());
-//            ps.setInt(5, detalleGrupo.getTiros());
-//            ps.setInt(6, detalleGrupo.getFueraLugar());
-//            ps.setInt(7, detalleGrupo.getTirosEquina());
-//            ps.setString(8, detalleGrupo.getCambios());
-//            ps.setInt(9, detalleGrupo.getGrupo().getGrupoId());
-//            ps.setInt(10, detalleGrupo.getEquipo().getEquipoId());
-//            ps.executeUpdate();
-//
-//        }  catch (SQLException e) {
-//            e.printStackTrace(System.err);
-//        } finally {
-//            try {
-//                if (con != null) {
-//                    con.close();
-//                }
-//                if (ps != null) {
-//                    ps.close();
-//                }
-//            } catch (SQLException ex) {
-//                ex.printStackTrace(System.err);
-//            }
-//        }
-//        
-//    }
+
+    public DetalleGrupo listarEquipoGrupo(String nombre) {
+
+        DetalleGrupo detalleG = new DetalleGrupo();
+        sql = "select detg.grupo_id,detg.equipo_id,detg.pj,detg.g,detg.e,detg.p,detg.gf,detg.gc,detg.df,detg.pts \n"
+                + "from detalle_grupo detg\n"
+                + "inner join equipo equi on equi.equipo_id = detg.equipo_id\n"
+                + "where equi.nombre_corto =  '"+nombre+"'";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                detalleG.setGrupo((Grupo) grupoC.obtenerdato(rs.getInt(1)));
+                detalleG.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(2)));
+                detalleG.setPj(rs.getShort(3));
+                detalleG.setG(rs.getShort(4));
+                detalleG.setE(rs.getShort(5));
+                detalleG.setP(rs.getShort(6));
+                detalleG.setGf(rs.getShort(7));
+                detalleG.setGc(rs.getShort(8));
+                detalleG.setDf(rs.getShort(9));
+                detalleG.setPts(rs.getShort(10));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return detalleG;
+
+    }
+
+    public void actualizarDetalle(DetalleGrupo detalleGrupo){
+        
+        sql = "update detalle_grupo set pj=?,g=?,e=?,p=?,"
+                + "gf=?,gc=?,df=?,pts=? "
+                + "where equipo_id = ?";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, detalleGrupo.getPj());
+            ps.setInt(2, detalleGrupo.getG());
+            ps.setInt(3, detalleGrupo.getE());
+            ps.setInt(4, detalleGrupo.getP());
+            ps.setInt(5, detalleGrupo.getGf());
+            ps.setInt(6, detalleGrupo.getGc());
+            ps.setInt(7, detalleGrupo.getDf());
+            ps.setInt(8, detalleGrupo.getPts());
+            ps.setInt(9, detalleGrupo.getEquipo().getEquipoId());
+            ps.executeUpdate();
+
+        }  catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        
+    }
 }

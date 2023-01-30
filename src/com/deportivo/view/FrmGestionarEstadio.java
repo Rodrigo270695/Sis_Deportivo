@@ -10,8 +10,10 @@ import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
 import java.awt.Color;
 import java.awt.Image;
-import java.text.SimpleDateFormat;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,21 +43,21 @@ public class FrmGestionarEstadio extends javax.swing.JInternalFrame {
             lista = estadioC.buscar(texto);
         }
         Object obj[] = new Object[9];
-//        ImageIcon foto;
-//        Image img = null;
+        ImageIcon foto;
+        Image img = null;
 
         for (int i = 0; i < lista.size(); i++) {
             estadio = (Estadio) lista.get(i);
 
-//            try {
-//                BufferedImage bi = ImageIO.read(estadio.getFoto());
-//                foto = new ImageIcon(bi);
-//                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-//            } catch (IOException e) {
-//            }
+            try {
+                BufferedImage bi = ImageIO.read(estadio.getFoto());
+                foto = new ImageIcon(bi);
+                img = foto.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+            } catch (IOException e) {
+            }
 
             obj[0] = estadio.getEstadioId();
-            obj[1] = new JLabel(new ImageIcon(""));
+            obj[1] = new JLabel(new ImageIcon(img));
             obj[2] = estadio.getNombreOficial();
             obj[3] = estadio.getCapacidad();
             obj[4] = estadio.getTribunas();

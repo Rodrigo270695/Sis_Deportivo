@@ -2,6 +2,7 @@ package com.deportivo.view;
 
 import com.deportivo.controller.UsuarioController;
 import com.deportivo.model.Usuario;
+import com.deportivo.properties.Encriptado;
 import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
@@ -12,10 +13,11 @@ import javax.swing.JLabel;
 
 public class FrmLogin extends javax.swing.JFrame {
 
+    Encriptado en = new Encriptado();
     UsuarioController usuarioC = new UsuarioController();
     public static int rol = 0;
     private String master = "21125454";
-    
+
     public FrmLogin() {
         initComponents();
         panelControl.setLayout(new BorderLayout()); // Para que la imagen se agrande
@@ -24,41 +26,48 @@ public class FrmLogin extends javax.swing.JFrame {
         label.setIcon(new ImageIcon("src/com/deportivo/iconos/Login.png"));
         this.setLocationRelativeTo(null);
     }
-    
-    private void ingresar(){
-        
-        Usuario usuario;
+
+    private void ingresar() {
+
+        Usuario usuAux;
+        String desencriptado = "";
 
         try {
-            
+
             if (txtDni.getText().equals(master)) {
                 rol = 1;
             }
-            
-            usuario = usuarioC.Logear(txtDni.getText(), txtContrasena.getText(), rol);
 
-            
-            if (txtContrasena.getText().length() != 0 | txtDni.getText().length() != 0) {
-                
-                if (usuario.getDocumento() == null) {
-                    Alerta alerta = new Alerta("ALERTA", "No se pudo encontrar al usuario");
-                }else{
-                    
-                    FrmMenuPrincipal.usuario = usuario;
+            if (txtContrasena.getText().isEmpty() || txtDni.getText().isEmpty()) {
+                Alerta alerta = new Alerta("ALERTA", "Hay campos vacios");
+            } else {
+
+                usuAux = usuarioC.Logear(txtDni.getText(), rol);
+
+                if (usuAux.getNombre() == null) {
+                    Alerta alerta = new Alerta("ALERTA", "Usuario Incorrecto");
+                    return;
+                }
+                desencriptado = en.desencriptar("programa_go", usuAux.getPassword());
+
+                if (txtContrasena.getText().equals(desencriptado)) {
+
+                    FrmMenuPrincipal.usuario = usuAux;
                     AlertaBien alertaB = new AlertaBien("MENSAJE", "Bienvenido al Sistema");
                     FrmMenuPrincipal frm = new FrmMenuPrincipal();
                     frm.setVisible(true);
                     this.dispose();
+
+                } else {
+                    Alerta alerta = new Alerta("ALERTA", "Contraseña Incorrecta");
                 }
-                
-            }else{
-                Alerta alerta = new Alerta("ALERTA", "Debe llenar todos los datos");
+
             }
 
         } catch (Exception e) {
             AlertaError alertaE = new AlertaError("ERROR", "Ocurrio un error comuniquese con al ADMINISTRACIÓN");
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -170,12 +179,11 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
-        rol = 0;
+
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       rol = 0;
+       
     }//GEN-LAST:event_formWindowClosed
 
     private void txtContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyTyped
@@ -185,7 +193,6 @@ public class FrmLogin extends javax.swing.JFrame {
             ingresar();
         }
     }//GEN-LAST:event_txtContrasenaKeyTyped
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

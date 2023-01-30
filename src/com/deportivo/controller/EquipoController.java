@@ -349,33 +349,5 @@ public class EquipoController implements CRUD {
         return 0;
         
     }
-
-    public void modificarFoto(Object obj) throws Exception {
-        
-        Equipo futbolista = (Equipo) obj;
-        sql = "UPDATE equipo SET foto=?";
-
-        try {
-
-            con = estado.conectar();
-            ps = con.prepareStatement(sql);
-            ps.setBinaryStream(1, futbolista.getFoto());
-            ps.executeUpdate();
-
-        } catch (PSQLException pe) {
-            pe.printStackTrace(System.err);
-            throw new Exception("Ya existe el Futbolista");
-        } catch (SQLException e) {
-            e.printStackTrace(System.err);
-        } finally {
-            try {
-                con.close();
-                ps.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.err);
-            }
-        }
-        
-    }
     
 }

@@ -564,10 +564,10 @@ public final class ModalRegistrarEquipo extends javax.swing.JInternalFrame {
     private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
         char caracter = evt.getKeyChar();
 
-        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 3) {
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtNombreCorto.getText().length() >= 30) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo acepta 3 caracteres y letras");
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta 30 letras");
         }
     }//GEN-LAST:event_txtNombreCortoKeyTyped
 
