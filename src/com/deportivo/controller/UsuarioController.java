@@ -191,7 +191,42 @@ public class UsuarioController implements CRUD {
 
     @Override
     public List buscar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        List lista = new ArrayList();
+        sql = "SELECT * FROM usuario where nombre like '%"+obj.toString()+"%' or documento_identidad like '%"+obj.toString()+"%' "
+                + "ORDER BY usuario_id DESC";
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setUsuarioId(rs.getInt(1));
+                usuario.setRolId((Rol)rolC.obtenerdato(rs.getInt(2)));
+                usuario.setNombre(rs.getString(3));
+                usuario.setDocumento(rs.getString(4));
+                usuario.setPassword(rs.getString(5));
+                usuario.setFechaCreacion(rs.getDate(6));
+                lista.add(usuario);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+
+        return lista;
+        
     }
 
     public Usuario Logear(String documento, String password, int rol) {
