@@ -1,17 +1,12 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.DetalleOrganizacionCompetenciaController;
-import com.deportivo.controller.PartidoController;
-import com.deportivo.controller.CompetenciaController;
 import com.deportivo.controller.DetallePartidoController;
 import com.deportivo.controller.EquipoController;
 import com.deportivo.controller.FormacionEquipoController;
-import com.deportivo.model.Competencia;
+import com.deportivo.model.DetallePartido;
 import com.deportivo.model.Equipo;
 import com.deportivo.model.FormacionEquipo;
-import com.deportivo.model.Partido;
 import com.deportivo.view.FrmGestionarDetallePartido;
-import com.deportivo.view.FrmGestionarDetalleProfesional;
 import com.deportivo.vista.modal.alerts.*;
 import java.util.List;
 
@@ -53,6 +48,17 @@ public final class ModalRegistrarDetallePartido extends javax.swing.JInternalFra
     void grabar() {
 
         int totalpartidos = Integer.parseInt(FrmGestionarDetallePartido.lblTotal.getText());
+        List lista = detalleC.listar(idPartido);
+        DetallePartido dp;
+        
+        if (!lista.isEmpty()) {
+            dp = (DetallePartido) lista.get(0);
+            if (dp.getTipo().equals(cbxTipo.getSelectedItem().toString().charAt(0))) {
+                Alerta a = new Alerta("ALERTA", "EL TIPO DE PARTIDO YA EXISTE");
+                return;
+            }
+            
+        }
 
         if (totalpartidos >= 2) {
             AlertaError error = new AlertaError("ERROR", "No se puede Ingresar más partidos al detalle");

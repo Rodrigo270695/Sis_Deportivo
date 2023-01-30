@@ -278,11 +278,15 @@ public final class ModalRegistrarUsuario extends javax.swing.JInternalFrame {
     private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
         
         char caracter = evt.getKeyChar();
+        boolean mayusculas = caracter >= 65 && caracter <= 90;
+        boolean minusculas = caracter >= 97 && caracter <= 122;
+        boolean numeros = caracter >= 48 && caracter <= 57;
+        
 
-        if (txtDocumento.getText().length() >= 15) {
+        if (!(minusculas || mayusculas || numeros) || txtDocumento.getText().length() >= 15) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
-            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan no más de 15 caracteres");
+            Alerta alerta = new Alerta("ALERTA", "Solo se aceptan no más de 15 caracteres y numero y letras");
         }
         
     }//GEN-LAST:event_txtDocumentoKeyTyped
