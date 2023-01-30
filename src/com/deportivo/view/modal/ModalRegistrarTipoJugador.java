@@ -152,6 +152,11 @@ public final class ModalRegistrarTipoJugador extends javax.swing.JInternalFrame 
 
         txtSigla.setDescripcion("");
         txtSigla.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSigla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSiglaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,6 +215,18 @@ public final class ModalRegistrarTipoJugador extends javax.swing.JInternalFrame 
         vista = false;
 
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void txtSiglaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyTyped
+        
+        char caracter = evt.getKeyChar();
+
+        if (!((caracter < '0') || (caracter > '9')) && (caracter != '\b') || txtSigla.getText().length() >= 1) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            Alerta alerta = new Alerta("ALERTA", "Solo acepta una letra");
+        }
+        
+    }//GEN-LAST:event_txtSiglaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
