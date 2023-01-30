@@ -329,8 +329,49 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         pj1++;
         pj2++;
         if (golesL > golesV) {
-            
+            g1++;
+            p2++;
+            gf1 += golesL;
+            gc1 += golesV;
+            gc2 += golesL;
+            pts1 += 3;
+        }else if(golesL < golesV){
+            g2++;
+            p1++;
+            gf2 += golesV;
+            gc1 += golesL;
+            gc2 += golesV;
+            pts2 += 3;
+        }else{
+            e1++;
+            e2++;
+            pts1++;
+            pts2++;
         }
+        df1 = gf1 - gc1;
+        df2 = gf2 - gc2;
+        
+        equipo1.setPj((short)pj1);
+        equipo1.setG((short)g1);
+        equipo1.setE((short)e1);
+        equipo1.setP((short)p1);
+        equipo1.setGc((short)gc1);
+        equipo1.setGf((short)gf1);
+        equipo1.setDf((short)df1);
+        equipo1.setPts((short)pts1);
+        
+        equipo2.setPj((short)pj2);
+        equipo2.setG((short)g2);
+        equipo2.setE((short)e2);
+        equipo2.setP((short)p2);
+        equipo2.setGc((short)gc2);
+        equipo2.setGf((short)gf2);
+        equipo2.setDf((short)df2);
+        equipo2.setPts((short)pts2);
+        
+        detalleGC.actualizarDetalle(equipo1);
+        detalleGC.actualizarDetalle(equipo2);
+       
     }
 
 
