@@ -53,7 +53,7 @@ public final class ModalRegistrarDetallePartido extends javax.swing.JInternalFra
         
         if (!lista.isEmpty()) {
             dp = (DetallePartido) lista.get(0);
-            if (dp.getTipo().equals(cbxTipo.getSelectedItem().toString().charAt(0))) {
+            if (dp.getTipo().equalsIgnoreCase(String.valueOf(cbxTipo.getSelectedItem().toString().charAt(0)))) {
                 Alerta a = new Alerta("ALERTA", "EL TIPO DE PARTIDO YA EXISTE");
                 return;
             }
@@ -63,7 +63,6 @@ public final class ModalRegistrarDetallePartido extends javax.swing.JInternalFra
         if (totalpartidos >= 2) {
             AlertaError error = new AlertaError("ERROR", "No se puede Ingresar más partidos al detalle");
         } else {
-
             Equipo equipo = (Equipo) equipoC.obtenerdato(cbxEquipo.getSelectedItem().toString());
             FormacionEquipo formacionEquipo = (FormacionEquipo) formacionC.obtenerdato(cbxFormacion.getSelectedItem().toString());
             char tipo = cbxTipo.getSelectedItem().toString().charAt(0);

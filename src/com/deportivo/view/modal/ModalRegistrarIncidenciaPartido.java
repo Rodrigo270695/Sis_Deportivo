@@ -39,6 +39,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     String local, visita;
     int idLocal, idvisita;
     public static int idPartido;
+    DetalleGrupo equipo1;
+    DetalleGrupo equipo2;
 
     public ModalRegistrarIncidenciaPartido() {
         initComponents();
@@ -46,6 +48,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         cargarEquipos();
         cargarInstancias();
         listar();
+        equipo1 = detalleGC.listarEquipoGrupo(local);
+        equipo2 = detalleGC.listarEquipoGrupo(visita);
     }
 
     void cargarEventos() {
@@ -211,9 +215,9 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         DetallePartido detalleP1 = new DetallePartido();
         DetallePartido detalleP2 = new DetallePartido();
-        DetalleGrupo equipo1 = detalleGC.listarEquipoGrupo(local);
-        DetalleGrupo equipo2 = detalleGC.listarEquipoGrupo(visita);
-        
+        DetalleGrupo equi1 = new DetalleGrupo();
+        DetalleGrupo equi2 = new DetalleGrupo();
+
         int golesV = 0, golesL = 0;
         int faltasL = 0, faltasV = 0;
         int taL = 0, taV = 0;
@@ -222,27 +226,27 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         int fueraL = 0, fueraV = 0;
         int teL = 0, teV = 0;
         String cL, cV;
-        
-        int pj1,g1,e1,p1,gf1,gc1,df1,pts1;
-        int pj2,g2,e2,p2,gf2,gc2,df2,pts2;
-        pj1 = equipo1.getPj();
-        g1 = equipo1.getG();
-        e1 = equipo1.getE();
-        p1 = equipo1.getP();
-        gf1 = equipo1.getGf();
-        gc1 = equipo1.getGc();
-        df1 = equipo1.getDf();
-        pts1 = equipo1.getPts();
-        
-        pj2 = equipo2.getPj();
-        g2 = equipo2.getG();
-        e2 = equipo2.getE();
-        p2 = equipo2.getP();
-        gf2 = equipo2.getGf();
-        gc2 = equipo2.getGc();
-        df2 = equipo2.getDf();
-        pts2 = equipo2.getPts();
-        
+
+        int pj1, g1, e1, p1, gf1, gc1, df1, pts1;
+        int pj2, g2, e2, p2, gf2, gc2, df2, pts2;
+        pj1 = 0;
+        g1 = 0;
+        e1 = 0;
+        p1 = 0;
+        gf1 = 0;
+        gc1 = 0;
+        df1 = 0;
+        pts1 = 0;
+
+        pj2 = 0;
+        g2 = 0;
+        e2 = 0;
+        p2 = 0;
+        gf2 = 0;
+        gc2 = 0;
+        df2 = 0;
+        pts2 = 0;
+
         List incidencias = incidenciaC.listar(idPartido);
         IncidenciaPartido incidencia;
 
@@ -325,56 +329,60 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
         detallePC.actualizarDetalle(detalleP1);
         detallePC.actualizarDetalle(detalleP2);
-        
+
         pj1++;
         pj2++;
         if (golesL > golesV) {
             g1++;
             p2++;
             gf1 += golesL;
+            gf2 += golesV;
             gc1 += golesV;
             gc2 += golesL;
             pts1 += 3;
-        }else if(golesL < golesV){
+        } else if (golesL < golesV) {
             g2++;
             p1++;
             gf2 += golesV;
+            gf1 += golesL;
             gc1 += golesL;
             gc2 += golesV;
             pts2 += 3;
-        }else{
+        } else {
             e1++;
             e2++;
+            gf2 += golesV;
+            gf1 += golesL;
+            gc1 += golesL;
+            gc2 += golesV;
             pts1++;
             pts2++;
         }
         df1 = gf1 - gc1;
         df2 = gf2 - gc2;
-        
-        equipo1.setPj((short)pj1);
-        equipo1.setG((short)g1);
-        equipo1.setE((short)e1);
-        equipo1.setP((short)p1);
-        equipo1.setGc((short)gc1);
-        equipo1.setGf((short)gf1);
-        equipo1.setDf((short)df1);
-        equipo1.setPts((short)pts1);
-        
-        equipo2.setPj((short)pj2);
-        equipo2.setG((short)g2);
-        equipo2.setE((short)e2);
-        equipo2.setP((short)p2);
-        equipo2.setGc((short)gc2);
-        equipo2.setGf((short)gf2);
-        equipo2.setDf((short)df2);
-        equipo2.setPts((short)pts2);
-        
+
+        equi1.setPj((short) (pj1 + equipo1.getPj()));
+        equi1.setG((short) (g1+ equipo1.getG()));
+        equi1.setE((short) (e1+ equipo1.getE()));
+        equi1.setP((short) (p1+ equipo1.getP()));
+        equi1.setGc((short) (gc1+ equipo1.getGc()));
+        equi1.setGf((short) (gf1+ equipo1.getGf()));
+        equi1.setDf((short) (df1+ equipo1.getDf()));
+        equi1.setPts((short) (pts1+ equipo1.getPts()));
+
+        equi2.setPj((short) (pj2+ equipo2.getPj()));
+        equi2.setG((short) (g2+ equipo2.getG()));
+        equi2.setE((short) e2);
+        equi2.setP((short) p2);
+        equi2.setGc((short) gc2);
+        equi2.setGf((short) gf2);
+        equi2.setDf((short) df2);
+        equi2.setPts((short) pts2);
+
         detalleGC.actualizarDetalle(equipo1);
         detalleGC.actualizarDetalle(equipo2);
-       
+
     }
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
