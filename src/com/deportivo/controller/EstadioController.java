@@ -304,7 +304,7 @@ public class EstadioController implements CRUD {
         }
 
     }
-//    
+    
 //    public void modificarFoto(Object obj) throws Exception {
 //        
 //        Estadio futbolista = (Estadio) obj;

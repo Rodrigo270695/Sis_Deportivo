@@ -6,6 +6,8 @@ import com.deportivo.model.Permiso;
 import com.deportivo.model.RolPermiso;
 import com.deportivo.model.Usuario;
 import com.deportivo.reporte.Reporte_1;
+import com.deportivo.reporte.Reporte_2;
+import com.deportivo.reporte.Reporte_3;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -30,7 +32,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
             mnuUsuario.setText(usuario.getNombre());
         }
-//        desactivarControles();
+        desactivarControles();
         cargarPermisos();
     }
 
@@ -244,6 +246,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
         itemPartidosEnVivo = new javax.swing.JMenuItem();
         ItemPartidosAnteriores = new javax.swing.JMenuItem();
@@ -596,10 +599,28 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuReportes.add(jMenuItem5);
 
         jMenuItem6.setText("Tabla de Goleadores");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         mnuReportes.add(jMenuItem6);
 
         jMenuItem7.setText("Primero puestos por mundial");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         mnuReportes.add(jMenuItem7);
+
+        jMenuItem8.setText("Reporte Participante de equipos por competencia");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(jMenuItem8);
 
         jMenuBar1.add(mnuReportes);
 
@@ -839,6 +860,18 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itemUsuarioActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        centrarVentana(new Reporte_2());
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        centrarVentana(new Reporte_3());
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ItemPartidosAnteriores;
@@ -885,6 +918,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuAdministracion;
     private javax.swing.JMenu mnuGestion;

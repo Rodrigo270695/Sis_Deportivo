@@ -1,28 +1,22 @@
 package com.deportivo.view.modal;
 
-import com.deportivo.controller.DetalleEquipoController;
-import com.deportivo.controller.DetalleGrupoController;
-import com.deportivo.controller.DetallePartidoController;
-import com.deportivo.controller.EquipoController;
-import com.deportivo.controller.EventoController;
-import com.deportivo.controller.FutbolistaController;
-import com.deportivo.controller.IncidenciaPartidoController;
-import com.deportivo.controller.InstanciaPartidoController;
-import com.deportivo.controller.PartidoController;
-import com.deportivo.model.DetalleEquipo;
-import com.deportivo.model.DetalleGrupo;
-import com.deportivo.model.DetallePartido;
-import com.deportivo.model.Equipo;
-import com.deportivo.model.Evento;
-import com.deportivo.model.Futbolista;
-import com.deportivo.model.IncidenciaPartido;
-import com.deportivo.model.InstanciaPartido;
-import com.deportivo.model.Partido;
+import com.deportivo.controller.*;
+import com.deportivo.model.*;
 import com.deportivo.properties.RenderTable;
+import static com.deportivo.view.FrmGestionarCiudad.lblTotal;
+import static com.deportivo.view.FrmGestionarCiudad.tblListado;
 import com.deportivo.view.FrmGestionarIncidencias;
+import com.deportivo.vista.modal.alerts.Alerta;
 import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
+import java.awt.Color;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternalFrame {
@@ -155,11 +149,17 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         List incidencias = incidenciaC.listar(idPartido);
         DetallePartido dp;
         IncidenciaPartido ip;
-        Object obj[] = new Object[2];
+        Object obj[] = new Object[3];
         int equiVisita = 0, equiLocal = 0;
         String minuto;
         String jugador2;
-
+        ImageIcon icono = new ImageIcon("src/com/deportivo/iconos/var.png");
+        Icon btnEliminar = new ImageIcon(icono.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+        JButton botonEliminar = new JButton("", btnEliminar);
+        botonEliminar.setName("btnEliminar");
+        botonEliminar.setToolTipText("var");
+        botonEliminar.setBorder(null);
+        botonEliminar.setBackground(new Color(223, 68, 83));
         for (int i = 0; i < equipos.size(); i++) {
             dp = (DetallePartido) equipos.get(i);
             if (dp.getTipo().equalsIgnoreCase("V")) {
@@ -172,6 +172,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                 idvisita = dp.getEquipo().getEquipoId();
             }
         }
+        modelo.addColumn("");
 
         for (int i = 0; i < incidencias.size(); i++) {
             ip = (IncidenciaPartido) incidencias.get(i);
@@ -189,15 +190,17 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             }
 
             if (ip.getEquipo().getNombreCorto().equals(visita)) {
-                obj[0] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2;
+                obj[0] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2+ (ip.isVar() ? " -- VAR": "");
                 obj[1] = "";
+                obj[2] = botonEliminar;
                 modelo.addRow(obj);
                 if (ip.getEvento().getEventoId() == 1) {
                     equiLocal++;
                 }
             } else if (ip.getEquipo().getNombreCorto().equals(local)) {
                 obj[0] = "";
-                obj[1] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2;
+                obj[1] = "" + minuto + "' - " + ip.getEvento().getNombre() + " - " + ip.getFutbolista().getNombreCompleto() + jugador2+(ip.isVar() ? " -- VAR": "");
+                obj[2] = botonEliminar;
                 modelo.addRow(obj);
                 if (ip.getEvento().getEventoId() == 1) {
                     equiVisita++;
@@ -208,7 +211,13 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             lblVisita.setText("" + equiVisita);
         }
 
+        tblListado.setRowHeight(30);
         tblListado.setModel(modelo);
+        tblListado.setBackground(Color.WHITE);
+        tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblListado.getColumnModel().getColumn(0).setPreferredWidth(360);
+        tblListado.getColumnModel().getColumn(1).setPreferredWidth(360);
+        tblListado.getColumnModel().getColumn(2).setPreferredWidth(30);
     }
 
     private void agregarDetallePartido() {
@@ -256,54 +265,61 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
 
             if (incidencia.getEquipo().getNombreCorto().equals(visita)) {
 
-                switch (incidencia.getEvento().getNombre()) {
-                    case "GOAL" -> {
-                        golesV++;
-                    }
-                    case "FALTA" -> {
-                        faltasV++;
-                    }
-                    case "TARJETA AMARILLA" -> {
-                        taV++;
-                    }
-                    case "TARJETA ROJA" -> {
-                        trV++;
-                    }
-                    case "TIRO DE ESQUINA" -> {
-                        teV++;
-                    }
-                    case "TIRO" -> {
-                        tV++;
-                    }
-                    case "FUERA DE LUGAR" -> {
-                        fueraV++;
+                if (incidencia.isVar() == false) {
+                    switch (incidencia.getEvento().getNombre()) {
+                        case "GOAL" -> {
+                            golesV++;
+                        }
+                        case "FALTA" -> {
+                            faltasV++;
+                        }
+                        case "TARJETA AMARILLA" -> {
+                            taV++;
+                        }
+                        case "TARJETA ROJA" -> {
+                            trV++;
+                        }
+                        case "TIRO DE ESQUINA" -> {
+                            teV++;
+                        }
+                        case "TIRO" -> {
+                            tV++;
+                        }
+                        case "FUERA DE LUGAR" -> {
+                            fueraV++;
+                        }
                     }
                 }
 
             } else {
-                switch (incidencia.getEvento().getNombre()) {
-                    case "GOAL" -> {
-                        golesL++;
-                    }
-                    case "FALTA" -> {
-                        faltasL++;
-                    }
-                    case "TARJETA AMARILLA" -> {
-                        taL++;
-                    }
-                    case "TARJETA ROJA" -> {
-                        trL++;
-                    }
-                    case "TIRO DE ESQUINA" -> {
-                        teL++;
-                    }
-                    case "TIRO" -> {
-                        tL++;
-                    }
-                    case "FUERA DE LUGAR" -> {
-                        fueraL++;
+
+                if (incidencia.isVar() == false) {
+
+                    switch (incidencia.getEvento().getNombre()) {
+                        case "GOAL" -> {
+                            golesL++;
+                        }
+                        case "FALTA" -> {
+                            faltasL++;
+                        }
+                        case "TARJETA AMARILLA" -> {
+                            taL++;
+                        }
+                        case "TARJETA ROJA" -> {
+                            trL++;
+                        }
+                        case "TIRO DE ESQUINA" -> {
+                            teL++;
+                        }
+                        case "TIRO" -> {
+                            tL++;
+                        }
+                        case "FUERA DE LUGAR" -> {
+                            fueraL++;
+                        }
                     }
                 }
+
             }
 
         }
@@ -362,25 +378,27 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         df2 = gf2 - gc2;
 
         equi1.setPj((short) (pj1 + equipo1.getPj()));
-        equi1.setG((short) (g1+ equipo1.getG()));
-        equi1.setE((short) (e1+ equipo1.getE()));
-        equi1.setP((short) (p1+ equipo1.getP()));
-        equi1.setGc((short) (gc1+ equipo1.getGc()));
-        equi1.setGf((short) (gf1+ equipo1.getGf()));
-        equi1.setDf((short) (df1+ equipo1.getDf()));
-        equi1.setPts((short) (pts1+ equipo1.getPts()));
+        equi1.setG((short) (g1 + equipo1.getG()));
+        equi1.setE((short) (e1 + equipo1.getE()));
+        equi1.setP((short) (p1 + equipo1.getP()));
+        equi1.setGc((short) (gc1 + equipo1.getGc()));
+        equi1.setGf((short) (gf1 + equipo1.getGf()));
+        equi1.setDf((short) (df1 + equipo1.getDf()));
+        equi1.setPts((short) (pts1 + equipo1.getPts()));
+        equi1.setEquipo((Equipo) equipoC.obtenerdato(local));
 
-        equi2.setPj((short) (pj2+ equipo2.getPj()));
-        equi2.setG((short) (g2+ equipo2.getG()));
-        equi2.setE((short) e2);
-        equi2.setP((short) p2);
-        equi2.setGc((short) gc2);
-        equi2.setGf((short) gf2);
-        equi2.setDf((short) df2);
-        equi2.setPts((short) pts2);
+        equi2.setPj((short) (pj2 + equipo2.getPj()));
+        equi2.setG((short) (g2 + equipo2.getG()));
+        equi2.setE((short) (e2 + equipo2.getE()));
+        equi2.setP((short) (p2 + equipo2.getP()));
+        equi2.setGc((short) (gc2 + equipo2.getGc()));
+        equi2.setGf((short) (gf2 + equipo2.getGf()));
+        equi2.setDf((short) (df2 + equipo2.getDf()));
+        equi2.setPts((short) (pts2 + equipo2.getPts()));
+        equi2.setEquipo((Equipo) equipoC.obtenerdato(visita));
 
-        detalleGC.actualizarDetalle(equipo1);
-        detalleGC.actualizarDetalle(equipo2);
+        detalleGC.actualizarDetalle(equi1);
+        detalleGC.actualizarDetalle(equi2);
 
     }
 
@@ -699,81 +717,59 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
-        //
-        //        int fila = tblListado.getSelectedRow();
-        //        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
-        //
-        //        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
-        //        int row = evt.getY() / tblListado.getRowHeight();
-        //
-        //        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
-        //            Object value = tblListado.getValueAt(row, colum);
-        //
-        //            if (value instanceof JButton jButton) {
-        //                jButton.doClick();
-        //                JButton boton = jButton;
-        //                int filas = tblListado.getSelectedRowCount();
-        //
-        //                switch (boton.getName()) {
-        //                    case "btnEliminar" -> {
-        //                        if (filas == 0) {//si no elije ninguna fila
-        //                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-        //                        } else {
-        //                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
-        //
-        //                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al partido " + valor + "?", "Confirmar", 2);
-        //                            if (opcion == 0) {
-        //
-        //                                try {
-        //                                    detallePC.eliminar(id);
-        //                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "partido eliminado correctamente!");
-        //                                    listar("");
-        //                                } catch (Exception ex) {
-        //                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
-        //                                }
-        //
-        //                            } else {
-        //                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
-        //                            }
-        //
-        //                        }
-        //                    }
-        //                    case "btnModificar" -> {
-        //                        if (filas == 0) {//si no elije ninguna fila
-        //                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-        //                        } else {
-        //
-        //                            ModalRegistrarPartido.idPartido = id;
-        //                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPartido());
-        //                            ModalRegistrarPartido.btnGrabar.setText("Modificar");
-        //
-        //                        }
-        //                    }
-        //                    case "btnAdd" -> {
-        //                        if (filas == 0) {
-        //                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-        //                        } else {
-        //                            FrmGestionarDetallePartido.idPartido = id;
-        //                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetallePartido());
-        //                        }
-        //                    }
-        //                    case "btnVer" -> {
-        //                        if (filas == 0) {
-        //                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
-        //                        } else {
-        //                            ModalRegistrarPartido.vista = true;
-        //                            ModalRegistrarPartido.idPartido = id;
-        //                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarPartido());
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
+
+        int fila = tblListado.getSelectedRow();
+        int id = 0;
+        if (!tblListado.getValueAt(fila, 0).toString().isEmpty()) {
+            id = Integer.parseInt(String.valueOf(tblListado.getValueAt(fila, 0).toString().charAt(0)));
+        }else{
+            id = Integer.parseInt(String.valueOf(tblListado.getValueAt(fila, 1).toString().charAt(0)));
+        }
+
+        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
+        int row = evt.getY() / tblListado.getRowHeight();
+
+        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
+            Object value = tblListado.getValueAt(row, colum);
+
+            if (value instanceof JButton jButton) {
+                jButton.doClick();
+                JButton boton = jButton;
+                int filas = tblListado.getSelectedRowCount();
+
+                switch (boton.getName()) {
+                    case "btnEliminar" -> {
+                        if (filas == 0) {//si no elije ninguna fila
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un partido");
+                        } else {
+                            String valor = String.valueOf(tblListado.getValueAt(fila, 1));
+
+                            int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de enular la incidencia?", "Confirmar", 2);
+                            if (opcion == 0) {
+
+                                try {
+                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Incidencia anulada correctamente!");
+                                    incidenciaC.anularIncidencia(id, idPartido);
+                                    listar();
+                                } catch (Exception ex) {
+                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
+                                }
+
+                            } else {
+                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_tblListadoMouseClicked
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
 
         grabar();
+        agregarDetallePartido();
 
     }//GEN-LAST:event_btnGrabarActionPerformed
 

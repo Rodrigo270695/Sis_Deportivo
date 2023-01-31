@@ -22,7 +22,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
 
     public static void listar(String texto) {
 
-        String columas[] = {"#", "NOMBRE", "FECHA INICIO", "FECHA FIN", "", "", "", ""};
+        String columas[] = {"#", "NOMBRE", "FECHA INICIO", "FECHA FIN", "", "", "", "", ""};
         DefaultTableModel modelo = new DefaultTableModel();
 
         for (String columa : columas) {
@@ -36,7 +36,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
         } else {
             lista = competenciaC.buscar(texto);
         }
-        Object obj[] = new Object[8];
+        Object obj[] = new Object[9];
         SimpleDateFormat formato = new SimpleDateFormat("dd. MMMM 'de' yyyy");
 
         for (int i = 0; i < lista.size(); i++) {
@@ -82,6 +82,15 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
             botonAdd.setBackground(new Color(25, 38, 49));
             obj[7] = botonAdd;
 
+            ImageIcon iconoAdd2 = new ImageIcon("src/com/deportivo/iconos/add28.png");
+            Icon btnAdd2 = new ImageIcon(iconoAdd2.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+            JButton botonAdd2 = new JButton("", btnAdd2);
+            botonAdd2.setName("btnAdd2");
+            botonAdd2.setToolTipText("Añadir Equipo");
+            botonAdd2.setBorder(null);
+            botonAdd2.setBackground(new Color(25, 38, 49));
+            obj[8] = botonAdd2;            
+
             modelo.addRow(obj);
 
         }
@@ -98,6 +107,7 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
         tblListado.getColumnModel().getColumn(5).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(6).setPreferredWidth(30);
         tblListado.getColumnModel().getColumn(7).setPreferredWidth(30);
+        tblListado.getColumnModel().getColumn(8).setPreferredWidth(30);
         lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
     }
@@ -290,6 +300,14 @@ public class FrmGestionarCompetencia extends javax.swing.JInternalFrame {
                             ModalRegistrarCompetencia.vista = true;
                             ModalRegistrarCompetencia.idCompetencia = id;
                             FrmMenuPrincipal.centrarVentana(new ModalRegistrarCompetencia());
+                        }
+                    }
+                    case "btnAdd2" -> {
+                        if (filas == 0) {
+                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una Competencia");
+                        } else {
+                            FrmGestionarDetalleCompetenciaEquipo.idCompetencia = id;
+                            FrmMenuPrincipal.centrarVentana(new FrmGestionarDetalleCompetenciaEquipo());
                         }
                     }
 

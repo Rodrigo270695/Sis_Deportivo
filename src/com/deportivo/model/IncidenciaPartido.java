@@ -11,6 +11,7 @@ public class IncidenciaPartido {
     private byte minuto;
     private Equipo equipo;
     private String detalle;
+    private boolean var;
 
     public Evento getEvento() {
         return evento;
@@ -74,6 +75,14 @@ public class IncidenciaPartido {
 
     public void setFutbolista2(Futbolista futbolista2) {
         this.futbolista2 = futbolista2;
+    }
+
+    public boolean isVar() {
+        return var;
+    }
+
+    public void setVar(boolean var) {
+        this.var = var;
     }
     
     

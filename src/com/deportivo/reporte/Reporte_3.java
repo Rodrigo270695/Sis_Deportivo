@@ -1,8 +1,8 @@
 package com.deportivo.reporte;
 
-import com.deportivo.controller.GrupoController;
-import com.deportivo.controller.reporte.Reporte_uno;
-import com.deportivo.model.Grupo;
+import com.deportivo.controller.CompetenciaController;
+import com.deportivo.controller.reporte.Reporte_tres;
+import com.deportivo.model.Competencia;
 import com.deportivo.properties.RenderTable;
 import java.awt.Color;
 import java.sql.*;
@@ -10,33 +10,33 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public final class Reporte_1 extends javax.swing.JInternalFrame {
+public final class Reporte_3 extends javax.swing.JInternalFrame {
 
-    Reporte_uno rp = new Reporte_uno();
-    GrupoController grupoC = new GrupoController();
+    Reporte_tres rp = new Reporte_tres();
+    CompetenciaController competenciaC = new CompetenciaController();
 
-    public Reporte_1() {
+    public Reporte_3() {
         initComponents();
-        cargarGrupos();
+        cargarCompetencias();
     }
-    
-    void cargarGrupos(){
-        
-        cbxGrupo.removeAllItems();
-        
-        List<Grupo> lista = grupoC.listar();
-        
-        for (Grupo grupo : lista) {
-            cbxGrupo.addItem(grupo.getAbreviatura());
+
+    void cargarCompetencias() {
+
+        cboCompetencia.removeAllItems();
+
+        List<Competencia> lista = competenciaC.listar();
+
+        for (Competencia competencia : lista) {
+            cboCompetencia.addItem(competencia.getNombre());
         }
-        
+
     }
 
     void listar() {
 
-        String columas[] = {"EQUIPO", "PJ", "g", "e", "p", "gf", "gc", "df", "pts"};
+        String columas[] = {"EQUIPO PARTICIPANTE"};
         DefaultTableModel modelo = new DefaultTableModel();
-        ResultSet rs = rp.listarGrupos(cbxGrupo.getSelectedItem().toString());
+        ResultSet rs = rp.listarEquiposCompetencia(cboCompetencia.getSelectedItem().toString());
 
         for (String columa : columas) {
             modelo.addColumn(columa);
@@ -46,16 +46,7 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
             while (rs.next()) {
                 modelo.addRow(
                         new Object[]{
-                            rs.getString(1),
-                            rs.getInt(2),
-                            rs.getInt(3),
-                            rs.getInt(4),
-                            rs.getInt(5),
-                            rs.getInt(6),
-                            rs.getInt(7),
-                            rs.getInt(8),
-                            rs.getInt(9)
-                        });
+                            rs.getString(1)});
 
             }
 
@@ -63,15 +54,7 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
             tblListado.setModel(modelo);
             tblListado.setBackground(Color.WHITE);
             tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            tblListado.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tblListado.getColumnModel().getColumn(1).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(2).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(3).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(4).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(5).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(6).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(7).setPreferredWidth(55);
-            tblListado.getColumnModel().getColumn(8).setPreferredWidth(55);
+            tblListado.getColumnModel().getColumn(0).setPreferredWidth(300);
             lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
         } catch (SQLException e) {
@@ -90,12 +73,12 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
-        cbxGrupo = new javax.swing.JComboBox<>();
+        cboCompetencia = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR CONTRATO");
+        setTitle("LISTA DE EQUIPOS PARTICIPANTES POR COMPETENCIA");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -123,7 +106,7 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
         lblTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
 
         btnAdd.setBackground(new java.awt.Color(27, 118, 253));
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
+        btnAdd.setText("LISTAR");
         btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setOpaque(true);
@@ -133,7 +116,7 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
             }
         });
 
-        cbxGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCompetencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,29 +125,34 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal)
-                        .addGap(0, 625, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTotal))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addComponent(cbxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboCompetencia, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(23, 41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(cboCompetencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                        .addGap(4, 4, 4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(215, 215, 215)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblTotal))
@@ -260,7 +248,7 @@ public final class Reporte_1 extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    public static javax.swing.JComboBox<String> cbxGrupo;
+    public static javax.swing.JComboBox<String> cboCompetencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

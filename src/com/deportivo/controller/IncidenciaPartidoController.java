@@ -87,6 +87,7 @@ public class IncidenciaPartidoController implements CRUD {
                 incidenciaPartido.setEquipo((Equipo) equipoC.obtenerdato(rs.getInt(6)));
                 incidenciaPartido.setDetalle(rs.getString(7));
                 incidenciaPartido.setFutbolista2((Futbolista) futbolistaC.obtenerdato(rs.getInt(8)));
+                incidenciaPartido.setVar(rs.getBoolean(9));
 
                 lista.add(incidenciaPartido);
             }
@@ -337,6 +338,30 @@ public class IncidenciaPartidoController implements CRUD {
         }
 
         return valor;
+    }
+    
+    public void anularIncidencia(int minuto, int idPartido){
+        
+        sql = "UPDATE incidencia_partido SET var= true WHERE minuto = "
+                +minuto+" and partido_id = "+idPartido;
+
+        try {
+
+            con = estado.conectar();
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } finally {
+            try {
+                con.close();
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        
     }
 
 }
