@@ -21,8 +21,8 @@ public class Reporte_dos {
                 + "inner join futbolista as fut on inci.futbolista_id = fut.futbolista_id\n"
                 + "inner join detalle_equipo deq on deq.futbolista_id = fut.futbolista_id\n"
                 + "inner join equipo equ on equ.equipo_id = deq.equipo_id\n"
-                + "where eve.nombre='" + nombre + "' group by eve.nombre, equ.nombre_corto, fut.nombre_corto\n"
-                + "order by count(eve.nombre) desc limit 5";
+                + "where eve.nombre='"+nombre+"' group by eve.nombre, equ.nombre_corto, fut.nombre_corto\n"
+                + "order by count(eve.nombre) desc limit 5";
 
         try {
 

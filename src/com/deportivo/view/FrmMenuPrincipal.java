@@ -576,6 +576,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuGestion);
 
+        mnuReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/reporte30.png"))); // NOI18N
         mnuReportes.setText("REPORTES");
 
         jMenuItem19.setText("Reporte detallado de grupo");
@@ -624,6 +625,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuReportes);
 
+        mnuTv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/tv30.png"))); // NOI18N
         mnuTv.setText("TELEVISION");
 
         itemPartidosEnVivo.setText("Partidos en vivo");
@@ -639,6 +641,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuTv);
 
+        mnuAdministracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/administracion30.png"))); // NOI18N
         mnuAdministracion.setText("ADMINISTRACIÓN");
 
         itemRol.setText("Gestionar Rol");

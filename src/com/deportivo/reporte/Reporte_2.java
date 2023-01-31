@@ -34,7 +34,7 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
 
     void listar() {
 
-        String columas[] = {"EQUIPO", "FUTBOLISTA", "N° GOLES ANOTADOS"};
+        String columas[] = {"EQUIPO", "FUTBOLISTA", "N° EVENTO"};
         DefaultTableModel modelo = new DefaultTableModel();
         ResultSet rs = rp.listarGoleadores(cbxEvento.getSelectedItem().toString());
 
@@ -47,7 +47,7 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
                 modelo.addRow(
                         new Object[]{
                             rs.getString(1),
-                            rs.getInt(2),
+                            rs.getString(2),
                             rs.getInt(3)
                         });
 
@@ -57,9 +57,9 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
             tblListado.setModel(modelo);
             tblListado.setBackground(Color.WHITE);
             tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            tblListado.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tblListado.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tblListado.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tblListado.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tblListado.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tblListado.getColumnModel().getColumn(2).setPreferredWidth(150);
             lblTotal.setText(String.valueOf(tblListado.getRowCount()));
 
         } catch (SQLException e) {
@@ -79,11 +79,12 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
         lblTotal = new javax.swing.JLabel();
         btnListar = new javax.swing.JButton();
         cbxEvento = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("GESTIONAR CONTRATO");
+        setTitle("REPORTE  DE EVENTOS");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -98,11 +99,6 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
         tblListado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblListado.setFillsViewportHeight(true);
         tblListado.setGridColor(new java.awt.Color(255, 255, 255));
-        tblListado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblListadoMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblListado);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -111,10 +107,11 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
         lblTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
 
         btnListar.setBackground(new java.awt.Color(27, 118, 253));
-        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mas20.png"))); // NOI18N
+        btnListar.setForeground(new java.awt.Color(255, 255, 255));
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/reporte20.png"))); // NOI18N
+        btnListar.setText("Ver");
         btnListar.setBorder(null);
         btnListar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnListar.setOpaque(true);
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
@@ -123,6 +120,10 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
 
         cbxEvento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Evento");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,17 +131,20 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal)
-                        .addGap(0, 732, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(cbxEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTotal))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,9 +153,11 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbxEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -179,77 +185,12 @@ public final class Reporte_2 extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnListarActionPerformed
 
-    private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
-//
-//        int fila = tblListado.getSelectedRow();
-//        int id = Integer.parseInt(tblListado.getValueAt(fila, 0).toString());
-//
-//        int colum = tblListado.getColumnModel().getColumnIndexAtX(evt.getX());
-//        int row = evt.getY() / tblListado.getRowHeight();
-//
-//        if (row < tblListado.getRowCount() && row >= 0 && colum < tblListado.getColumnCount() && colum >= 0) {
-//            Object value = tblListado.getValueAt(row, colum);
-//
-//            if (value instanceof JButton jButton) {
-//                jButton.doClick();
-//                JButton boton = jButton;
-//                int filas = tblListado.getSelectedRowCount();
-//
-//                switch (boton.getName()) {
-//                    case "btnEliminar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar un contrato");
-//                        } else {
-//                            String valor = String.valueOf(tblListado.getValueAt(fila, 4));
-//
-//                            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar al contrato " + valor + "?", "Confirmar", 2);
-//                            if (opcion == 0) {
-//
-//                                try {
-//                                    contratoC.eliminar(id);
-//                                    AlertaBien alertaBien = new AlertaBien("Mensaje", "Contrato eliminado correctamente!");
-//                                    listar("");
-//                                } catch (Exception ex) {
-//                                    AlertaError err = new AlertaError("ERROR", ex.getMessage());
-//                                }
-//
-//                            } else {
-//                                Alerta alerta = new Alerta("Alerta", "Operación cancelada!");
-//                            }
-//
-//                        }
-//                    }
-//                    case "btnModificar" -> {
-//                        if (filas == 0) {//si no elije ninguna fila
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una contrato");
-//                        } else {
-//
-//                            ModalRegistrarContrato.idContrato = id;
-//                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarContrato());
-//                            ModalRegistrarContrato.btnGrabar.setText("Modificar");
-//
-//                        }
-//                    }
-//                    case "btnVer" -> {
-//                        if (filas == 0) {
-//                            Alerta alerta = new Alerta("Alerta", "Debe seleccionar una contrato");
-//                        } else {
-//                            ModalRegistrarContrato.vista = true;
-//                            ModalRegistrarContrato.idContrato = id;
-//                            FrmMenuPrincipal.centrarVentana(new ModalRegistrarContrato());
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
-    }//GEN-LAST:event_tblListadoMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;
     public static javax.swing.JComboBox<String> cbxEvento;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblTotal;
