@@ -16,6 +16,7 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
 
     public static DetallePartidoController detallePC = new DetallePartidoController();
     public static boolean verPartido = false;
+    public static boolean verPartido2 = true;
 
     public FrmGestionarIncidencias() {
         initComponents();
@@ -82,9 +83,10 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
                 botonVer.setBackground(new Color(41, 143, 96));
                 obj[6] = botonVer;
 
-                if (detalleP2.getPartido().isEstado() == true) {
+                if (detalleP2.getPartido().isEstado() == verPartido2 ) {
                     modelo.addRow(obj);
                 }
+                
                 
                 equipos = new StringBuilder();
 
@@ -291,10 +293,12 @@ public class FrmGestionarIncidencias extends javax.swing.JInternalFrame {
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         verPartido = false;
+        verPartido2 = true;
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         verPartido = false;
+        verPartido2 = true;
     }//GEN-LAST:event_formInternalFrameClosing
 
 

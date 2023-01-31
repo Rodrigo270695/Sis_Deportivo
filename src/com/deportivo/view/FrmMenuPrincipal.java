@@ -8,6 +8,12 @@ import com.deportivo.model.Usuario;
 import com.deportivo.reporte.Reporte_1;
 import com.deportivo.reporte.Reporte_2;
 import com.deportivo.reporte.Reporte_3;
+import com.deportivo.reporte.Reporte_4;
+import com.deportivo.reporte.Reporte_5;
+import com.deportivo.reporte.Reporte_6;
+import com.deportivo.reporte.Reporte_7;
+import com.deportivo.reporte.Reporte_8;
+import com.deportivo.reporte.Reporte_9;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -32,7 +38,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
             mnuUsuario.setText(usuario.getNombre());
         }
-        desactivarControles();
+//        desactivarControles();
         cargarPermisos();
     }
 
@@ -245,8 +251,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         mnuTv = new javax.swing.JMenu();
         itemPartidosEnVivo = new javax.swing.JMenuItem();
         ItemPartidosAnteriores = new javax.swing.JMenuItem();
@@ -317,7 +324,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addContainerGap(424, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 51, 0));
@@ -328,7 +335,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         itemContinente.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        itemContinente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Continente25.png"))); // NOI18N
+        itemContinente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemContinente.setText("Gestionar Continente");
         itemContinente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,6 +344,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemContinente);
 
+        itemArbitro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemArbitro.setText("Gestionar Arbitro");
         itemArbitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +353,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemArbitro);
 
+        itemTernaArbitral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemTernaArbitral.setText("Gestionar Terna Arbitral ");
         itemTernaArbitral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,6 +362,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemTernaArbitral);
 
+        itemCuerpoTecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemCuerpoTecnico.setText("Gestionar Cuerpo Técnico");
         itemCuerpoTecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,6 +371,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemCuerpoTecnico);
 
+        itemTipoProfesional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemTipoProfesional.setText("Gestionar Tipo Profesional");
         itemTipoProfesional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,7 +380,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemTipoProfesional);
 
-        itemPosicion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/posicion25.png"))); // NOI18N
+        itemPosicion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemPosicion.setText("Gestionar Posición");
         itemPosicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,7 +389,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemPosicion);
 
-        itemEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/evento25.png"))); // NOI18N
+        itemEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemEvento.setText("Gestionar Evento");
         itemEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,7 +398,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemEvento);
 
-        itemGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/grupo25.png"))); // NOI18N
+        itemGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemGrupo.setText("Gestionar Grupo");
         itemGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -396,7 +407,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemGrupo);
 
-        itemEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/equipo25.png"))); // NOI18N
+        itemEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemEquipo.setText("Gestionar equipo");
         itemEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -405,6 +416,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemEquipo);
 
+        itemCompetencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemCompetencia.setText("Gestionar Competencia");
         itemCompetencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,6 +425,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemCompetencia);
 
+        itemConfedacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemConfedacion.setText("Gestionar Confederacion");
         itemConfedacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,6 +434,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemConfedacion);
 
+        itemProfesional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemProfesional.setText("Gestionar Profesional");
         itemProfesional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,6 +443,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemProfesional);
 
+        itemTipoDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemTipoDoc.setText("Gestionar Tipo Documento");
         itemTipoDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -437,6 +452,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(itemTipoDoc);
 
+        itemDimensionEstadio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/mantenimiento.png"))); // NOI18N
         itemDimensionEstadio.setText("Gestionar Dimension Estadio");
         itemDimensionEstadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -452,7 +468,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuGestion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         itemPais.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        itemPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/Pais25.png"))); // NOI18N
+        itemPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemPais.setText("Gestionar Pais");
         itemPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,7 +477,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemPais);
 
-        itemFutbolista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/futbolista25.png"))); // NOI18N
+        itemFutbolista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemFutbolista.setText("Gestionar Futbolista");
         itemFutbolista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,6 +486,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemFutbolista);
 
+        itemContrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemContrato.setText("Gestionar Contrato");
         itemContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -478,6 +495,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemContrato);
 
+        itemCuidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemCuidad.setText("Gestionar Ciudad");
         itemCuidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,6 +504,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemCuidad);
 
+        itemFixture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemFixture.setText("Gestionar Fixture");
         itemFixture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -494,6 +513,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemFixture);
 
+        itemEtapaFixture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemEtapaFixture.setText("Gestionar Etapa Fixture");
         itemEtapaFixture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -502,6 +522,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemEtapaFixture);
 
+        itemJornada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemJornada.setText("Gestionar Jornada");
         itemJornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -510,6 +531,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemJornada);
 
+        itemFormacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemFormacion.setText("Gestionar Formación");
         itemFormacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,6 +540,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemFormacion);
 
+        itemInstanciaPartido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemInstanciaPartido.setText("Gestionar Instancia Partido");
         itemInstanciaPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,6 +549,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemInstanciaPartido);
 
+        itemTipoJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemTipoJugador.setText("Tipo de Jugador");
         itemTipoJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -534,6 +558,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemTipoJugador);
 
+        itemTipoTernaArbitral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemTipoTernaArbitral.setText("Tipo de Terna Arbitral");
         itemTipoTernaArbitral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -542,6 +567,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemTipoTernaArbitral);
 
+        itemCategoriaArbitro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemCategoriaArbitro.setText("Categoria Arbitro");
         itemCategoriaArbitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -550,6 +576,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemCategoriaArbitro);
 
+        itemEstadio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemEstadio.setText("Gestionar estadio");
         itemEstadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -558,6 +585,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemEstadio);
 
+        itemPartido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemPartido.setText("Gestionar Partido");
         itemPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -566,6 +594,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuGestion.add(itemPartido);
 
+        itemIncidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/gestion.png"))); // NOI18N
         itemIncidencias.setText("Gestionar Incidencias");
         itemIncidencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -579,6 +608,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/reporte30.png"))); // NOI18N
         mnuReportes.setText("REPORTES");
 
+        jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
         jMenuItem19.setText("Reporte detallado de grupo");
         jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -587,18 +617,43 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuReportes.add(jMenuItem19);
 
-        jMenuItem2.setText("Reporte de jornada");
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
+        jMenuItem2.setText("Reporte de partidos programados por  jornada");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         mnuReportes.add(jMenuItem2);
 
-        jMenuItem3.setText("Reporte Terna Arbitral Partido");
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
+        jMenuItem3.setText("Reporte de posiciones de futbolista por equipo");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         mnuReportes.add(jMenuItem3);
 
-        jMenuItem4.setText("Reporte Alineación de partido");
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
+        jMenuItem4.setText("Reporte de futbolista por pais");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         mnuReportes.add(jMenuItem4);
 
-        jMenuItem5.setText("Listado de partidos por grupo");
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
+        jMenuItem5.setText("Reporte de equipos por grupo y competencia");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         mnuReportes.add(jMenuItem5);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
         jMenuItem6.setText("Tabla de Goleadores");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -607,14 +662,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuReportes.add(jMenuItem6);
 
-        jMenuItem7.setText("Primero puestos por mundial");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        mnuReportes.add(jMenuItem7);
-
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
         jMenuItem8.setText("Reporte Participante de equipos por competencia");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -623,11 +671,30 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuReportes.add(jMenuItem8);
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
+        jMenuItem9.setText("Resporte de estadios");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(jMenuItem9);
+
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/ico_report.png"))); // NOI18N
+        jMenuItem10.setText("Valor de la plantilla por equipo");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(jMenuItem10);
+
         jMenuBar1.add(mnuReportes);
 
         mnuTv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/tv30.png"))); // NOI18N
         mnuTv.setText("TELEVISION");
 
+        itemPartidosEnVivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/envivo2.png"))); // NOI18N
         itemPartidosEnVivo.setText("Partidos en vivo");
         itemPartidosEnVivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -636,7 +703,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuTv.add(itemPartidosEnVivo);
 
+        ItemPartidosAnteriores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/envivo.png"))); // NOI18N
         ItemPartidosAnteriores.setText("Partido Anteriores");
+        ItemPartidosAnteriores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemPartidosAnterioresActionPerformed(evt);
+            }
+        });
         mnuTv.add(ItemPartidosAnteriores);
 
         jMenuBar1.add(mnuTv);
@@ -644,6 +717,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         mnuAdministracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/administracion30.png"))); // NOI18N
         mnuAdministracion.setText("ADMINISTRACIÓN");
 
+        itemRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/rol.png"))); // NOI18N
         itemRol.setText("Gestionar Rol");
         itemRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -652,6 +726,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         mnuAdministracion.add(itemRol);
 
+        itemUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/usuariou.png"))); // NOI18N
         itemUsuario.setText("Gestionar Usuario");
         itemUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -662,8 +737,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuAdministracion);
 
+        mnuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/user300.png"))); // NOI18N
         mnuUsuario.setText("USER");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/deportivo/iconos/cerrar20.png"))); // NOI18N
         jMenuItem1.setText("Cerrar Sesión");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -867,13 +944,47 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         centrarVentana(new Reporte_2());
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         centrarVentana(new Reporte_3());
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void ItemPartidosAnterioresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemPartidosAnterioresActionPerformed
+        
+        FrmGestionarIncidencias.verPartido = true;
+        FrmGestionarIncidencias.verPartido2 = false;
+        centrarVentana(new FrmGestionarIncidencias());
+        
+    }//GEN-LAST:event_ItemPartidosAnterioresActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        
+        centrarVentana(new Reporte_8());
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        centrarVentana(new Reporte_9());
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        centrarVentana(new Reporte_7());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        
+        centrarVentana(new Reporte_5());
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+        centrarVentana(new Reporte_6());
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        centrarVentana(new Reporte_4());
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -914,14 +1025,15 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuAdministracion;
     private javax.swing.JMenu mnuGestion;

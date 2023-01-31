@@ -11,6 +11,7 @@ import com.deportivo.vista.modal.alerts.AlertaBien;
 import com.deportivo.vista.modal.alerts.AlertaError;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -87,6 +88,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     void grabar() {
 
         int valorMax = 0;
+        int suplementario = Integer.parseInt(txtsuplementario.getValue().toString());
 
         if (cbxInstancia.getSelectedItem().toString().equals("TANDA DE PENALES")) {
             valorMax = -20;
@@ -94,7 +96,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             valorMax = incidenciaC.minutoMaximo(idPartido);
         }
 
-        if (Integer.parseInt(txtMinuto.getValue().toString()) >= 0 & Integer.parseInt(txtMinuto.getValue().toString()) > valorMax) {
+        if (Integer.parseInt(txtMinuto.getValue().toString()) >= 0 & Integer.parseInt(txtMinuto.getValue().toString()) > valorMax & suplementario >= 0) {
 
             IncidenciaPartido ip = new IncidenciaPartido();
             ip.setEvento((Evento) eventoC.obtenerdato(cbxEvento.getSelectedItem().toString()));
@@ -111,16 +113,16 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
             }
             ip.setDetalle(txtDetalle.getText());
             try {
-                if (ip.getInstanciaPartido().getInstancia_partido_id() == 1 & Integer.parseInt(txtMinuto.getValue().toString()) <= 45) {
+                if (ip.getInstanciaPartido().getInstancia_partido_id() == 1 & Integer.parseInt(txtMinuto.getValue().toString()) <= (45 + suplementario)) {
                     incidenciaC.registrar(ip);
                 } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 2
-                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 45 & Integer.parseInt(txtMinuto.getValue().toString()) <= 90)) {
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 45 & Integer.parseInt(txtMinuto.getValue().toString()) <= (90 +suplementario))) {
                     incidenciaC.registrar(ip);
                 } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 3
-                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 90 & Integer.parseInt(txtMinuto.getValue().toString()) <= 105)) {
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 90 & Integer.parseInt(txtMinuto.getValue().toString()) <= (105+ suplementario))) {
                     incidenciaC.registrar(ip);
                 } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 4
-                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 105 & Integer.parseInt(txtMinuto.getValue().toString()) <= 120)) {
+                        & (Integer.parseInt(txtMinuto.getValue().toString()) > 105 & Integer.parseInt(txtMinuto.getValue().toString()) <= (120+suplementario))) {
                     incidenciaC.registrar(ip);
                 } else if (ip.getInstanciaPartido().getInstancia_partido_id() == 5) {
                     ip.setMinuto((byte) 127);
@@ -431,6 +433,8 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         btnMostrarEquipos1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         cbxFutbolista2 = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        txtsuplementario = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -563,6 +567,16 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         cbxFutbolista2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxFutbolista2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
 
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Suplementario");
+
+        txtsuplementario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtsuplementarioKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -622,6 +636,10 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtsuplementario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -665,11 +683,17 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(btnMostrarEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtsuplementario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -819,6 +843,12 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
         }
     }//GEN-LAST:event_btnMostrarEquiposActionPerformed
 
+    private void txtsuplementarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsuplementarioKeyTyped
+       
+        
+        
+    }//GEN-LAST:event_txtsuplementarioKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnGrabar;
@@ -833,6 +863,7 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     public static javax.swing.JComboBox<String> cbxInstancia;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -846,5 +877,6 @@ public final class ModalRegistrarIncidenciaPartido extends javax.swing.JInternal
     public static javax.swing.JTable tblListado;
     private org.edisoncor.gui.textField.TextFieldRectBackground txtDetalle;
     private javax.swing.JSpinner txtMinuto;
+    private javax.swing.JSpinner txtsuplementario;
     // End of variables declaration//GEN-END:variables
 }
